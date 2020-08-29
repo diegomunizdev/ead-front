@@ -1,0 +1,74 @@
+@import './normalize.css';
+
+/* Color list
+--main-color & --toolbar-color: #1B2631;
+#212F3C
+#283747
+#2E4053
+--primary-button: #34495E;
+#5D6D7E
+--back-button: #85929E
+#AEB6BF
+--background-body: #D6DBDF;
+#EBEDEF
+--color-white: #ffffff;
+*/
+
+:root {
+    --color-one: #1B2631;
+    --color-two: #212F3C;
+    --color-three: #283747;
+    --color-four: #2E4053;
+    --color-five: #34495E;
+    --color-six: #5D6D7E;
+    --color-seven: #85929E;
+    --color-eight: #AEB6BF;
+    --color-nine: #D6DBDF;
+    --color-teen: #EBEDEF;
+
+    --main-color: #1B2631;
+    --toolbar-color: #1B2631;
+    --background-body: #D6DBDF;
+    --back-button: #85929e;
+    --color-white: #ffffff;
+    --primary-button: #34495E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body,
+#root {
+    background: var(--background-body);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.p-button-primary {
+    background: var(--color-five) !important;
+    border: 1px solid var(--color-nine) !important;
+}
+
+.p-button-primary:hover {
+    background: var(--color-two) !important;
+    border: 1px solid var(--color-nine) !important;
+}
+
+.p-button-secondary {
+    background: var(--color-seven) !important;
+    border: 1px solid var(--color-nine) !important;
+    color: var(--color-white) !important;
+}
+
+.p-button-secondary:hover {
+    background: var(--color-six) !important;
+    border: 1px solid var(--color-nine) !important;
+    color: var(--color-white) !important;
+}
+
+.color-error {
+    color: red;
+}
+

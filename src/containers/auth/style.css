@@ -1,0 +1,212 @@
+@import '../../assets/global.css';
+
+/*=========================
+        STRUCTURE
+===========================
+*/
+.wrapper {
+    /* background: var(--color-one); */
+    background: linear-gradient(90deg, var(--color-one) 0%, var(--color-four) 50%, var(--color-six) 100%);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    padding: 20px;
+    height: 100vh;
+  }
+  
+  #formContent {
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: var(--color-white);
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    padding: 10px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+  #formFooter {
+    background-color: #f6f6f6;
+    border-top: 1px solid #dce8f1;
+    padding: 25px;
+    text-align: center;
+    -webkit-border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
+  }
+  
+  
+  /*===================================
+      Simple CSS3 Fade-in Animation
+  ====================================
+  */
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @-moz-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fadeIn {
+    opacity: 0;
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+  
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+  
+    -webkit-animation-duration: 0.5s;
+    -moz-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+  }
+  
+  .fadeIn.first {
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+  }
+  
+  .fadeIn.second {
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+  }
+  
+  .fadeIn.third {
+    -webkit-animation-delay: 0.8s;
+    -moz-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+  }
+  
+  .fadeIn.fourth {
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    animation-delay: 1s;
+  }
+  
+  .underlineHover:after {
+    display: block;
+    left: 0;
+    bottom: -10px;
+    width: 0;
+    height: 2px;
+    background-color: blue;
+    content: "";
+    transition: width 0.2s;
+  }
+  
+  .underlineHover:hover {
+    text-decoration: none;
+  }
+  
+  .underlineHover:hover:after {
+    width: 100%;
+  }
+  
+  /*==========================
+            BUTTONS
+  ============================
+  */
+  .input-login {
+    width: 85%;
+    display: flex;
+    margin: auto;
+    margin: 7%;
+  }
+
+  .input-container {
+    text-decoration: none !important;
+    width: 98%;
+    border: 0 !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid var(--color-three) !important;
+  }
+  
+  .btn-login {
+    background-color: var(--color-two);
+    border: none;
+    color: white;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-radius: 5px 5px 5px 5px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .btn-login:hover {
+    background-color: var(--color-four);
+    box-shadow: 0 10px 30px 0 rgba(16, 32, 42, 0.4);
+  }
+
+  /*==========================
+           OTHERS
+  ============================
+  */
+  
+  a {
+    color: var(body-color);
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 400;
+  }
+  
+
+  a .div-logo img {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 10px 10px;
+  }
+  
+  
+  *:focus {
+    outline: none;
+  }
+  
+  #icon {
+    width: 60%;
+  }
+  
+  #icon-eye {
+    align-items: center;
+    position: absolute;
+    right: 0px;
+    bottom: 40%;
+    font-size: 18px;
+  
+  }
+  
+  .p-overlaypanel {
+    position: absolute !important;
+    top: -100px !important
+  }
