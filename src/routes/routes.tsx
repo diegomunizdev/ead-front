@@ -32,7 +32,7 @@ export const MenuRoutes = (route: PrivateRouteProps) => {
                 if (route.private && !authService.isAuthenticated()) {
                     return (
                         <Redirect
-                            to={{ pathname: '/app/auth/signin', state: { from: props.location } }}
+                            to={{ pathname: '/ead/auth/signin', state: { from: props.location } }}
                         />
                     )
                 }
@@ -60,22 +60,22 @@ export const MenuRoutes = (route: PrivateRouteProps) => {
 }
 
 const routes = [
-    { path: '/', exact: true, redirect: '/app' },
-    { path: '/app/auth/signin', exact: true, component: Auth },
+    { path: '/', exact: true, redirect: '/ead' },
+    { path: '/ead/auth/signin', exact: true, component: Auth },
     {
-        path: '/app',
+        path: '/ead',
         strict: true,
         private: true,
         component: Layout,
         routes: [
             {
-                path: '/app/main',
+                path: '/ead/main',
                 exact: true,
                 private: true,
                 component: Main
             },
             {
-                path: '/app/user/:userId/profile',
+                path: '/ead/user/:userId/profile',
                 exact: true,
                 private: true,
                 component: Profile

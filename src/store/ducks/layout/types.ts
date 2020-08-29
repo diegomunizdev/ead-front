@@ -2,12 +2,12 @@
  * Action types
  */
 export enum LayoutTypes {
-    CHANGE_USERNAME = '@layout/CHANGE_USERNAME',
+    CHANGE_EMAIL = '@layout/CHANGE_EMAIL',
 }
 
 /**
  * State type
  */
 export interface ILayoutState {
-    readonly username: string
+    readonly email: string
 }

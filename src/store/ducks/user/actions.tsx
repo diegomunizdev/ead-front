@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions'
-import { ICredentials, UserActionTypes } from './types'
+import { UserActionTypes } from './types'
 import { IPaginator } from '../root.types'
 import User, { UserTypes } from '../../application/models/user/user'
 import { IAxiosResponse } from '../root.types'

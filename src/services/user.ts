@@ -2,27 +2,29 @@ import httpClient from './config.axios'
 import { AxiosResponse } from 'axios'
 import User, { UserTypes } from '../store/application/models/user/user'
 import AccessToken from '../store/application/models/user/access.token'
-import authService from './auth'
+import authService, { urlBase } from './auth'
 import { IPaginator } from '../store/ducks/root.types'
-
-const VERSION = 'https://localhost:4000'
 
 class UserService {
 
+    constructor(private apiUrl: string = urlBase) {
+
+    }
+
     public create(newUser: User) {
-        return httpClient.post(`${VERSION}/app/user`, newUser)
+        return httpClient.post(`${this.apiUrl}/app/user`, newUser)
     }
 
     public remove(userId: string) {
-        return httpClient.delete(`${VERSION}/app/user/${userId}`)
+        return httpClient.delete(`${this.apiUrl}/app/user/${userId}`)
     }
 
     public update(user: User) {
-        return httpClient.patch(`${VERSION}/app/user/${user.id}`, user)
+        return httpClient.patch(`${this.apiUrl}/app/user/${user.id}`, user)
     }
 
     public getById(userId: string) {
-        return httpClient.get(`${VERSION}/app/user/${userId}`)
+        return httpClient.get(`${this.apiUrl}/app/user/${userId}`)
             .then((response: AxiosResponse) => response.data)
     }
 
@@ -43,7 +45,7 @@ class UserService {
             }
         }
 
-        return httpClient.get(`${VERSION}/app/user`, { params })
+        return httpClient.get(`${this.apiUrl}/app/user`, { params })
             .then((response: AxiosResponse) => {
                 return { data: response.data, headers: response.headers }
             })

@@ -28,7 +28,7 @@ const INITIAL_STATE: IUserState = {
         users: [],
         paginator: {
             first: 0,
-            rows: 10,
+            rows: 40,
             page: 0,
             pageCount: 0,
             totalRecords: 0,
@@ -41,11 +41,11 @@ const INITIAL_STATE: IUserState = {
         error: false,
         success: false
     },
-    listClient: {
+    listTeacher: {
         users: [],
         paginator: {
             first: 0,
-            rows: 10,
+            rows: 40,
             page: 0,
             pageCount: 0,
             totalRecords: 0,
@@ -58,11 +58,28 @@ const INITIAL_STATE: IUserState = {
         error: false,
         success: false
     },
-    listPersonalTrainer: {
+    listTutor: {
         users: [],
         paginator: {
             first: 0,
-            rows: 10,
+            rows: 40,
+            page: 0,
+            pageCount: 0,
+            totalRecords: 0,
+            search: {
+                key: '',
+                value: ''
+            }
+        },
+        loading: false,
+        error: false,
+        success: false
+    },
+    listStudent: {
+        users: [],
+        paginator: {
+            first: 0,
+            rows: 40,
             page: 0,
             pageCount: 0,
             totalRecords: 0,
@@ -220,14 +237,34 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
                     }
                     return { ...state, listAdmins: { ...state.listAdmins, loading: true, paginator: adminPaginator } }
 
-                case UserTypes.CLIENT:
-                    const operatorPaginator = {
+                case UserTypes.TEACHER:
+                    const teacherPaginator = {
                         ...paginator,
-                        totalRecords: state.listClient.paginator.totalRecords
+                        totalRecords: state.listTeacher.paginator.totalRecords
                     }
                     return {
                         ...state,
-                        listOperators: { ...state.listClient, loading: true, paginator: operatorPaginator }
+                        listOperators: { ...state.listTeacher, loading: true, paginator: teacherPaginator }
+                    }
+
+                case UserTypes.TUTOR:
+                    const tutorPaginator = {
+                        ...paginator,
+                        totalRecords: state.listTutor.paginator.totalRecords
+                    }
+                    return {
+                        ...state,
+                        listOperators: { ...state.listTutor, loading: true, paginator: tutorPaginator }
+                    }
+
+                case UserTypes.STUDENT:
+                    const studentPaginator = {
+                        ...paginator,
+                        totalRecords: state.listStudent.paginator.totalRecords
+                    }
+                    return {
+                        ...state,
+                        listOperators: { ...state.listStudent, loading: true, paginator: studentPaginator }
                     }
 
                 default:
@@ -239,10 +276,12 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
             switch (userType) {
                 case UserTypes.ADMIN:
                     return { ...state, listAdmins: { ...state.listAdmins, loading: true } }
-                case UserTypes.CLIENT:
-                    return { ...state, listClient: { ...state.listClient, loading: true } }
-                case UserTypes.PERSONAL_TRAINER:
-                    return { ...state, listPersonalTrainer: { ...state.listPersonalTrainer, loading: true } }
+                case UserTypes.TEACHER:
+                    return { ...state, listTeacher: { ...state.listTeacher, loading: true } }
+                case UserTypes.TUTOR:
+                    return { ...state, listTutor: { ...state.listTutor, loading: true } }
+                case UserTypes.STUDENT:
+                    return { ...state, listStudent: { ...state.listStudent, loading: true } }
                 default:
                     return state
             }
@@ -265,31 +304,31 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
                         }
                     }
 
-                case UserTypes.CLIENT:
+                case UserTypes.TEACHER:
                     return {
                         ...state,
-                        listClient: {
-                            ...state.listClient,
+                        listTeacher: {
+                            ...state.listTeacher,
                             loading: false,
                             success: true,
                             error: false,
                             users,
                             paginator: {
-                                ...state.listClient.paginator, totalRecords: parseInt(headers['x-total-count'], 10)
+                                ...state.listTeacher.paginator, totalRecords: parseInt(headers['x-total-count'], 10)
                             }
                         }
                     }
-                case UserTypes.PERSONAL_TRAINER:
+                case UserTypes.TUTOR:
                     return {
                         ...state,
-                        listPersonalTrainer: {
-                            ...state.listPersonalTrainer,
+                        listTutor: {
+                            ...state.listTutor,
                             loading: false,
                             success: true,
                             error: false,
                             users,
                             paginator: {
-                                ...state.listPersonalTrainer.paginator, totalRecords: parseInt(headers['x-total-count'], 10)
+                                ...state.listTutor.paginator, totalRecords: parseInt(headers['x-total-count'], 10)
                             }
                         }
                     }
@@ -302,10 +341,13 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
             switch (action.payload.userType) {
                 case UserTypes.ADMIN:
                     return { ...state, listAdmins: { ...state.listAdmins, loading: false } }
-                case UserTypes.CLIENT:
-                    return { ...state, listClient: { ...state.listClient, loading: false } }
-                case UserTypes.PERSONAL_TRAINER:
-                    return { ...state, listPersonalTrainer: { ...state.listPersonalTrainer, loading: false } }
+                case UserTypes.TEACHER:
+                    return { ...state, listTeacher: { ...state.listTeacher, loading: false } }
+                case UserTypes.TUTOR:
+                    return { ...state, listTutor: { ...state.listTutor, loading: false } }
+                case UserTypes.STUDENT:
+                    return { ...state, listStudent: { ...state.listStudent, loading: false } }
+
                 default:
                     return state
             }

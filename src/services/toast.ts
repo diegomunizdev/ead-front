@@ -21,7 +21,7 @@ export class Toast {
 
     public show(type: string, title: any, message: any) {
         this.clear()
-        this._growl.show({ life: 5000, severity: type, summary: title, detail: message})
+        this._growl.show({ life: 5000, severity: type, summary: title, detail: message })
     }
 
     public clear() {

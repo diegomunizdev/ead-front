@@ -25,7 +25,7 @@ export default class Interceptors {
             case 401:
                 title = 'NÃO AUTENTICADO'
                 message = 'Usuário não está devidamente autenticado.'
-                history.push('/app/auth/signin')
+                history.push('/ead/auth/signin')
                 break
             case 403:
                 title = 'NÃO AUTORIZADO'

@@ -37,12 +37,6 @@ interface ICreateState extends IComponentState {
     readonly data: ErrorEvent
 }
 
-export interface ICredentials {
-    readonly old_password: string
-    readonly new_password: string
-    readonly confirm_password: string
-}
-
 interface IProfile extends IComponentState {
     readonly user: User
     readonly data: ErrorEvent
@@ -67,6 +61,7 @@ export interface IUserState {
     readonly profile: IProfile,
     readonly removeUser: IRemoveState,
     readonly listAdmins: IListUserState,
-    readonly listClient: IListUserState,
-    readonly listPersonalTrainer: IListUserState
+    readonly listTeacher: IListUserState,
+    readonly listTutor: IListUserState
+    readonly listStudent: IListUserState
 }

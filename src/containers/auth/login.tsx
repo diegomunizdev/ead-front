@@ -16,7 +16,6 @@ import { FormErrorMessage } from '../../components/form.error/form.error.message
 
 interface IState {
     credentials: IAuth,
-    passwordIcon: string,
     data: any,
     error: boolean
     loading: boolean
@@ -26,11 +25,9 @@ interface IDispatchProps extends RouteComponentProps<any> {
 
     loginRequest(credentials: IAuth): void
 
-    changeUsername(username: string): void
+    changeEmail(email: string): void
 
     changePassword(password: string): void
-
-    changeIconPassword(icon: string): void
 }
 
 type Props = IState & IDispatchProps
@@ -49,21 +46,15 @@ class Login extends Component<Props> {
         loginRequest(credentials)
     }
 
-    public changeUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { changeUsername } = this.props;
+    public changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { changeEmail } = this.props;
         console.log(event.target.value)
-        changeUsername(event.target.value)
+        changeEmail(event.target.value)
     }
 
     public changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { changePassword } = this.props;
         changePassword(event.target.value)
-    }
-
-    public changeIconPassword = () => {
-        const { changeIconPassword, passwordIcon } = this.props;
-        // passwordIcon === 'fa-eye-slash' ? changeIconPassword('fa-eye') : changeIconPassword('fa-eye-slash')
-        changeIconPassword(passwordIcon === 'fa-eye-slash' ? 'fa-eye' : 'fa-eye-slash')
     }
 
     public render() {
@@ -92,7 +83,7 @@ class Login extends Component<Props> {
                                                     value={field.value}
                                                     onChange={(e: any) => {
                                                         setFieldValue('username', e.target.value)
-                                                        this.changeUsername(e)
+                                                        this.changeEmail(e)
                                                     }}
                                                     onBlur={() => {
                                                         setFieldTouched('username', true, true)
@@ -111,7 +102,6 @@ class Login extends Component<Props> {
                                             <div className="p-float-label input-login fadeIn third">
                                                 <InputText
                                                     id="password"
-                                                    type={this.props.passwordIcon === 'fa-eye-slash' ? 'password' : undefined}
                                                     className="input-container"
                                                     value={field.value}
                                                     onChange={(e: any) => {
@@ -123,10 +113,6 @@ class Login extends Component<Props> {
                                                     }}
                                                 />
                                                 <label htmlFor="password">Senha</label>
-                                                <span id="icon-eye">
-                                                    <i className={`fa ${this.props.passwordIcon}`}
-                                                        onClick={this.changeIconPassword} />
-                                                </span>
                                             </div>
                                         )}
                                     </Field>
@@ -143,14 +129,6 @@ class Login extends Component<Props> {
                             </Form>
                         )}
                     </Formik>
-
-                    {/*<div id="formFooter">
-                        <label style={{ fontWeight: 'bold', paddingRight: '5px' }}>Esqueceu a Senha?</label>
-                        <NavLink className="underlineHover" to="/forgot">
-                            Recupere-a aqui.
-                        </NavLink>
-                    </div>*/}
-
                 </div>
             </div>
         )
@@ -159,7 +137,6 @@ class Login extends Component<Props> {
 
 const mapStateToProps = (state: IApplicationState) => ({
     credentials: state.auth.login.credentials,
-    passwordIcon: state.auth.login.passwordIcon,
     error: state.auth.login.error,
     loading: state.auth.login.loading,
     data: state.auth.login.data

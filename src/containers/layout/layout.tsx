@@ -9,11 +9,11 @@ import { MenuRoutes } from '../../routes/routes'
 import * as LayoutActions from '../../store/ducks/layout/actions'
 
 interface IState {
-    readonly username: string
+    readonly email: string
 }
 
 interface IDispatchProps extends RouteComponentProps<any> {
-    changeUsername(data: string): void
+    changeEmail(data: string): void
 }
 
 interface IOwnProps extends RouteComponentProps<any> {
@@ -27,8 +27,8 @@ class Layout extends Component<Props> {
     public render() {
 
         const {
-            username,
-            changeUsername,
+            email,
+            changeEmail,
             history,
             match,
             location
@@ -37,8 +37,8 @@ class Layout extends Component<Props> {
         return (
             <React.Fragment>
                 <NavBar
-                    username={username}
-                    changeUsername={changeUsername}
+                    username={email}
+                    changeUsername={changeEmail}
                     history={history}
                     location={location}
                     match={match}
@@ -57,7 +57,7 @@ class Layout extends Component<Props> {
 }
 
 const mapStateToProps = (state: IApplicationState) => ({
-    username: state.layout.username
+    email: state.layout.email
 })
 
 

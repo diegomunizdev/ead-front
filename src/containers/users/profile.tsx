@@ -77,7 +77,7 @@ class Profile extends Component<Props> {
         const { user, changeUser } = this.props
 
         return (
-            <React.Fragment>
+            <React.Fragment>^
 
                 <div className="header fade-in-down">
                     <h4 className="page-header">
@@ -111,21 +111,6 @@ class Profile extends Component<Props> {
                                                     <label htmlFor="name">Nome</label>
                                                 </span>
                                             </div>
-
-                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <span className="p-float-label">
-                                                    <InputText id="cpf" className="input-container"
-                                                        value={user.cpf}
-                                                        onChange={(event: any) => {
-                                                            changeUser(new User().fromJSON({
-                                                                ...user.toJSON(),
-                                                                cpf: event.target.value
-                                                            }))
-                                                        }} />
-                                                    <label htmlFor="cpf">CPF</label>
-                                                </span>
-                                            </div>
-
                                         </div>
                                     </form>
                                 </Fieldset>

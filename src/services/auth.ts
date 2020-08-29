@@ -3,11 +3,14 @@ import jwtDecode from 'jwt-decode'
 import AccessToken from '../store/application/models/user/access.token'
 import { IAuth } from '../store/ducks/auth/types'
 
-const url_base = 'http://localhost:4000'
+export const urlBase: string = process.env.URL_BASE ? process.env.URL_BASE : ''
 
 export class AuthService {
+    
+    constructor(private apiUrl: string = urlBase) {}
+
     public login(body: IAuth): Promise<any> {
-        return axiosInstance.post(`${url_base}/app/auth/signin`, body)
+        return axiosInstance.post(`${this.apiUrl}/app/auth/signin`, body)
             .then(response => {
                 const { Authorization } = response.data
                 localStorage.setItem('Authorization', Authorization)
@@ -16,14 +19,14 @@ export class AuthService {
     }
 
     public forgot(email: any) {
-        return axiosInstance.post(`${url_base}/auth/forgot`, { email })
+        return axiosInstance.post(`${this.apiUrl}/auth/forgot`, { email })
     }
 
     public changePassword(body: { email: string, old_password?: string, new_password: string }) {
         if (!body.old_password) {
-            return axiosInstance.patch(`${url_base}/auth/change_password`, body)
+            return axiosInstance.patch(`${this.apiUrl}/auth/change_password`, body)
         }
-        return axiosInstance.patch(`${url_base}/auth/change_password`, body)
+        return axiosInstance.patch(`${this.apiUrl}/auth/change_password`, body)
     }
 
     public decodeToken(): AccessToken {
