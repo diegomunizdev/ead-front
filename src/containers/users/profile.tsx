@@ -7,13 +7,12 @@ import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { Fieldset } from 'primereact/fieldset'
 import { InputText } from 'primereact/inputtext'
-import User, { UserTypes } from '../../store/application/models/user/user'
+import User from '../../store/application/models/user/user'
 import { Toast } from '../../services/toast'
 // import '../container.style.scss'
 import { IApplicationState } from '../../store'
 import * as UserActions from '../../store/ducks/user/actions'
 import Spinner from '../../components/spinner/spinner'
-import authService from '../../services/auth'
 
 interface IState {
     readonly user: User
@@ -42,8 +41,6 @@ class Profile extends Component<Props> {
     constructor(props: Props) {
         super(props)
         this.toastService = Toast.getInstance()
-        //this.loadUser = this.loadUser.bind(this)
-        //this.loadUser()
 
         const { findUser, match: { params } } = this.props
         if (params && params.userId) {
@@ -59,14 +56,6 @@ class Profile extends Component<Props> {
         updateUser(newUser)
 
     }
-
-    /*public loadUser(): void {
-        const { findUser } = this.props;
-        const accessToken = authService.decodeToken()
-        if (accessToken && accessToken.sub) {
-            findUser(accessToken.sub, accessToken.sub_type)
-        }
-    }*/
 
     public componentWillUnmount(): void {
         const { resetCreateUser } = this.props

@@ -1,8 +1,8 @@
 import * as Yup from 'yup'
 
 export class LoginValidator {
-    private static _username: Yup.StringSchema<string> = Yup.string()
-        .required('Informe um nome de usuário válido')
+    private static _email: Yup.StringSchema<string> = Yup.string()
+        .required('Informe um email válido')
 
     private static _password: Yup.StringSchema<string> = Yup.string()
         .required('Informe uma senha válida')
@@ -11,13 +11,13 @@ export class LoginValidator {
         return Yup
             .object()
             .shape({
-                username: this.username,
+                email: this.email,
                 password: this.password
             })
     }
 
-    static get username(): Yup.StringSchema<string> {
-        return this._username
+    static get email(): Yup.StringSchema<string> {
+        return this._email
     }
 
     static get password(): Yup.StringSchema<string> {

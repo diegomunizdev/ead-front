@@ -37,7 +37,7 @@ class Login extends Component<Props> {
     constructor(props: Props) {
         super(props)
         if (authService.isAuthenticated()) {
-            this.props.history.push('/app/main')
+            this.props.history.push('/ead/main')
         }
     }
 
@@ -48,7 +48,6 @@ class Login extends Component<Props> {
 
     public changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { changeEmail } = this.props;
-        console.log(event.target.value)
         changeEmail(event.target.value)
     }
 
@@ -74,26 +73,26 @@ class Login extends Component<Props> {
                         {({ isValid, resetForm, values }) => (
                             <Form>
                                 <div>
-                                    <Field name="username" id="username" type="customField">
+                                    <Field name="email" id="email" type="customField">
                                         {({ field, form: { setFieldValue, setFieldTouched } }) => (
                                             <div className="p-float-label input-login fadeIn second">
                                                 <InputText
-                                                    id="username"
+                                                    id="email"
                                                     className="input-container"
                                                     value={field.value}
                                                     onChange={(e: any) => {
-                                                        setFieldValue('username', e.target.value)
+                                                        setFieldValue('email', e.target.value)
                                                         this.changeEmail(e)
                                                     }}
                                                     onBlur={() => {
-                                                        setFieldTouched('username', true, true)
+                                                        setFieldTouched('email', true, true)
                                                     }}
                                                 />
-                                                <label htmlFor="username">Nome de Usuário</label>
+                                                <label htmlFor="email">Email</label>
                                             </div>
                                         )}
                                     </Field>
-                                    <FormErrorMessage name="username" />
+                                    <FormErrorMessage name="email" />
                                 </div>
 
                                 <div>

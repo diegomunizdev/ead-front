@@ -1,4 +1,4 @@
-import { UserTypes } from "../../application/models/user/user";
+import { UserTypes } from "../../application/models/user/user"
 
 /**
  * Action types
@@ -34,7 +34,7 @@ export interface ILoginState {
     readonly credentials: IAuth
     readonly data: IAccessToken
     readonly loading: boolean
-    readonly error: boolean,
+    readonly error: boolean
 }
 
 /**

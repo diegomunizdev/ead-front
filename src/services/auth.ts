@@ -6,8 +6,8 @@ import { IAuth } from '../store/ducks/auth/types'
 export const urlBase: string = process.env.URL_BASE ? process.env.URL_BASE : ''
 
 export class AuthService {
-    
-    constructor(private apiUrl: string = urlBase) {}
+
+    constructor(private apiUrl: string = urlBase) { }
 
     public login(body: IAuth): Promise<any> {
         return axiosInstance.post(`${this.apiUrl}/app/auth/signin`, body)
@@ -16,17 +16,6 @@ export class AuthService {
                 localStorage.setItem('Authorization', Authorization)
                 return Authorization
             })
-    }
-
-    public forgot(email: any) {
-        return axiosInstance.post(`${this.apiUrl}/auth/forgot`, { email })
-    }
-
-    public changePassword(body: { email: string, old_password?: string, new_password: string }) {
-        if (!body.old_password) {
-            return axiosInstance.patch(`${this.apiUrl}/auth/change_password`, body)
-        }
-        return axiosInstance.patch(`${this.apiUrl}/auth/change_password`, body)
     }
 
     public decodeToken(): AccessToken {

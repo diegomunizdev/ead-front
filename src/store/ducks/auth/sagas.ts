@@ -14,7 +14,7 @@ export function* authenticate(action: IActionType<AxiosResponse<IAuth>>) {
         const { data } = action.payload
         const response = yield call(authService.login, data)
         yield put(loginSuccess(response))
-        yield put(push(`/app/main`))
+        yield put(push(`/ead/main`))
     } catch (err) {
         yield put(loginFailure(err))
     }
