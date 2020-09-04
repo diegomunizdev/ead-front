@@ -9,7 +9,7 @@ export default class Interceptors {
     public static injectAccessToken(request: AxiosRequestConfig): AxiosRequestConfig {
         const token = localStorage.getItem('Authorization')
         if (token) {
-            request.headers.Authorization = token ? `${token}` : ''
+            request.headers.Authorization = token ? token : ''
         }
         return request
     }

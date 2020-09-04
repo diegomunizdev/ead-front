@@ -157,8 +157,6 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
 
         case UserActionTypes.FIND_SUCCESS:
             const findUser = action.payload.user
-            // TODO: remover console
-            console.log('reducer ', findUser)
             return {
                 ...state,
                 createUser: {

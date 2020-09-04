@@ -44,12 +44,9 @@ function* getAll(action: IActionType) {
 
 function* getById(action: IActionType) {
     const { userId } = action.payload
-    // TODO: remover console
-    console.log('sagas userId ', userId)
     try {
-        const response: User = yield apply(usersService, usersService.getById, [userId])
-        console.log('response sagas', response)
-        yield put(findSuccess(response))
+        const response = yield apply(usersService, usersService.getById, [userId])
+        yield put(findSuccess(response.data))
     } catch (err) {
         yield put(findFailure(err))
     }

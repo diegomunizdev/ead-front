@@ -7,7 +7,7 @@ import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { Fieldset } from 'primereact/fieldset'
 import { InputText } from 'primereact/inputtext'
-import User from '../../store/application/models/user/user'
+import User, { UserTypes } from '../../store/application/models/user/user'
 import { Toast } from '../../services/toast'
 // import '../container.style.scss'
 import { IApplicationState } from '../../store'
@@ -21,6 +21,20 @@ interface IState {
     readonly error: boolean
     readonly success: boolean
 }
+
+const types = {
+    [UserTypes.ADMIN]: 'Administrador',
+    [UserTypes.TEACHER]: 'Professor',
+    [UserTypes.TUTOR]: 'Tutor',
+    [UserTypes.STUDENT]: 'Estudante',
+}
+
+export const translateUserType = [
+    { label: types[UserTypes.ADMIN], value: UserTypes.ADMIN },
+    { label: types[UserTypes.TEACHER], value: UserTypes.TEACHER },
+    { label: types[UserTypes.TUTOR], value: UserTypes.TUTOR },
+    { label: types[UserTypes.STUDENT], value: UserTypes.STUDENT }
+]
 
 interface IDispatchProps extends RouteComponentProps<any> {
 
@@ -44,8 +58,6 @@ class Profile extends Component<Props> {
 
         const { findUser, match: { params } } = this.props
         if (params && params.userId) {
-            // TODO: remover console
-            console.log('findUser', params.userId)
             findUser(params.userId)
         }
     }
@@ -67,11 +79,8 @@ class Profile extends Component<Props> {
     public render() {
         const { user, changeUser } = this.props
 
-        // TODO: remover console
-        console.log('profile: ', user.toJSON())
-
         return (
-            <React.Fragment>^
+            <React.Fragment>
 
                 <div className="header fade-in-down">
                     <h4 className="page-header">
@@ -92,7 +101,7 @@ class Profile extends Component<Props> {
                                 <Fieldset legend="Dados Pessoais">
                                     <form>
                                         <div className="row">
-                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 p-4">
                                                 <span className="p-float-label">
                                                     <InputText id="name" className="input-container"
                                                         value={user.name}
@@ -103,6 +112,34 @@ class Profile extends Component<Props> {
                                                             }))
                                                         }} />
                                                     <label htmlFor="name">Nome</label>
+                                                </span>
+                                            </div>
+                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 p-4">
+                                                <span className="p-float-label">
+                                                    <InputText id="email" className="input-container"
+                                                        value={user.email}
+                                                        onChange={(event: any) => {
+                                                            changeUser(new User().fromJSON({
+                                                                ...user.toJSON(),
+                                                                email: event.target.value
+                                                            }))
+                                                        }} />
+                                                    <label htmlFor="email">Email</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 p-4">
+                                                <span className="p-float-label">
+                                                    <InputText id="type" className="input-container"
+                                                        value={user.type}
+                                                        onChange={(event: any) => {
+                                                            changeUser(new User().fromJSON({
+                                                                ...user.toJSON(),
+                                                                type: event.target.value
+                                                            }))
+                                                        }} />
+                                                    <label htmlFor="type">Tipo</label>
                                                 </span>
                                             </div>
                                         </div>

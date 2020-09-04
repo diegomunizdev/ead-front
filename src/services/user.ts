@@ -1,5 +1,5 @@
 import httpClient from './config.axios'
-import { AxiosResponse } from 'axios'
+import { AxiosResponse, AxiosRequestConfig } from 'axios'
 import User, { UserTypes } from '../store/application/models/user/user'
 import AccessToken from '../store/application/models/user/access.token'
 import authService, { urlBase } from './auth'
@@ -24,8 +24,6 @@ class UserService {
     }
 
     public getById(userId: string) {
-        // TODO: remover console
-        console.log('id ', userId)
         return httpClient.get(`http://localhost:3001/ead/user/${userId}/profile`)
             .then((response: AxiosResponse) => response)
     }
