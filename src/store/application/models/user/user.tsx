@@ -14,7 +14,7 @@ export default class User {
     private _email: string | undefined
     private _password: string | undefined
     private _type: UserTypes | undefined
-    private _game_points: number | undefined
+    private _gamePoints: number | undefined
     private _notes: number[] | undefined
 
     constructor() {
@@ -76,12 +76,12 @@ export default class User {
         this._type = value
     }
 
-    get game_points(): number | undefined {
-        return this._game_points
+    get gamePoints(): number | undefined {
+        return this._gamePoints
     }
 
-    set game_points(value: number | undefined) {
-        this._game_points = value
+    set gamePoints(value: number | undefined) {
+        this._gamePoints = value
     }
 
     get notes(): number[] | undefined {
@@ -127,8 +127,8 @@ export default class User {
             this._type = json.type
         }
 
-        if (json.game_points !== undefined) {
-            this._game_points = json.game_points
+        if (json.gamePoints !== undefined) {
+            this._gamePoints = json.gamePoints
         }
 
         if (json.notes !== undefined) {
@@ -146,7 +146,7 @@ export default class User {
             email: this.email ? this.email : undefined,
             password: this.password ? this.password : undefined,
             type: this.type ? this.type : undefined,
-            game_points: this.game_points ? this.game_points : undefined,
+            gamePoints: this.gamePoints ? this.gamePoints : undefined,
             notes: this.notes ? this.notes : undefined
         }
     }

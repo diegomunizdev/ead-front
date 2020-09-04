@@ -44,6 +44,8 @@ class Profile extends Component<Props> {
 
         const { findUser, match: { params } } = this.props
         if (params && params.userId) {
+            // TODO: remover console
+            console.log('findUser', params.userId)
             findUser(params.userId)
         }
     }
@@ -64,6 +66,9 @@ class Profile extends Component<Props> {
 
     public render() {
         const { user, changeUser } = this.props
+
+        // TODO: remover console
+        console.log('profile: ', user.toJSON())
 
         return (
             <React.Fragment>^

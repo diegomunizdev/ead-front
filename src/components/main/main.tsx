@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { History } from 'history'
+import jwtDecode from 'jwt-decode'
 import { Toast } from '../../services/toast'
 
 import { Card } from 'primereact/card'
@@ -27,7 +28,7 @@ class Main extends Component<IProperties> {
                         <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-1">
                             <Card title="PERFIL" subTitle="Informações pessoais">
                                 <div className="d-flex justify-content-end">
-                                    <Button onClick={() => this.props.history.push('/app/church')} icon="pi pi-user" className="p-button-raised p-button-primary" label="Acessar" />
+                                    <Button onClick={() => this.props.history.push(`/ead/user/5f52391b98191989ed96ff9f/profile`)} icon="pi pi-user" className="p-button-raised p-button-primary" label="Acessar" />
                                 </div>
                             </Card>
                         </div>

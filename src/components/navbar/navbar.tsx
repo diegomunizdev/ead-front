@@ -32,11 +32,11 @@ class NavBar extends Component<Props> {
             <React.Fragment>
                 <Toolbar>
                     <div className="d-flex justify-content-between" >
-                        <h5>Academia</h5>
+                        <h5>Controle Acadêmico</h5>
                         <span>
                             <Button className="p-button-danger p-button-raised" label="Sair" iconPos="right" icon="pi pi-sign-out" onClick={() => {
                                 localStorage.clear()
-                                this.props.history.push('/app/auth/signin')
+                                this.props.history.push('/ead/auth/signin')
                             }} />
                         </span>
 

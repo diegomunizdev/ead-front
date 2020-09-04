@@ -12,7 +12,7 @@ class UserService {
     }
 
     public create(newUser: User) {
-        return httpClient.post(`${this.apiUrl}/app/user`, newUser)
+        return httpClient.post(`http://localhost:3001/ead/user`, newUser)
     }
 
     public remove(userId: string) {
@@ -24,8 +24,10 @@ class UserService {
     }
 
     public getById(userId: string) {
-        return httpClient.get(`${this.apiUrl}/app/user/${userId}`)
-            .then((response: AxiosResponse) => response.data)
+        // TODO: remover console
+        console.log('id ', userId)
+        return httpClient.get(`http://localhost:3001/ead/user/${userId}/profile`)
+            .then((response: AxiosResponse) => response)
     }
 
     public getAll(type: UserTypes, paginator?: IPaginator) {
@@ -40,30 +42,15 @@ class UserService {
                 params.append('limit', String(paginator.rows))
             }
 
-            if (paginator.search) {
+            /* if (paginator.search) {
                 params.append('?name', '*' + paginator.search + '*')
-            }
+            } */
         }
 
-        return httpClient.get(`${this.apiUrl}/app/user`, { params })
+        return httpClient.get(`http://localhost:3001/ead/user/type/${type}`, { params })
             .then((response: AxiosResponse) => {
                 return { data: response.data, headers: response.headers }
             })
-    }
-
-    public async getUserName(): Promise<string> {
-        const localUserString = localStorage.getItem('user')
-        if (localUserString) {
-            const localUserObject: User = JSON.parse(localUserString)
-            return localUserObject.name ? localUserObject.name : ''
-        }
-        const localToken: AccessToken = authService.decodeToken()
-        if (localToken && localToken.type) {
-            const userLogged = await this.getById(localToken.type)
-            localStorage.setItem('user', JSON.stringify(userLogged))
-            return userLogged.name
-        }
-        throw Error('Não foi possivel buscar nome do usuário!')
     }
 
 }

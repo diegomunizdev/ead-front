@@ -63,7 +63,7 @@ class Login extends Component<Props> {
                 {this.props.loading ? <Spinner /> : undefined}
                 <div id="formContent">
                     <div className="m-3">
-                        <h3><strong>ACADEMIA</strong></h3>
+                        <h4><strong>CONTROLE ACADÊMICO</strong></h4>
                     </div>
                     <Formik
                         initialValues={credentials}
@@ -102,6 +102,7 @@ class Login extends Component<Props> {
                                                 <InputText
                                                     id="password"
                                                     className="input-container"
+                                                    type="password"
                                                     value={field.value}
                                                     onChange={(e: any) => {
                                                         setFieldValue('password', e.target.value)

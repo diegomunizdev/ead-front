@@ -7,10 +7,10 @@ export const urlBase: string = process.env.URL_BASE ? process.env.URL_BASE : ''
 
 export class AuthService {
 
-    constructor(private apiUrl: string = urlBase) { }
+    constructor(private apiUrl: string = 'http://localhost:3001') { }
 
     public login(body: IAuth): Promise<any> {
-        return axiosInstance.post(`${this.apiUrl}/app/auth/signin`, body)
+        return axiosInstance.post(`http://localhost:3001/ead/auth/signin`, body)
             .then(response => {
                 const { Authorization } = response.data
                 localStorage.setItem('Authorization', Authorization)

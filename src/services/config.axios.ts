@@ -8,7 +8,7 @@ class ConfigAxios {
     constructor() {
         // Base address configuration for backend service
         this._instance = axios.create({
-            baseURL: process.env.URL_BASE,
+            baseURL: 'http://localhost:3001/ead',
             httpsAgent: new Agent({ rejectUnauthorized: false })
         })
     }
