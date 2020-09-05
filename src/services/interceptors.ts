@@ -17,7 +17,7 @@ export default class Interceptors {
     public static handlerError(error: any): Promise<Error> {
         let title = ''
         let message = ''
-        switch (error?.response?.status) {
+        switch (error?.response?.code) {
             case 400:
                 title = 'DADOS INCORRETOS'
                 message = 'Verifique os dados informados e tente novamente.'

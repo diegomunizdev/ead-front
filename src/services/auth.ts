@@ -2,8 +2,11 @@ import axiosInstance from './config.axios'
 import jwtDecode from 'jwt-decode'
 import AccessToken from '../store/application/models/user/access.token'
 import { IAuth } from '../store/ducks/auth/types'
+import { Toast } from './toast'
 
 export const urlBase: string = process.env.URL_BASE ? process.env.URL_BASE : ''
+
+const toastService = Toast.getInstance()
 
 export class AuthService {
 
@@ -12,10 +15,13 @@ export class AuthService {
     public login(body: IAuth): Promise<any> {
         return axiosInstance.post(`http://localhost:3001/ead/auth/signin`, body)
             .then(response => {
-                console.log('response', response)
                 const { Authorization } = response.data
+                console.log(Authorization)
                 localStorage.setItem('Authorization', Authorization)
                 return Authorization
+            })
+            .catch(err => {
+                toastService.show('error', 'Não autenticado', err?.response?.data?.message)
             })
     }
 

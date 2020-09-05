@@ -26,14 +26,14 @@ class Main extends Component<IProperties> {
             <React.Fragment>
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-1">
+                        <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 p-1">
                             <Card title="Perfil" subTitle="Informações pessoais">
                                 <div className="d-flex justify-content-end">
                                     <Button onClick={() => this.props.history.push(`/ead/user/${authService.UserId()}/profile`)} icon="pi pi-user" className="p-button-raised p-button-primary" label="Acessar" />
                                 </div>
                             </Card>
                         </div>
-                        <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-1">
+                        <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 p-1">
                             <Card title="Show de Aprendizagem" subTitle="Aprenda jogando e ganhe pontos valiosos">
                                 <div className="d-flex justify-content-between">
                                     <Button
@@ -42,16 +42,11 @@ class Main extends Component<IProperties> {
                                         className="p-button-raised p-button-secondary"
                                         label="Instruções" />
                                     <Button
-                                        onClick={() => this.props.history.push(`/ead/game`)}
+                                        onClick={() => this.props.history.push(`/ead/game/periods`)}
                                         icon="pi pi-palette"
                                         className="p-button-raised p-button-primary"
                                         label="Jogar" />
                                 </div>
-                            </Card>
-                        </div>
-                        <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-1">
-                            <Card title="Title card" subTitle="Subtitle do card">
-                                <Button onClick={() => this.toastService.show('success', 'Testando...', 'Testando o toast')} className="p-button-raised p-button-primary" label="Acessar" />
                             </Card>
                         </div>
                     </div>
@@ -66,9 +61,7 @@ class Main extends Component<IProperties> {
                                 <Button onClick={() => this.props.history.goBack()} className="p-button-raised p-button-primary" label="Acessar" />
                             </Card>
                         </div>
-
                     </div>
-
                 </div>
             </React.Fragment>
         )

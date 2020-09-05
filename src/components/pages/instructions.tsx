@@ -10,25 +10,21 @@ interface IProperties extends RouteComponentProps<any> {
 }
 
 class Instructions extends Component<IProperties> {
-    constructor(props: IProperties) {
-        super(props)
-    }
-
     public render() {
         return (
             <React.Fragment>
                 <div className="container">
                     <div className="row">
-                        <Card style={{ width: '100%' }}>
+                        <Card className="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-1" style={{ width: '100%' }}>
                             <Fieldset legend="Instruções">
 
                             </Fieldset>
                             <div className="d-flex justify-content-between mt-2">
                                 <Button
+                                    tooltip="Voltar"
                                     onClick={() => this.props.history.goBack()}
                                     icon="pi pi-arrow-left"
-                                    className="p-button-raised p-button-secondary"
-                                    label="Voltar" />
+                                    className="p-button-raised p-button-secondary" />
                                 <Button
                                     onClick={() => this.props.history.push(`/ead/game`)}
                                     icon="pi pi-palette"

@@ -49,10 +49,12 @@ class Profile extends Component<Props> {
 
     public handleSubmit = async () => {
         const { user } = this.props
-        const newUser = new User().fromJSON({ ...user.toJSON() })
+        const newUser = new User().fromJSON({ ...user.toJSON(), password: undefined })
 
         const { updateUser } = this.props
-        updateUser(newUser)
+        console.log('atualizar ', newUser)
+        // TODO: Atualizar usuário
+        // updateUser(newUser)
 
     }
 
@@ -69,11 +71,8 @@ class Profile extends Component<Props> {
 
                 <div className="container">
                     <div className="row">
-
                         <div className='fade-in-down col-sm-12 col-md-12 col-lg-12 col-xl-12'>
-
                             <Card>
-
                                 <Fieldset legend="Dados Pessoais">
                                     <form>
                                         <div className="row">
@@ -125,12 +124,18 @@ class Profile extends Component<Props> {
 
                                 <div className="d-flex justify-content-between mt-2">
 
-                                    <Button label="Voltar" className="p-button-secondary left" icon="pi pi-arrow-left"
+                                    <Button
+                                        tooltip="Voltar"
+                                        className="p-button-secondary left"
+                                        icon="pi pi-arrow-left"
                                         onClick={() => {
                                             this.props.history.goBack()
                                         }} />
 
-                                    <Button label="Salvar" className="p-button-primary right" icon="pi pi-save"
+                                    <Button
+                                        label="Salvar"
+                                        className="p-button-primary right"
+                                        icon="pi pi-save"
                                         onClick={this.handleSubmit} />
 
                                 </div>

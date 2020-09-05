@@ -11,6 +11,7 @@ import Layout from '../containers/layout/layout'
 import Auth from '../containers/auth/login'
 import Profile from '../containers/users/profile'
 import Instructions from '../components/pages/instructions'
+import Games from '../components/pages/game'
 
 interface PrivateRouteProps extends RouteProps {
     key?: number
@@ -86,6 +87,12 @@ const routes = [
                 exact: true,
                 private: true,
                 component: Instructions
+            },
+            {
+                path: '/ead/game/periods',
+                exact: true,
+                private: true,
+                component: Games
             }
         ]
     },

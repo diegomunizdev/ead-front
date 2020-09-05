@@ -1,4 +1,4 @@
-import { all, call, apply, put, takeLatest } from 'redux-saga/effects'
+import { all, apply, put, takeLatest } from 'redux-saga/effects'
 
 import usersService from '../../../services/user'
 import {
@@ -15,7 +15,7 @@ import {
     updateSuccess
 } from './actions'
 import { IActionType, IAxiosResponse } from '../root.types'
-import User from '../../application/models/user/user'
+// import User from '../../application/models/user/user'
 import { Toast } from '../../../services/toast'
 import { UserActionTypes } from './types'
 

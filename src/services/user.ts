@@ -1,7 +1,11 @@
 import httpClient from './config.axios'
-import { AxiosResponse} from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import User, { UserTypes } from '../store/application/models/user/user'
 import { IPaginator } from '../store/ducks/root.types'
+
+const headers = {
+    Authorization: localStorage.getItem('Authorization')
+} as AxiosRequestConfig
 
 class UserService {
 
@@ -10,19 +14,19 @@ class UserService {
     }
 
     public create(newUser: User) {
-        return httpClient.post(`http://localhost:3001/ead/user`, newUser)
+        return axios.post(`http://localhost:3001/ead/user`, newUser)
     }
 
     public remove(userId: string) {
-        return httpClient.delete(`${this.apiUrl}/app/user/${userId}`)
+        return axios.delete(`${this.apiUrl}/app/user/${userId}`)
     }
 
     public update(user: User) {
-        return httpClient.patch(`${this.apiUrl}/app/user/${user.id}`, user)
+        return axios.patch(`${this.apiUrl}/app/user/${user.id}`, user)
     }
 
     public getById(userId: string) {
-        return httpClient.get(`http://localhost:3001/ead/user/${userId}/profile`)
+        return axios.get(`http://localhost:3001/ead/user/${userId}/profile`, { headers })
             .then((response: AxiosResponse) => response)
     }
 
