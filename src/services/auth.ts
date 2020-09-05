@@ -12,6 +12,7 @@ export class AuthService {
     public login(body: IAuth): Promise<any> {
         return axiosInstance.post(`http://localhost:3001/ead/auth/signin`, body)
             .then(response => {
+                console.log('response', response)
                 const { Authorization } = response.data
                 localStorage.setItem('Authorization', Authorization)
                 return Authorization
@@ -27,6 +28,12 @@ export class AuthService {
         const token = localStorage.getItem('Authorization')
         const type = this.decodeJWTToken(token ? token : '')
         return type.type
+    }
+
+    public UserId() {
+        const token = localStorage.getItem('Authorization')
+        const userId = this.decodeJWTToken(token ? token : '')
+        return userId.id
     }
 
     public isAuthenticated(): boolean {

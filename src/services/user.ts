@@ -1,13 +1,11 @@
 import httpClient from './config.axios'
-import { AxiosResponse, AxiosRequestConfig } from 'axios'
+import { AxiosResponse} from 'axios'
 import User, { UserTypes } from '../store/application/models/user/user'
-import AccessToken from '../store/application/models/user/access.token'
-import authService, { urlBase } from './auth'
 import { IPaginator } from '../store/ducks/root.types'
 
 class UserService {
 
-    constructor(private apiUrl: string = urlBase) {
+    constructor(private apiUrl: string = '') {
 
     }
 

@@ -5,11 +5,12 @@ import { ConnectedRouter } from 'connected-react-router'
 import authService from '../services/auth'
 
 import Spinner from '../components/spinner/spinner'
-import Main from '../components/main/main'
+import Main from '../components/pages/main'
 import NotFound from '../components/notFound/not-found'
 import Layout from '../containers/layout/layout'
 import Auth from '../containers/auth/login'
 import Profile from '../containers/users/profile'
+import Instructions from '../components/pages/instructions'
 
 interface PrivateRouteProps extends RouteProps {
     key?: number
@@ -79,6 +80,12 @@ const routes = [
                 exact: true,
                 private: true,
                 component: Profile
+            },
+            {
+                path: '/ead/game/instructions',
+                exact: true,
+                private: true,
+                component: Instructions
             }
         ]
     },

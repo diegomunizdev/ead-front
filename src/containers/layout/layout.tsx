@@ -38,7 +38,7 @@ class Layout extends Component<Props> {
             <React.Fragment>
                 <NavBar
                     username={email}
-                    changeUsername={changeEmail}
+                    changeEmail={changeEmail}
                     history={history}
                     location={location}
                     match={match}

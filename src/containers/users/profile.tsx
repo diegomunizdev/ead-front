@@ -7,12 +7,11 @@ import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { Fieldset } from 'primereact/fieldset'
 import { InputText } from 'primereact/inputtext'
-import User, { UserTypes } from '../../store/application/models/user/user'
+import User from '../../store/application/models/user/user'
 import { Toast } from '../../services/toast'
 // import '../container.style.scss'
 import { IApplicationState } from '../../store'
 import * as UserActions from '../../store/ducks/user/actions'
-import Spinner from '../../components/spinner/spinner'
 
 interface IState {
     readonly user: User
@@ -21,20 +20,6 @@ interface IState {
     readonly error: boolean
     readonly success: boolean
 }
-
-const types = {
-    [UserTypes.ADMIN]: 'Administrador',
-    [UserTypes.TEACHER]: 'Professor',
-    [UserTypes.TUTOR]: 'Tutor',
-    [UserTypes.STUDENT]: 'Estudante',
-}
-
-export const translateUserType = [
-    { label: types[UserTypes.ADMIN], value: UserTypes.ADMIN },
-    { label: types[UserTypes.TEACHER], value: UserTypes.TEACHER },
-    { label: types[UserTypes.TUTOR], value: UserTypes.TUTOR },
-    { label: types[UserTypes.STUDENT], value: UserTypes.STUDENT }
-]
 
 interface IDispatchProps extends RouteComponentProps<any> {
 
@@ -82,21 +67,12 @@ class Profile extends Component<Props> {
         return (
             <React.Fragment>
 
-                <div className="header fade-in-down">
-                    <h4 className="page-header">
-                        Meus Dados
-                    </h4>
-                </div>
-
-                <div id="page-inner">
-
-                    {this.props.loading && <Spinner message='Carregando...' />}
-
+                <div className="container">
                     <div className="row">
 
-                        <div className='fade-in-down col-sm-12 col-md-12 col-lg-12 col-xl-8'>
+                        <div className='fade-in-down col-sm-12 col-md-12 col-lg-12 col-xl-12'>
 
-                            <Card className='card'>
+                            <Card>
 
                                 <Fieldset legend="Dados Pessoais">
                                     <form>
@@ -147,7 +123,7 @@ class Profile extends Component<Props> {
                                 </Fieldset>
 
 
-                                <div className="row">
+                                <div className="d-flex justify-content-between mt-2">
 
                                     <Button label="Voltar" className="p-button-secondary left" icon="pi pi-arrow-left"
                                         onClick={() => {
@@ -162,12 +138,9 @@ class Profile extends Component<Props> {
                             </Card>
 
                         </div>
-
                     </div>
-
                 </div>
-
-            </React.Fragment>
+            </React.Fragment >
 
         )
     }

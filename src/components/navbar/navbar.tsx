@@ -19,7 +19,7 @@ interface IProps {
 }
 
 interface DispatchProps extends RouteComponentProps<any> {
-    changeUsername(data: string): void
+    changeEmail(data: string): void
 }
 
 type Props = DispatchProps & IProps
@@ -34,7 +34,7 @@ class NavBar extends Component<Props> {
                     <div className="d-flex justify-content-between" >
                         <h5>Controle Acadêmico</h5>
                         <span>
-                            <Button className="p-button-danger p-button-raised" label="Sair" iconPos="right" icon="pi pi-sign-out" onClick={() => {
+                            <Button className="p-button-sm p-button-rounded p-button-danger p-button-outlined" label="Sair" iconPos="right" icon="pi pi-sign-out" onClick={() => {
                                 localStorage.clear()
                                 this.props.history.push('/ead/auth/signin')
                             }} />
