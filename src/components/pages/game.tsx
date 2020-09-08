@@ -18,10 +18,6 @@ const cards = [
 
 class Games extends Component<IProperties> {
 
-    constructor(props: IProperties) {
-        super(props)
-    }
-
     public render() {
         return (
             <React.Fragment>
@@ -45,7 +41,7 @@ class Games extends Component<IProperties> {
                                 className="p-button-raised p-button-primary"
                                 icon="pi pi-arrow-right"
                                 onClick={() => {
-                                    this.props.history.push('/ead/game/periods/1')
+                                    this.props.history.push('/ead/game/period/1')
                                 }} />
                         </div>
                     </Card>
@@ -58,7 +54,7 @@ class Games extends Component<IProperties> {
                             <div className="d-flex justify-content-end">
                                 <Button
                                     tooltip="Iniciar"
-                                    onClick={() => this.props.history.push(`/ead/game/periods/${card.period}`)}
+                                    onClick={() => this.props.history.push(`/ead/game/period/${card.period}`)}
                                     // icon="pi pi-palette"
                                     className="p-button-raised p-button-primary"
                                     label={card.button} />

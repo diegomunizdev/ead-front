@@ -8,9 +8,13 @@ class ConfigAxios {
     constructor() {
         // Base address configuration for backend service
         this._instance = axios.create({
+            // TODO: URL_BASE
             baseURL: 'http://localhost:3001/ead',
             httpsAgent: new Agent({ rejectUnauthorized: false })
         })
+
+        this.configRequestInterceptors()
+        this.configResponseInterceptors()
     }
 
     /* Method for configuring the interceptors that acted on the request */

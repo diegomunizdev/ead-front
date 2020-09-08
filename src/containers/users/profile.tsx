@@ -51,9 +51,9 @@ class Profile extends Component<Props> {
         const { user } = this.props
         const newUser = new User().fromJSON({ ...user.toJSON(), password: undefined })
 
-        const { updateUser } = this.props
+        // const { updateUser } = this.props
+        // TODO: Atualizar usuário e remover console
         console.log('atualizar ', newUser)
-        // TODO: Atualizar usuário
         // updateUser(newUser)
 
     }

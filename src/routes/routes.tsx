@@ -12,6 +12,7 @@ import Auth from '../containers/auth/login'
 import Profile from '../containers/users/profile'
 import Instructions from '../components/pages/instructions'
 import Games from '../components/pages/game'
+import ListGame from '../containers/game/list.game'
 
 interface PrivateRouteProps extends RouteProps {
     key?: number
@@ -83,13 +84,14 @@ const routes = [
                 component: Profile
             },
             {
+                // TODO: Retornar para rota de instruções - remover depois
                 path: '/ead/game/instructions',
                 exact: true,
                 private: true,
-                component: Instructions
+                component: ListGame
             },
             {
-                path: '/ead/game/periods',
+                path: '/ead/game/period',
                 exact: true,
                 private: true,
                 component: Games

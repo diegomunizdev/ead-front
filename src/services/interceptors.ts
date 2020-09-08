@@ -4,7 +4,7 @@ import { history } from '../store'
 
 const toast = Toast.getInstance()
 
-export default class Interceptors {
+class Interceptors {
 
     public static injectAccessToken(request: AxiosRequestConfig): AxiosRequestConfig {
         const token = localStorage.getItem('Authorization')
@@ -14,10 +14,11 @@ export default class Interceptors {
         return request
     }
 
+    /* Mapeamento de erros */
     public static handlerError(error: any): Promise<Error> {
         let title = ''
         let message = ''
-        switch (error?.response?.code) {
+        switch (error?.response?.status) {
             case 400:
                 title = 'DADOS INCORRETOS'
                 message = 'Verifique os dados informados e tente novamente.'
@@ -65,3 +66,5 @@ export default class Interceptors {
     }
 
 }
+
+export default Interceptors

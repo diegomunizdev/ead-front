@@ -1,32 +1,24 @@
-import httpClient from './config.axios'
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axiosInstance from './config.axios'
+import { AxiosResponse } from 'axios'
 import User, { UserTypes } from '../store/application/models/user/user'
 import { IPaginator } from '../store/ducks/root.types'
 
-const headers = {
-    Authorization: localStorage.getItem('Authorization')
-} as AxiosRequestConfig
-
 class UserService {
 
-    constructor(private apiUrl: string = '') {
-
-    }
-
     public create(newUser: User) {
-        return axios.post(`http://localhost:3001/ead/user`, newUser)
+        return axiosInstance.post(`/user`, newUser.toJSON())
     }
 
     public remove(userId: string) {
-        return axios.delete(`${this.apiUrl}/app/user/${userId}`)
+        return axiosInstance.delete(`/user/${userId}`)
     }
 
     public update(user: User) {
-        return axios.patch(`${this.apiUrl}/app/user/${user.id}`, user)
+        return axiosInstance.patch(`/user/${user.id}`, user.toJSON())
     }
 
     public getById(userId: string) {
-        return axios.get(`http://localhost:3001/ead/user/${userId}/profile`, { headers })
+        return axiosInstance.get(`/user/${userId}/profile`)
             .then((response: AxiosResponse) => response)
     }
 
@@ -47,7 +39,7 @@ class UserService {
             } */
         }
 
-        return httpClient.get(`http://localhost:3001/ead/user/type/${type}`, { params })
+        return axiosInstance.get(`/user/type/${type}`, { params })
             .then((response: AxiosResponse) => {
                 return { data: response.data, headers: response.headers }
             })

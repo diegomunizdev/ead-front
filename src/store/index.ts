@@ -11,11 +11,13 @@ import rootSaga from './ducks/root.saga'
 import { IUserState } from './ducks/user/types'
 import { ILayoutState } from './ducks/layout/types'
 import { IAuthState } from './ducks/auth/types'
+import { IGameState} from './ducks/game/types'
 
 export interface IApplicationState {
     layout: ILayoutState,
     auth: IAuthState,
-    user: IUserState
+    user: IUserState,
+    game: IGameState
 }
 
 export const history = createBrowserHistory()
