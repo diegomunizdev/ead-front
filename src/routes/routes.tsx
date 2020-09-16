@@ -88,7 +88,7 @@ const routes = [
                 path: '/ead/game/instructions',
                 exact: true,
                 private: true,
-                component: ListGame
+                component: Instructions
             },
             {
                 path: '/ead/game/period',

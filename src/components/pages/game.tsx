@@ -39,7 +39,7 @@ class Games extends Component<IProperties> {
                             <Button
                                 tooltip="Iniciar"
                                 className="p-button-raised p-button-primary"
-                                icon="pi pi-arrow-right"
+                                icon="pi pi-palette"
                                 onClick={() => {
                                     this.props.history.push('/ead/game/period/1')
                                 }} />
@@ -61,10 +61,8 @@ class Games extends Component<IProperties> {
                             </div>
                         </Card>
                     })}
-
-
                 </div>
-            </React.Fragment >
+            </React.Fragment>
         )
     }
 }

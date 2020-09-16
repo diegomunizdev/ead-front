@@ -3,7 +3,6 @@ import { GameActionTypes } from './types'
 import Game from '../../application/models/game.model'
 import { IAxiosResponse, IPaginator } from '../root.types'
 
-
 export const resetGame = () => action(GameActionTypes.RESET_CREATE_GAME, {})
 
 export const changeGame = (game: Game) => action(GameActionTypes.CHANGE_GAME, { game })
@@ -16,6 +15,7 @@ export const changePaginator = (period?: string, paginator?: IPaginator) => [
     loadGameRequest(paginator)
 ]
 
+/* Actions for create */
 export const createGameRequest = (game: Game) => action(GameActionTypes.CREATE_REQUEST, { game })
 
 export const createGameSuccess = (game: Game) => action(GameActionTypes.CREATE_SUCCESS, { game })
