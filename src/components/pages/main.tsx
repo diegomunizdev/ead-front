@@ -42,7 +42,7 @@ class Main extends Component<IProperties> {
                                         className="p-button-raised p-button-secondary"
                                         label="Instruções" />
                                     <Button
-                                        onClick={() => this.props.history.push(`/ead/game/periods`)}
+                                        onClick={() => this.props.history.push(`/ead/game/period`)}
                                         icon="pi pi-palette"
                                         className="p-button-raised p-button-primary"
                                         label="Jogar" />
