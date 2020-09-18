@@ -14,6 +14,7 @@ export default class User {
     private _email: string | undefined
     private _password: string | undefined
     private _type: UserTypes | undefined
+    private _period: string | undefined
     private _gamePoints: number | undefined
     private _notes: number[] | undefined
 
@@ -24,6 +25,7 @@ export default class User {
         this._email = ''
         this._password = ''
         this._type = '' as UserTypes
+        this._period = ''
         this._notes = []
     }
 
@@ -74,6 +76,14 @@ export default class User {
 
     set type(value: UserTypes | undefined) {
         this._type = value
+    }
+
+    get period(): string | undefined {
+        return this._period
+    }
+
+    set period(value: string | undefined) {
+        this._period = value
     }
 
     get gamePoints(): number | undefined {
@@ -127,6 +137,10 @@ export default class User {
             this._type = json.type
         }
 
+        if (json.period !== undefined) {
+            this._period = json.period
+        }
+
         if (json.gamePoints !== undefined) {
             this._gamePoints = json.gamePoints
         }
@@ -146,6 +160,7 @@ export default class User {
             email: this.email ? this.email : undefined,
             password: this.password ? this.password : undefined,
             type: this.type ? this.type : undefined,
+            period: this.period ? this.period : undefined,
             gamePoints: this.gamePoints ? this.gamePoints : undefined,
             notes: this.notes ? this.notes : undefined
         }
