@@ -10,10 +10,11 @@ interface IProperties extends RouteComponentProps<any> {
 }
 
 const cards = [
-    { title: 'Primeiro Período', subtitle: 'Inicie sua jornada na programação com o assunto de Algoritmos', period: '1', button: 'Que comecem os jogos' },
-    { title: 'Segundo Período', subtitle: 'Próxima parada, Linguagem C, o medo dos devs fracos', period: '2', button: 'C tá com medo né?' },
-    { title: 'Terceiro Período', subtitle: 'Tá melhorando hein, vamos ver nesse período Ha-Ha-Ha', period: '3', button: 'Javai se preparando' },
-    { title: 'Quarto e louco Período', subtitle: 'Preparado para guardar suas respostas?', period: '4', button: 'BD da sofrência' }
+    { title: 'Bem vindo ao seu Primeiro Código, opa... quis dizer Período', subtitle: 'Inicie sua jornada na programação com o assunto de Algoritmos', period: '1', button: 'Que comecem os jogos' },
+    { title: 'Segundo e tenso Período', subtitle: 'Próxima parada, Linguagem C, o medo dos devs fracos', period: '2', button: 'C tá com medo né?' },
+    { title: '10 linhas de código pra saída ser um: Terceiro Período', subtitle: 'Tá melhorando hein, vamos ver nesse período Ha-Ha-Ha', period: '3', button: 'Javai se preparando' },
+    { title: 'Quarto e louco Período', subtitle: 'Preparado para guardar suas respostas?', period: '4', button: 'BD da sofrência' },
+    { title: 'Documente o seu Quinto Período', subtitle: 'Mas faltou apenas uma vírgula na documentação', period: '5', button: 'Boa sorte' }
 ]
 
 class Games extends Component<IProperties> {
@@ -38,6 +39,7 @@ class Games extends Component<IProperties> {
                                 }} />
                             <Button
                                 tooltip="Iniciar"
+                                label="Iniciar"
                                 className="p-button-raised p-button-primary"
                                 icon="pi pi-palette"
                                 onClick={() => {
@@ -54,6 +56,7 @@ class Games extends Component<IProperties> {
                             <div className="d-flex justify-content-end">
                                 <Button
                                     tooltip="Iniciar"
+                                    tooltipOptions={{ position: 'top' }}
                                     onClick={() => this.props.history.push(`/ead/game/period/${card.period}`)}
                                     // icon="pi pi-palette"
                                     className="p-button-raised p-button-primary"
