@@ -56,11 +56,11 @@ class Main extends Component<IProperties> {
                                         <Button
                                             onClick={() => this.props.history.push(`/ead/game/instructions`)}
                                             className="p-button-raised p-button-secondary"
-                                            label="Instruções" />
+                                            label="Informações" />
                                         <Button
                                             onClick={() => this.props.history.push(`/ead/game/period`)}
                                             className="p-button-raised p-button-primary"
-                                            label="Jogar" />
+                                            label="Acessar" />
                                     </div>
                                 }
                             />

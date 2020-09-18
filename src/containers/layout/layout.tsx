@@ -36,6 +36,7 @@ class Layout extends Component<Props> {
 
         return (
             <React.Fragment>
+
                 <NavBar
                     username={email}
                     changeEmail={changeEmail}
