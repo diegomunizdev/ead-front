@@ -11,6 +11,10 @@
 
  - Aluno: conteúdo (visualizar), atividades avaliativas a serem desenvolvidas, ferramentas de interação, acesso as notas.
  
+ ##### Servidor (Backend)
+ 
+ [EAD Backend](https://github.com/diegomunizdev/ead-back)
+ 
  #### Para testar a aplicação:
  
   - Com HTTP:
