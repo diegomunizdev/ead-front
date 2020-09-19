@@ -4,7 +4,6 @@ import { History } from 'history'
 import { Card } from 'primereact/card'
 import { Button } from 'primereact/button'
 import { Fieldset } from 'primereact/fieldset'
-import { Permission } from '../permission/permission'
 
 interface IProperties extends RouteComponentProps<any> {
     history: History
@@ -15,7 +14,7 @@ class Instructions extends Component<IProperties> {
         return (
             <React.Fragment>
                 <div className="container">
-                    <div className="row">
+                    <div className="row fade-in-down">
                         <Card className="col-sm-12 col-md-12 col-lg-12 col-xl-12 p-1" style={{ width: '100%' }}>
                             <Fieldset legend="COMO JOGAR?">
                                 <div className="container d-flex justify-content-center text-justify pl-5 pr-5">

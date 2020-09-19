@@ -5,7 +5,6 @@ import '../styles.css'
 import { Toolbar } from 'primereact/toolbar'
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
-import { Menu } from 'primereact/menu';
 import authService from '../../services/auth'
 
 export interface IMenu {
@@ -20,6 +19,8 @@ export interface IMenu {
 interface IProps {
     username: string
 }
+
+
 
 interface DispatchProps extends RouteComponentProps<any> {
     changeEmail(data: string): void
@@ -39,7 +40,31 @@ class NavBar extends Component<Props, { sb: boolean }> {
 
     }
 
+
+
     public render() {
+
+        const menuItems = [
+            {
+                label: 'Home', icon: 'pi pi-home', command: () => {
+                    this.props.history.push(`/ead/main`)
+                    this.setState({ sb: false })
+                }
+            },
+            {
+                label: 'Perfil', icon: 'pi pi-user', command: () => {
+                    this.props.history.push(`/ead/user/${authService.UserId()}/profile`)
+                    this.setState({ sb: false })
+                },
+
+            },
+            {
+                label: 'Show de Aprendizagem', icon: 'pi pi-palette', command: () => {
+                    this.props.history.push(`/ead/game/period`)
+                    this.setState({ sb: false })
+                }
+            }
+        ]
 
         return (
             <React.Fragment>
@@ -55,44 +80,36 @@ class NavBar extends Component<Props, { sb: boolean }> {
 
                         <Sidebar visible={this.state.sb} baseZIndex={1000000} onHide={() => this.setState({ sb: false })}>
                             {/* Opção de colocar o nome do usuário */}
-                            <h5 style={{ fontWeight: 'normal', marginTop: '1em' }}>Menu</h5>
+                            <div style={{ height: '100%' }}>
+                                <div className="d-flex justify-content-center" style={{ marginTop: '15px', borderBottom: '1px solid var(--color-five)' }}>
+                                    <h5 style={{ color: 'white', fontWeight: 'normal', marginTop: '1em' }}>Menu</h5>
+                                </div>
 
-                            <Button
-                                icon="pi pi-home"
-                                iconPos="left"
-                                label="Home"
-                                className="p-button-menu"
-                                onClick={() => {
-                                    this.props.history.push(`/ead/main`)
-                                    this.setState({ sb: false })
-                                }} />
-                            <Button
-                                icon="pi pi-user"
-                                iconPos="left"
-                                label="Perfil"
-                                className="p-button-menu"
-                                onClick={() => {
-                                    this.props.history.push(`/ead/user/${authService.UserId()}/profile`)
-                                    this.setState({ sb: false })
-                                }} />
-                            <Button
-                                icon="pi pi-palette"
-                                iconPos="left"
-                                label="Show de Aprendizagem"
-                                className="p-button-menu"
-                                onClick={() => {
-                                    this.props.history.push(`/ead/game/period`)
-                                    this.setState({ sb: false })
-                                }} />
+                                {
+                                    menuItems.map(items => {
+                                        return <Button
+                                            key={items.label}
+                                            icon={items.icon}
+                                            iconPos="left"
+                                            style={{ textAlign: 'left' }}
+                                            label={items.label}
+                                            className="p-button-menu"
+                                            onClick={items.command} />
+                                    })
+                                }
 
-                            <Button
-                                className="p-button-sm  p-button-danger"
-                                style={{ width: '100%', marginTop: '2em' }}
-                                label="Sair"
-                                onClick={() => {
-                                    localStorage.clear()
-                                    this.props.history.push('/ead/auth/signin')
-                                }} />
+                                <Button
+                                    className="p-button-sm  p-button-danger"
+                                    style={{ width: '100%', marginTop: '2em' }}
+                                    label="Sair"
+                                    onClick={() => {
+                                        localStorage.clear()
+                                        this.props.history.push('/ead/auth/signin')
+                                    }} />
+                                <div className="d-flex justify-content-center align-items-end footer-sidebar">
+                                    <div>Feito com <i style={{ color: 'red' }} className="pi pi-heart" /></div>
+                                </div>
+                            </div>
                         </Sidebar>
 
                         <h5>Controle Acadêmico</h5>

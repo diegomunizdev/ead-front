@@ -1,12 +1,8 @@
 import { all, apply, put, takeLatest, } from 'redux-saga/effects'
-import { Toast } from '../../../services/toast'
 import { IActionType } from '../root.types'
 import gameService from '../../../services/game'
 import { loadGameFailure, loadGameSuccess } from './actions'
 import { GameActionTypes } from './types'
-
-
-const toastService = Toast.getInstance()
 
 function* getAll(action: IActionType) {
     try {
