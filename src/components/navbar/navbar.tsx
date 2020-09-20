@@ -40,8 +40,6 @@ class NavBar extends Component<Props, { sb: boolean }> {
 
     }
 
-
-
     public render() {
 
         const menuItems = [
