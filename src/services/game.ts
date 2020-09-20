@@ -1,6 +1,5 @@
 import axiosInstance from './config.axios'
 import { AxiosResponse } from 'axios'
-import Game from '../store/application/models/game.model'
 import { IPaginator } from '../store/ducks/root.types'
 
 class GameService {

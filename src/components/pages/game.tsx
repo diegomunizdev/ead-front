@@ -24,7 +24,7 @@ class Games extends Component<IProperties> {
             <React.Fragment>
                 <div className="container">
                     <Card
-                        className="card col-sm-12 col-md-12 col-col-lg-12 col-xl-12 mb-2"
+                        className="card col-sm-12 col-md-12 col-col-lg-12 col-xl-12 mb-2 fade-in-down"
                     >
                         <div className="d-flex justify-content-center">
                             <h2>Show de Aprendizagem</h2>
@@ -50,7 +50,7 @@ class Games extends Component<IProperties> {
 
                     {cards.map(card => {
                         return <Card key={card.period}
-                            className="card col-sm-12 col-md-12 col-col-lg-12 col-xl-12 mb-2"
+                            className="card col-sm-12 col-md-12 col-col-lg-12 col-xl-12 mb-2 fade-in-down"
                             title={card.title}
                             subTitle={card.subtitle}>
                             <div className="d-flex justify-content-end">
@@ -58,7 +58,6 @@ class Games extends Component<IProperties> {
                                     tooltip="Iniciar"
                                     tooltipOptions={{ position: 'top' }}
                                     onClick={() => this.props.history.push(`/ead/game/period/${card.period}`)}
-                                    // icon="pi pi-palette"
                                     className="p-button-raised p-button-primary"
                                     label={card.button} />
                             </div>

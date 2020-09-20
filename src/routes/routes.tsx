@@ -12,7 +12,7 @@ import Auth from '../containers/auth/login'
 import Profile from '../containers/users/profile'
 import Instructions from '../components/pages/instructions'
 import Games from '../components/pages/game'
-import ListGame from '../containers/game/list.game'
+// import ListGame from '../containers/game/list.game'
 
 interface PrivateRouteProps extends RouteProps {
     key?: number

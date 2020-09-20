@@ -7,7 +7,7 @@ import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { Fieldset } from 'primereact/fieldset'
 import { InputText } from 'primereact/inputtext'
-import User from '../../store/application/models/user/user'
+import User, { UserTypes } from '../../store/application/models/user/user'
 import { Toast } from '../../services/toast'
 // import '../container.style.scss'
 import { IApplicationState } from '../../store'
@@ -31,6 +31,14 @@ interface IDispatchProps extends RouteComponentProps<any> {
 
     resetCreateUser(): void
 }
+
+const translateType = {
+    [UserTypes.ADMIN]: 'Administrador',
+    [UserTypes.STUDENT]: 'Estudante',
+    [UserTypes.TEACHER]: 'Professor',
+    [UserTypes.TUTOR]: 'Tutor'
+}
+
 
 type Props = IState & IDispatchProps
 
@@ -74,6 +82,16 @@ class Profile extends Component<Props> {
                         <div className='fade-in-down col-sm-12 col-md-12 col-lg-12 col-xl-12'>
                             <Card>
                                 <Fieldset legend="Dados Pessoais">
+
+                                    <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex justify-content-center">
+                                        {user?.avatar
+                                            ? <img
+                                                src={user?.avatar}
+                                                alt="Avatar do usuário"
+                                                style={{ width: '180px', height: '170px', borderRadius: '50%' }} />
+                                            : <i style={{ fontSize: '8em', color: '#212F3C' }} className="pi pi-user" />}
+                                    </div>
+
                                     <form>
                                         <div className="row">
                                             <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 p-4">
@@ -107,7 +125,7 @@ class Profile extends Component<Props> {
                                             <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 p-4">
                                                 <span className="p-float-label">
                                                     <InputText id="type" className="input-container"
-                                                        value={user.type}
+                                                        value={translateType[user.type ? user.type : '']}
                                                         onChange={(event: any) => {
                                                             changeUser(new User().fromJSON({
                                                                 ...user.toJSON(),
