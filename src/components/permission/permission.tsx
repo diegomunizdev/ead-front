@@ -16,9 +16,11 @@ export class Permission extends Component<IProps> {
         const { type, body } = this.props
         return (
             <React.Fragment>
-                {authService.typeUser() === type
+                { authService.typeUser() === "admin"
                     ? body
-                    : ''
+                    : authService.typeUser() === type
+                        ? body
+                        : ''
                 }
             </React.Fragment>
         )

@@ -7,6 +7,7 @@ import { Button } from 'primereact/button'
 
 import { Toast } from '../../services/toast'
 import authService from '../../services/auth'
+import { Permission } from '../permission/permission'
 
 interface IProperties extends RouteComponentProps<any> {
     history: History
@@ -63,23 +64,25 @@ class Main extends Component<IProperties> {
                                 }
                             />
                         </div>
-                        <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
-                            <Card
-                                title="Turmas"
-                                subTitle="Gerenciamento das turmas"
-                                header={
-                                    <div className="d-flex justify-content-center p-3">
-                                        <i style={{ fontSize: '8em', color: '#212F3C' }} className="pi pi-users move-icon" />
-                                    </div>}
-                                footer={
-                                    <div className="d-flex justify-content-end">
-                                        <Button
-                                            className="p-button-raised p-button-primary"
-                                            label="Acessar" />
-                                    </div>
-                                }
-                            />
-                        </div>
+                        <Permission type={"teacher"} body={
+                            <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
+                                <Card
+                                    title="Turmas"
+                                    subTitle="Gerenciamento das turmas"
+                                    header={
+                                        <div className="d-flex justify-content-center p-3">
+                                            <i style={{ fontSize: '8em', color: '#212F3C' }} className="pi pi-users move-icon" />
+                                        </div>}
+                                    footer={
+                                        <div className="d-flex justify-content-end">
+                                            <Button
+                                                className="p-button-raised p-button-primary"
+                                                label="Acessar" />
+                                        </div>
+                                    }
+                                />
+                            </div>
+                        } />
 
                         <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
                             <Card
@@ -119,24 +122,27 @@ class Main extends Component<IProperties> {
                                 }
                             />
                         </div>
-                        <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
-                            <Card
-                                title="Usuários"
-                                subTitle="Gerenciamento de usuários"
-                                header={
-                                    <div className="d-flex justify-content-center p-3">
-                                        <i style={{ fontSize: '8em', color: '#212F3C' }} className="pi pi-user-edit move-icon" />
-                                    </div>}
-                                footer={
-                                    <div className="d-flex justify-content-end">
-                                        <Button
-                                            onClick={() => this.props.history.push(`/ead/user/${authService.UserId()}/profile`)}
-                                            className="p-button-raised p-button-primary"
-                                            label="Acessar" />
-                                    </div>
-                                }
-                            />
-                        </div>
+                        <Permission type="admin" body={
+                            <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
+                                <Card
+                                    title="Usuários"
+                                    subTitle="Gerenciamento de usuários"
+                                    header={
+                                        <div className="d-flex justify-content-center p-3">
+                                            <i style={{ fontSize: '8em', color: '#212F3C' }} className="pi pi-user-edit move-icon" />
+                                        </div>}
+                                    footer={
+                                        <div className="d-flex justify-content-end">
+                                            <Button
+                                                onClick={() => this.props.history.push(`/ead/user/${authService.UserId()}/profile`)}
+                                                className="p-button-raised p-button-primary"
+                                                label="Acessar" />
+                                        </div>
+                                    }
+                                />
+                            </div>
+                        }
+                        />
                     </div>
                 </div>
             </React.Fragment >
