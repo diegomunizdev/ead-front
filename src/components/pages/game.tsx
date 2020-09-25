@@ -4,6 +4,7 @@ import { History } from 'history'
 
 import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
+import NameHeader from '../shared/name.header'
 
 interface IProperties extends RouteComponentProps<any> {
     history: History
@@ -23,6 +24,7 @@ class Games extends Component<IProperties> {
         return (
             <React.Fragment>
                 <div className="container">
+                <NameHeader icon="pi pi-palette" nameHeader="Jogo" />
                     <Card
                         className="card col-sm-12 col-md-12 col-col-lg-12 col-xl-12 mb-2 fade-in-down"
                     >

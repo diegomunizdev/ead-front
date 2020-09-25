@@ -8,6 +8,7 @@ import { Button } from 'primereact/button'
 import { Toast } from '../../services/toast'
 import authService from '../../services/auth'
 import { Permission } from '../permission/permission'
+import NameHeader from '../shared/name.header'
 
 interface IProperties extends RouteComponentProps<any> {
     history: History
@@ -26,6 +27,7 @@ class Main extends Component<IProperties> {
         return (
             <React.Fragment>
                 <div className="container">
+                    <NameHeader icon="pi pi-home" nameHeader="Página Inicial" />
                     <div className="row fade-in-down">
                         <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
                             <Card

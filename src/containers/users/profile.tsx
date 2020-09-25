@@ -12,6 +12,7 @@ import { Toast } from '../../services/toast'
 // import '../container.style.scss'
 import { IApplicationState } from '../../store'
 import * as UserActions from '../../store/ducks/user/actions'
+import NameHeader from '../../components/shared/name.header'
 
 interface IState {
     readonly user: User
@@ -78,6 +79,7 @@ class Profile extends Component<Props> {
             <React.Fragment>
 
                 <div className="container">
+                    <NameHeader icon="pi pi-user" nameHeader="Perfil" />
                     <div className="row">
                         <div className='fade-in-down col-sm-12 col-md-12 col-lg-12 col-xl-12'>
                             <Card>

@@ -44,7 +44,7 @@ class NavBar extends Component<Props, { sb: boolean }> {
 
         const menuItems = [
             {
-                label: 'Home', icon: 'pi pi-home', command: () => {
+                label: 'Página Inicial', icon: 'pi pi-home', command: () => {
                     this.props.history.push(`/ead/main`)
                     this.setState({ sb: false })
                 }

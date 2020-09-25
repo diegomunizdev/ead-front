@@ -29,3 +29,18 @@
     bottom: 15px;
 }
 
+.header-page {
+    border-bottom: 1px solid var(--color-eight);
+    margin-bottom: 18px;
+}
+
+.icon-header {
+    color: var(--color-teen);
+    font-size: 24px;
+    margin: 20px;
+}
+
+.name-header {
+    color: var(--color-teen);
+    margin: 20px;
+}
