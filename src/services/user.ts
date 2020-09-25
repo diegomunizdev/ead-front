@@ -24,9 +24,8 @@ class UserService {
 
     public getAll(type: UserTypes, paginator?: IPaginator) {
         const params = new URLSearchParams()
-
         if (paginator) {
-            if (paginator.page) {
+            if (paginator.page === 0) {
                 params.append('page', String(paginator.page + 1))
             }
 
@@ -38,7 +37,7 @@ class UserService {
                 params.append('?name', '*' + paginator.search + '*')
             } */
         }
-
+        // TODO: remover console
         return axiosInstance.get(`/user/type/${type}`, { params })
             .then((response: AxiosResponse) => {
                 return { data: response.data, headers: response.headers }

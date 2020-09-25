@@ -12,6 +12,8 @@ import Auth from '../containers/auth/login'
 import Profile from '../containers/users/profile'
 import Instructions from '../components/pages/instructions'
 import Games from '../components/pages/game'
+
+import ListAdmin from '../containers/users/list.admin'
 // import ListGame from '../containers/game/list.game'
 
 interface PrivateRouteProps extends RouteProps {
@@ -82,6 +84,12 @@ const routes = [
                 exact: true,
                 private: true,
                 component: Profile
+            },
+            {
+                path: '/ead/user/admin',
+                exact: true,
+                private: true,
+                component: ListAdmin
             },
             {
                 // TODO: Retornar para rota de instruções - remover depois

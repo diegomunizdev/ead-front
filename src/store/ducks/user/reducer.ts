@@ -288,6 +288,8 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
 
         case UserActionTypes.LOAD_USERS_SUCCESS:
             const { users, headers } = action.payload
+            // TODO: remover console
+            console.log('reducer: ', users)
             switch (action.payload.userType) {
                 case UserTypes.ADMIN:
                     return {
@@ -299,7 +301,8 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
                             error: false,
                             users,
                             paginator: {
-                                ...state.listAdmins.paginator, totalRecords: parseInt(headers['x-total-count'], 10)
+                                ...state.listAdmins.paginator, 
+                                totalRecords: parseInt(headers['x-total-count'], 10)
                             }
                         }
                     }

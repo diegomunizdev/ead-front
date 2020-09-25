@@ -13,6 +13,7 @@ import Spinner from '../../components/spinner/spinner'
 import authService from '../../services/auth'
 import { LoginValidator } from '../../store/application/validators/login.validator'
 import { FormErrorMessage } from '../../components/form.error/form.error.message'
+import Logo from '../../assets/logo.png'
 
 interface IState {
     credentials: IAuth,
@@ -63,7 +64,8 @@ class Login extends Component<Props> {
                 {this.props.loading ? <Spinner /> : undefined}
                 <div id="formContent">
                     <div className="m-3">
-                        <h4><strong>CONTROLE ACADÊMICO</strong></h4>
+                        <img src={Logo} alt="Logo" width="70px" />
+                        <h5><strong>CONTROLE ACADÊMICO</strong></h5>
                     </div>
                     <Formik
                         initialValues={credentials}
