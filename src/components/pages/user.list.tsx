@@ -8,10 +8,13 @@ import NameHeader from '../shared/name.header'
 import { Card } from 'primereact/card'
 
 import { INITIAL_STATE } from '../../store/ducks/user/reducer'
+import { Permission } from '../permission/permission'
+import authService from '../../services/auth'
+import { Button } from 'primereact/button'
 
 interface IState {
     readonly users: User[]
-    readonly title?: string
+    readonly nameHeader: string
     readonly header?: string
     readonly loading: boolean
     readonly error: boolean
@@ -47,20 +50,19 @@ class ListUser extends Component<Props> {
 
     public render() {
 
-        const { users, userType } = this.props
-        // TODO: remover console
-        console.log('user.list - userType: ', userType)
-        console.log('user.list - users', users)
+        const { users, nameHeader } = this.props
         return (
             <React.Fragment>
-                <div className="container">
-                    <NameHeader icon="pi pi-users" nameHeader="Usuários" />
-                    <Card style={{ padding: '10px' }}>
+                <div className="container ">
+                    <NameHeader icon="pi pi-users" nameHeader={nameHeader} />
+                    <Card className="fade-in-down">
                         <div className="row">
                             <DataTable
+                                style={{ margin: '10px' }}
                                 value={users}
                                 responsive={true}
                                 lazy={true}
+                                emptyMessage="Nenhum usuário encontrado."
                             >
                                 <Column
                                     header="#"
@@ -75,12 +77,49 @@ class ListUser extends Component<Props> {
                                     header="Email"
                                     field="email" />
                                 <Column
-                                    header="Tipo"
-                                    field="type" />
-                                <Column
-                                    header="Período"
-                                    field="period" />
+                                    style={{ width: '15%' }}
+                                    header="Ações"
+                                    body={data => {
+                                        return <div className="d-flex justify-content-between">
+                                            <Button
+                                                className="p-button-raised p-button-secondary"
+                                                icon="pi pi-user"
+                                                tooltip="Perfil do usuário..."
+                                                tooltipOptions={{ position: 'top' }}
+                                                onClick={() => this.props.history.push(`/ead/user/${data.id}/profile`)}
+                                            />
+                                            <Button
+                                                className="p-button-raised p-button-info"
+                                                icon="pi pi-pencil"
+                                                tooltip="Editar usuário..."
+                                                tooltipOptions={{ position: 'top' }}
+                                                onClick={() => this.props.history.push(`/ead/user/${data.id}/profile`)}
+                                            />
+                                            <Button
+                                                className="p-button-raised p-button-danger"
+                                                icon="pi pi-trash"
+                                                tooltip="Excluir usuário..."
+                                                tooltipOptions={{ position: 'top' }}
+                                                onClick={() => this.props.history.push(`/ead/user/${data.id}/profile`)}
+                                            />
+
+                                        </div>
+                                    }}
+                                />
+
                             </DataTable>
+                        </div>
+                        <div className="d-flex justify-content-between">
+                            <Button
+                                tooltip="Voltar"
+                                onClick={() => this.props.history.goBack()}
+                                icon="pi pi-arrow-left"
+                                className="p-button-raised p-button-secondary" />
+                            <Button
+                                onClick={() => this.props.history.push(`/ead/user/type/new`)}
+                                icon="pi pi-user-plus"
+                                className="p-button-raised p-button-primary"
+                                label="Adicionar" />
                         </div>
                     </Card>
                 </div>

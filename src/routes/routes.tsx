@@ -13,6 +13,7 @@ import Profile from '../containers/users/profile'
 import Instructions from '../components/pages/instructions'
 import Games from '../components/pages/game'
 
+import UserPage from '../components/pages/user.page'
 import ListAdmins from '../containers/users/list.admin'
 import ListStudent from '../containers/users/list.student'
 import ListTeacher from '../containers/users/list.teacher'
@@ -83,6 +84,12 @@ const routes = [
                 component: Main
             },
             {
+                path: '/ead/user/management',
+                exact: true,
+                private: true,
+                component: UserPage
+            },
+            {
                 path: '/ead/user/:userId/profile',
                 exact: true,
                 private: true,
@@ -113,11 +120,10 @@ const routes = [
                 component: ListTeacher
             },
             {
-                // TODO: Voltar para institutions
                 path: '/ead/game/instructions',
                 exact: true,
                 private: true,
-                component: ListGame
+                component: Instructions
             },
             {
                 path: '/ead/game/period',

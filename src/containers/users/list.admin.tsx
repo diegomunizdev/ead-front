@@ -59,11 +59,10 @@ class ListAdmins extends Component<Props> {
             changeUser,
         } = this.props
 
-        // TODO: remover console
-        console.log('users', users)
         return (
             <ListUsers
                 users={users}
+                nameHeader="Administradores"
                 loading={loading}
                 error={error}
                 paginator={paginator}
@@ -76,7 +75,6 @@ class ListAdmins extends Component<Props> {
                 match={match}
                 userType={UserTypes.ADMIN}
             />
-
         )
     }
 }

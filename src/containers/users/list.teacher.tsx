@@ -12,6 +12,7 @@ import { IPaginator, ISearch } from '../../store/ducks/root.types'
 interface IState {
     readonly users: User[]
     readonly loading: boolean
+    readonly success: boolean
     readonly error: boolean
     readonly paginator: any
 
@@ -58,11 +59,10 @@ class ListTeacher extends Component<Props> {
             changeUser,
         } = this.props
 
-        // TODO: remover console
-        console.log('users', users)
         return (
             <ListUsers
                 users={users}
+                nameHeader="Professores"
                 loading={loading}
                 error={error}
                 paginator={paginator}
@@ -81,10 +81,11 @@ class ListTeacher extends Component<Props> {
 }
 
 const mapStateToProps = (state: IApplicationState) => ({
-    users: state.user.listAdmins.users,
-    loading: state.user.listAdmins.loading,
-    paginator: state.user.listAdmins.paginator,
-    error: state.user.listAdmins.error,
+    users: state.user.listTeacher.users,
+    loading: state.user.listTeacher.loading,
+    success: state.user.listTeacher.success,
+    paginator: state.user.listTeacher.paginator,
+    error: state.user.listTeacher.error,
 
     removeVisibilityModal: state.user.removeUser.visibilityModal,
     removeLoading: state.user.removeUser.loading,

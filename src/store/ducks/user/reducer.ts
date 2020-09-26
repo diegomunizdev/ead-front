@@ -311,12 +311,9 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
             }
 
         case UserActionTypes.LOAD_USERS_SUCCESS:
-            const { users: daousers, headers } = action.payload
-            // TODO: remover console
-            console.log('reducer LOAD_USERS_SUCCESS: ', daousers)
+            const { users: { data: daousers }, headers } = action.payload
             switch (action.payload.userType) {
                 case UserTypes.ADMIN:
-                    console.log('dentro do case: ', daousers)
                     return {
                         ...state,
                         listAdmins: {

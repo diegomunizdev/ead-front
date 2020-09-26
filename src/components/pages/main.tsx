@@ -136,7 +136,7 @@ class Main extends Component<IProperties> {
                                     footer={
                                         <div className="d-flex justify-content-end">
                                             <Button
-                                                onClick={() => this.props.history.push(`/ead/user/${authService.UserId()}/profile`)}
+                                                onClick={() => this.props.history.push(`/ead/user/management`)}
                                                 className="p-button-raised p-button-primary"
                                                 label="Acessar" />
                                         </div>
