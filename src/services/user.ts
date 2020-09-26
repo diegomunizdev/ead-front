@@ -32,12 +32,7 @@ class UserService {
             if (paginator.rows) {
                 params.append('limit', String(paginator.rows))
             }
-
-            /* if (paginator.search) {
-                params.append('?name', '*' + paginator.search + '*')
-            } */
         }
-        // TODO: remover console
         return axiosInstance.get(`/user/type/${type}`, { params })
             .then((response: AxiosResponse) => {
                 return { data: response.data, headers: response.headers }

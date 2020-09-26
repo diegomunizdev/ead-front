@@ -60,7 +60,8 @@ export const loadUsers = (userType: UserTypes, paginator?: IPaginator) => action
     paginator
 })
 
-export const loadUsersSuccess = (response: IAxiosResponse<User[]>) => action(UserActionTypes.LOAD_USERS_SUCCESS, {
+export const loadUsersSuccess = (userType: UserTypes, response: IAxiosResponse<User[]>) => action(UserActionTypes.LOAD_USERS_SUCCESS, {
+    userType,
     users: response.data,
     headers: response.headers
 })

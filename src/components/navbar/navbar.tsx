@@ -6,6 +6,7 @@ import { Toolbar } from 'primereact/toolbar'
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
 import authService from '../../services/auth'
+import { Permission } from "../permission/permission";
 
 export interface IMenu {
     exact?: boolean
@@ -56,6 +57,7 @@ class NavBar extends Component<Props, { sb: boolean }> {
                 },
 
             },
+
             {
                 label: 'Show de Aprendizagem', icon: 'pi pi-palette', command: () => {
                     this.props.history.push(`/ead/game/period`)
@@ -79,7 +81,7 @@ class NavBar extends Component<Props, { sb: boolean }> {
                         <Sidebar visible={this.state.sb} baseZIndex={1000000} onHide={() => this.setState({ sb: false })}>
                             {/* Opção de colocar o nome do usuário */}
                             <div style={{ height: '100%' }}>
-                                <div className="d-flex justify-content-center" style={{ marginTop: '15px', borderBottom: '1px solid var(--color-five)' }}>
+                                <div className="d-flex justify-content-center" style={{ marginTop: '15px', borderBottom: '1px solid var(--color-eight)' }}>
                                     <h5 style={{ color: 'white', fontWeight: 'normal', marginTop: '1em' }}>Menu</h5>
                                 </div>
 
@@ -95,6 +97,21 @@ class NavBar extends Component<Props, { sb: boolean }> {
                                             onClick={items.command} />
                                     })
                                 }
+
+                                <Permission type="admin" body={
+                                    <Button
+                                        icon="pi pi-users"
+                                        iconPos="left"
+                                        style={{ textAlign: 'left' }}
+                                        label="Gerenciamento de Usuários"
+                                        className="p-button-menu"
+                                        onClick={() => {
+                                            this.props.history.push('/ead/user/management')
+                                            this.setState({ sb: false })
+                                        }} />
+                                } />
+
+
 
                                 <Button
                                     className="p-button-sm  p-button-danger"

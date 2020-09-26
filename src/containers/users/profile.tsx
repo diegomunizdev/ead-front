@@ -33,7 +33,7 @@ interface IDispatchProps extends RouteComponentProps<any> {
     resetCreateUser(): void
 }
 
-const translateType = {
+export const translateType = {
     [UserTypes.ADMIN]: 'Administrador',
     [UserTypes.STUDENT]: 'Estudante',
     [UserTypes.TEACHER]: 'Professor',

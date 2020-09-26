@@ -48,9 +48,6 @@ class ListGame extends Component<Props> {
             changePaginator
         } = this.props
 
-        // TODO: remover consol.log após os testes
-        console.log('Games: ', games.map(game => game.question))
-
         return (
             <React.Fragment>
                 <div className="container">

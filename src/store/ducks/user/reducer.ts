@@ -2,7 +2,7 @@ import { Reducer } from 'redux'
 import { IUserState, UserActionTypes } from './types'
 import User, { UserTypes } from '../../application/models/user/user'
 
-const INITIAL_STATE: IUserState = {
+export const INITIAL_STATE: IUserState = {
     profile: {
         user: new User(),
         data: new ErrorEvent(''),
@@ -28,7 +28,7 @@ const INITIAL_STATE: IUserState = {
         users: [],
         paginator: {
             first: 0,
-            rows: 40,
+            rows: 10,
             page: 0,
             pageCount: 0,
             totalRecords: 0,
@@ -45,7 +45,7 @@ const INITIAL_STATE: IUserState = {
         users: [],
         paginator: {
             first: 0,
-            rows: 40,
+            rows: 10,
             page: 0,
             pageCount: 0,
             totalRecords: 0,
@@ -62,7 +62,7 @@ const INITIAL_STATE: IUserState = {
         users: [],
         paginator: {
             first: 0,
-            rows: 40,
+            rows: 10,
             page: 0,
             pageCount: 0,
             totalRecords: 0,
@@ -79,7 +79,7 @@ const INITIAL_STATE: IUserState = {
         users: [],
         paginator: {
             first: 0,
-            rows: 40,
+            rows: 10,
             page: 0,
             pageCount: 0,
             totalRecords: 0,
@@ -275,21 +275,43 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
             const { userType } = action.payload
             switch (userType) {
                 case UserTypes.ADMIN:
-                    return { ...state, listAdmins: { ...state.listAdmins, loading: true } }
+                    return {
+                        ...state,
+                        listAdmins: {
+                            ...state.listAdmins,
+                            loading: true
+                        }
+                    }
                 case UserTypes.TEACHER:
-                    return { ...state, listTeacher: { ...state.listTeacher, loading: true } }
+                    return {
+                        ...state,
+                        listTeacher: {
+                            ...state.listTeacher,
+                            loading: true
+                        }
+                    }
                 case UserTypes.TUTOR:
-                    return { ...state, listTutor: { ...state.listTutor, loading: true } }
+                    return {
+                        ...state,
+                        listTutor: {
+                            ...state.listTutor,
+                            loading: true
+                        }
+                    }
                 case UserTypes.STUDENT:
-                    return { ...state, listStudent: { ...state.listStudent, loading: true } }
+                    return {
+                        ...state,
+                        listStudent: {
+                            ...state.listStudent,
+                            loading: true
+                        }
+                    }
                 default:
                     return state
             }
 
         case UserActionTypes.LOAD_USERS_SUCCESS:
-            const { users, headers } = action.payload
-            // TODO: remover console
-            console.log('reducer: ', users)
+            const { users: { data: daousers }, headers } = action.payload
             switch (action.payload.userType) {
                 case UserTypes.ADMIN:
                     return {
@@ -299,9 +321,9 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
                             loading: false,
                             success: true,
                             error: false,
-                            users,
+                            users: daousers,
                             paginator: {
-                                ...state.listAdmins.paginator, 
+                                ...state.listAdmins.paginator,
                                 totalRecords: parseInt(headers['x-total-count'], 10)
                             }
                         }
@@ -315,12 +337,30 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
                             loading: false,
                             success: true,
                             error: false,
-                            users,
+                            users: daousers,
                             paginator: {
-                                ...state.listTeacher.paginator, totalRecords: parseInt(headers['x-total-count'], 10)
+                                ...state.listTeacher.paginator,
+                                totalRecords: parseInt(headers['x-total-count'], 10)
                             }
                         }
                     }
+
+                case UserTypes.STUDENT:
+                    return {
+                        ...state,
+                        listStudent: {
+                            ...state.listStudent,
+                            loading: false,
+                            success: true,
+                            error: false,
+                            users: daousers,
+                            paginator: {
+                                ...state.listStudent.paginator,
+                                totalRecords: parseInt(headers['x-total-count'], 10)
+                            }
+                        }
+                    }
+
                 case UserTypes.TUTOR:
                     return {
                         ...state,
@@ -329,9 +369,10 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
                             loading: false,
                             success: true,
                             error: false,
-                            users,
+                            users: daousers,
                             paginator: {
-                                ...state.listTutor.paginator, totalRecords: parseInt(headers['x-total-count'], 10)
+                                ...state.listTutor.paginator,
+                                totalRecords: parseInt(headers['x-total-count'], 10)
                             }
                         }
                     }

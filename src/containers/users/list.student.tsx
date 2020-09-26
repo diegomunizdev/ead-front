@@ -42,7 +42,7 @@ interface IDispatchProps extends RouteComponentProps<any> {
 
 type Props = IState & IDispatchProps
 
-class ListAdmins extends Component<Props> {
+class ListStudent extends Component<Props> {
 
     public render() {
         const {
@@ -62,7 +62,7 @@ class ListAdmins extends Component<Props> {
         return (
             <ListUsers
                 users={users}
-                nameHeader="Administradores"
+                nameHeader="Estudantes"
                 loading={loading}
                 error={error}
                 paginator={paginator}
@@ -73,18 +73,18 @@ class ListAdmins extends Component<Props> {
                 history={history}
                 location={location}
                 match={match}
-                userType={UserTypes.ADMIN}
+                userType={UserTypes.STUDENT}
             />
         )
     }
 }
 
 const mapStateToProps = (state: IApplicationState) => ({
-    users: state.user.listAdmins.users,
-    success: state.user.listAdmins.success,
-    loading: state.user.listAdmins.loading,
-    paginator: state.user.listAdmins.paginator,
-    error: state.user.listAdmins.error,
+    users: state.user.listStudent.users,
+    success: state.user.listStudent.success,
+    loading: state.user.listStudent.loading,
+    paginator: state.user.listStudent.paginator,
+    error: state.user.listStudent.error,
 
     removeVisibilityModal: state.user.removeUser.visibilityModal,
     removeLoading: state.user.removeUser.loading,
@@ -96,4 +96,4 @@ const mapStateToProps = (state: IApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(UserActions, dispatch)
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListAdmins))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListStudent))
