@@ -13,8 +13,11 @@ import Profile from '../containers/users/profile'
 import Instructions from '../components/pages/instructions'
 import Games from '../components/pages/game'
 
-import ListAdmin from '../containers/users/list.admin'
-// import ListGame from '../containers/game/list.game'
+import ListAdmins from '../containers/users/list.admin'
+import ListStudent from '../containers/users/list.student'
+import ListTeacher from '../containers/users/list.teacher'
+import ListTutor from '../containers/users/list.tutor'
+import ListGame from '../containers/game/list.game'
 
 interface PrivateRouteProps extends RouteProps {
     key?: number
@@ -86,17 +89,35 @@ const routes = [
                 component: Profile
             },
             {
-                path: '/ead/user/admin',
+                path: '/ead/user/type/admin',
                 exact: true,
                 private: true,
-                component: ListAdmin
+                component: ListAdmins
             },
             {
-                // TODO: Retornar para rota de instruções - remover depois
+                path: '/ead/user/type/student',
+                exact: true,
+                private: true,
+                component: ListStudent
+            },
+            {
+                path: '/ead/user/type/tutor',
+                exact: true,
+                private: true,
+                component: ListTutor
+            },
+            {
+                path: '/ead/user/type/teacher',
+                exact: true,
+                private: true,
+                component: ListTeacher
+            },
+            {
+                // TODO: Voltar para institutions
                 path: '/ead/game/instructions',
                 exact: true,
                 private: true,
-                component: Instructions
+                component: ListGame
             },
             {
                 path: '/ead/game/period',

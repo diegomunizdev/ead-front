@@ -36,7 +36,7 @@ function* getAll(action: IActionType) {
     const { userType, paginator } = action.payload
     try {
         const response: IAxiosResponse = yield apply(usersService, usersService.getAll, [userType, paginator])
-        yield put(loadUsersSuccess(response))
+        yield put(loadUsersSuccess(userType, response.data))
     } catch (err) {
         yield put(loadUsersFailure(userType, err))
     }

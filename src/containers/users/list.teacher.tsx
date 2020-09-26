@@ -12,7 +12,6 @@ import { IPaginator, ISearch } from '../../store/ducks/root.types'
 interface IState {
     readonly users: User[]
     readonly loading: boolean
-    readonly success: boolean
     readonly error: boolean
     readonly paginator: any
 
@@ -42,7 +41,7 @@ interface IDispatchProps extends RouteComponentProps<any> {
 
 type Props = IState & IDispatchProps
 
-class ListAdmins extends Component<Props> {
+class ListTeacher extends Component<Props> {
 
     public render() {
         const {
@@ -74,7 +73,7 @@ class ListAdmins extends Component<Props> {
                 history={history}
                 location={location}
                 match={match}
-                userType={UserTypes.ADMIN}
+                userType={UserTypes.TEACHER}
             />
 
         )
@@ -83,7 +82,6 @@ class ListAdmins extends Component<Props> {
 
 const mapStateToProps = (state: IApplicationState) => ({
     users: state.user.listAdmins.users,
-    success: state.user.listAdmins.success,
     loading: state.user.listAdmins.loading,
     paginator: state.user.listAdmins.paginator,
     error: state.user.listAdmins.error,
@@ -98,4 +96,4 @@ const mapStateToProps = (state: IApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(UserActions, dispatch)
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListAdmins))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListTeacher))

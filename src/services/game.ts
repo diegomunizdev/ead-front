@@ -8,7 +8,7 @@ class GameService {
         const params = new URLSearchParams()
 
         if (paginator) {
-            if (paginator.page) {
+            if (paginator.page === 0) {
                 params.append('page', String(paginator.page + 1))
             }
 

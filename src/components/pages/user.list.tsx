@@ -7,6 +7,7 @@ import { IPaginator } from '../../store/ducks/root.types'
 import NameHeader from '../shared/name.header'
 import { Card } from 'primereact/card'
 
+import { INITIAL_STATE } from '../../store/ducks/user/reducer'
 
 interface IState {
     readonly users: User[]
@@ -35,23 +36,26 @@ interface IOwnProps {
 
 type Props = IState & IDispatchProps & IOwnProps
 
-export default class ListUser extends Component<Props> {
+class ListUser extends Component<Props> {
 
     constructor(props: Props) {
         super(props)
-
-        const { loadUsers, userType, paginator } = this.props
-        loadUsers(userType, paginator)
+        this.changePaginator = this.changePaginator.bind(this)
+        const { loadUsers, userType } = this.props
+        loadUsers(userType, INITIAL_STATE.listAdmins.paginator)
     }
 
     public render() {
 
-        const { users } = this.props
+        const { users, userType } = this.props
+        // TODO: remover console
+        console.log('user.list - userType: ', userType)
+        console.log('user.list - users', users)
         return (
             <React.Fragment>
                 <div className="container">
                     <NameHeader icon="pi pi-users" nameHeader="Usuários" />
-                    <Card style={{ padding: '10px'}}>
+                    <Card style={{ padding: '10px' }}>
                         <div className="row">
                             <DataTable
                                 value={users}
@@ -59,7 +63,8 @@ export default class ListUser extends Component<Props> {
                                 lazy={true}
                             >
                                 <Column
-                                    field="#"
+                                    header="#"
+                                    field=""
                                     style={{ width: '5%' }}
                                     body={(data: any, column: any) => column.rowIndex + 1}
                                 />
@@ -82,4 +87,11 @@ export default class ListUser extends Component<Props> {
             </React.Fragment>
         )
     }
+
+    private changePaginator(userType: UserTypes, paginator: any): void {
+        const { changePaginator } = this.props
+        changePaginator(userType, paginator)
+    }
 }
+
+export default ListUser
