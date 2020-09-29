@@ -1,0 +1,10 @@
+@import '../../assets/global.css';
+
+.p-inputnumber {
+}
+
+.p-inputnumber-input {
+    background: var(--color-teen) !important;
+    font-size: 24px !important;
+    text-align: center !important;
+}
