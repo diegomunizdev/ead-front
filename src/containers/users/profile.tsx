@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
-
+import './style.css'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { Fieldset } from 'primereact/fieldset'
 import { InputText } from 'primereact/inputtext'
+import { InputNumber } from 'primereact/inputnumber'
 import User, { UserTypes } from '../../store/application/models/user/user'
 import { Toast } from '../../services/toast'
 // import '../container.style.scss'
 import { IApplicationState } from '../../store'
 import * as UserActions from '../../store/ducks/user/actions'
 import NameHeader from '../../components/shared/name.header'
+
+import authService from '../../services/auth'
 
 interface IState {
     readonly user: User
@@ -74,6 +77,8 @@ class Profile extends Component<Props> {
 
     public render() {
         const { user, changeUser } = this.props
+        // TODO: remover console
+        console.log('user: ', user)
 
         return (
             <React.Fragment>
@@ -135,6 +140,71 @@ class Profile extends Component<Props> {
                                                             }))
                                                         }} />
                                                     <label htmlFor="type">Tipo</label>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div className="row d-flex justify-content-between">
+                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 m-2">
+                                                <span className="p-float-label">
+                                                    <InputNumber
+                                                        id="noteOne"
+                                                        value={user.noteOne}
+                                                        disabled={authService.typeUser() === 'student' ? true : false}
+                                                        onChange={(event: any) => {
+                                                            changeUser(new User().fromJSON({
+                                                                ...user.toJSON(),
+                                                                noteOne: event.target.value
+                                                            }))
+                                                        }} />
+                                                    <label htmlFor="noteTwo">Nota 1 da Primeira unidade</label>
+                                                </span>
+                                            </div>
+                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 m-2">
+                                                <span className="p-float-label">
+                                                    <InputNumber
+                                                        id="noteTwo"
+                                                        value={user.noteTwo}
+                                                        disabled={authService.typeUser() === 'student' ? true : false}
+                                                        onChange={(event: any) => {
+                                                            changeUser(new User().fromJSON({
+                                                                ...user.toJSON(),
+                                                                noteTwo: event.target.value
+                                                            }))
+                                                        }} />
+                                                    <label htmlFor="noteTwo">Nota 2 da Primeira unidade</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="row d-flex justify-content-between">
+                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 m-2">
+                                                <span className="p-float-label">
+                                                    <InputNumber
+                                                        id="noteThree"
+                                                        value={user.noteThree}
+                                                        disabled={authService.typeUser() === 'student' ? true : false}
+                                                        onChange={(event: any) => {
+                                                            changeUser(new User().fromJSON({
+                                                                ...user.toJSON(),
+                                                                noteThree: event.target.value
+                                                            }))
+                                                        }} />
+                                                    <label htmlFor="noteThree">Nota 2 da Primeira unidade</label>
+                                                </span>
+                                            </div>
+                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 m-2">
+                                                <span className="p-float-label">
+                                                    <InputNumber
+                                                        id="noteFour"
+                                                        value={user.noteFour}
+                                                        disabled={authService.typeUser() === 'student' ? true : false}
+                                                        onChange={(event: any) => {
+                                                            changeUser(new User().fromJSON({
+                                                                ...user.toJSON(),
+                                                                noteFour: event.target.value
+                                                            }))
+                                                        }} />
+                                                    <label htmlFor="noteFour">Nota 2 da Primeira unidade</label>
                                                 </span>
                                             </div>
                                         </div>

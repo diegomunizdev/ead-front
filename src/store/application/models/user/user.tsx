@@ -17,7 +17,10 @@ export default class User {
     private _type: UserTypes | undefined
     private _period: string | undefined
     private _gamePoints: number | undefined
-    private _notes: number[] | undefined
+    private _noteOne: number | undefined
+    private _noteTwo: number | undefined
+    private _noteThree: number | undefined
+    private _noteFour: number | undefined
 
     constructor() {
         this._id = ''
@@ -28,7 +31,6 @@ export default class User {
         this._avatar = ''
         this._type = '' as UserTypes
         this._period = ''
-        this._notes = []
     }
 
     get id(): string | undefined {
@@ -104,12 +106,36 @@ export default class User {
         this._gamePoints = value
     }
 
-    get notes(): number[] | undefined {
-        return this._notes
+    get noteOne(): number | undefined {
+        return this._noteOne
     }
 
-    set notes(value: number[] | undefined) {
-        this._notes = value
+    set noteOne(value: number | undefined) {
+        this._noteOne = value
+    }
+
+    get noteTwo(): number | undefined {
+        return this._noteTwo
+    }
+
+    set noteTwo(value: number | undefined) {
+        this._noteTwo = value
+    }
+
+    get noteThree(): number | undefined {
+        return this._noteThree
+    }
+
+    set noteThree(value: number | undefined) {
+        this._noteThree = value
+    }
+
+    get noteFour(): number | undefined {
+        return this._noteFour
+    }
+
+    set noteFour(value: number | undefined) {
+        this._noteFour = value
     }
 
     public fromJSON(json: any): User {
@@ -159,8 +185,20 @@ export default class User {
             this._gamePoints = json.gamePoints
         }
 
-        if (json.notes !== undefined) {
-            this._notes = json.notes
+        if (json.noteOne !== undefined) {
+            this._noteOne = json.noteOne
+        }
+
+        if (json.noteTwo !== undefined) {
+            this._noteTwo = json.noteTwo
+        }
+
+        if (json.noteThree !== undefined) {
+            this._noteThree = json.noteThree
+        }
+
+        if (json.noteFour !== undefined) {
+            this._noteFour = json.noteFour
         }
 
         return this
@@ -177,7 +215,10 @@ export default class User {
             type: this.type ? this.type : undefined,
             period: this.period ? this.period : undefined,
             gamePoints: this.gamePoints ? this.gamePoints : undefined,
-            notes: this.notes ? this.notes : undefined
+            noteOne: this.noteOne ? this.noteOne : undefined,
+            noteTwo: this.noteTwo ? this.noteTwo : undefined,
+            noteThree: this.noteThree ? this.noteThree : undefined,
+            noteFour: this.noteFour ? this.noteFour : undefined
         }
     }
 }
