@@ -4,9 +4,12 @@ import { ConnectedRouter } from 'connected-react-router'
 
 import authService from '../services/auth'
 
+import { VerifyUserType } from '../store/application/utils/verifyUserType'
+
 import Spinner from '../components/spinner/spinner'
 import Main from '../components/pages/main'
-import NotFound from '../components/notFound/not-found'
+import NotFound from '../components/notFound/notfound'
+import AccessDanied from '../components/notFound/accessdenied'
 import Layout from '../containers/layout/layout'
 import Auth from '../containers/auth/login'
 import Profile from '../containers/users/profile'
@@ -27,6 +30,7 @@ interface PrivateRouteProps extends RouteProps {
     redirect?: string
     path?: string
     routes?: any
+    userType?: string[]
     properties?: any[]
 }
 
@@ -45,6 +49,20 @@ export const MenuRoutes = (route: PrivateRouteProps) => {
                         />
                     )
                 }
+
+                if (route.userType) {
+                    if (!VerifyUserType.verifyType(route.userType)) {
+                        return (
+                            <Redirect
+                                to={{
+                                    pathname: '/accessdenied',
+                                    state: { from: props.location }
+                                }}
+                            />
+                        )
+                    }
+                }
+
                 if (route.redirect) {
                     return (
                         <Redirect
@@ -69,7 +87,7 @@ export const MenuRoutes = (route: PrivateRouteProps) => {
 }
 
 const routes = [
-    { path: '/', exact: true, redirect: '/ead' },
+    { path: '/', exact: true, redirect: '/ead/auth/signin' },
     { path: '/ead/auth/signin', exact: true, component: Auth },
     {
         path: '/ead',
@@ -80,24 +98,28 @@ const routes = [
             {
                 path: '/ead/main',
                 exact: true,
+                userType: ['admin', 'student', 'tutor', 'teacher'],
                 private: true,
                 component: Main
             },
             {
                 path: '/ead/user/management',
                 exact: true,
+                userType: ['admin'],
                 private: true,
                 component: UserPage
             },
             {
                 path: '/ead/user/:userId/profile',
                 exact: true,
+                userType: ['admin', 'student', 'tutor', 'teacher'],
                 private: true,
                 component: Profile
             },
             {
                 path: '/ead/user/type/admin',
                 exact: true,
+                userType: ['admin'],
                 private: true,
                 component: ListAdmins
             },
@@ -136,6 +158,11 @@ const routes = [
     {
         path: '/not_found',
         component: NotFound,
+        exact: true
+    },
+    {
+        path: '/accessdenied',
+        component: AccessDanied,
         exact: true
     },
     {
