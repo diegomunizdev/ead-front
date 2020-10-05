@@ -55,10 +55,8 @@ function* getById(action: IActionType) {
 function* update(action: IActionType) {
     const { user } = action.payload
     try {
-        yield apply(usersService, usersService.update, [user])
-        yield put<any>(updateSuccess(user))
-        // yield put(changeUsername(`${user.name}`))
-        // localStorageService.setItem('user', JSON.stringify(user))
+        const response = yield apply(usersService, usersService.update, [user])
+        yield put<any>(updateSuccess(response))
         toastService.show('success', 'Usuário atualizado com sucesso', '')
     } catch (err) {
         yield put(updateFailure(err))

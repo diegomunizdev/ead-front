@@ -148,7 +148,13 @@ const routes = [
                 component: Instructions
             },
             {
-                path: '/ead/game/period',
+                path: '/ead/user/:userId/game/period/:period',
+                exact: true,
+                private: true,
+                component: ListGame
+            },
+            {
+                path: '/ead/user/:userId/game/period/:period/question',
                 exact: true,
                 private: true,
                 component: Games

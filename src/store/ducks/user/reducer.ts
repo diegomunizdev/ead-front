@@ -190,7 +190,6 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
             }
 
         case UserActionTypes.UPDATE_SUCCESS:
-
             return {
                 ...state,
                 createUser: {
@@ -203,7 +202,13 @@ const reducer: Reducer<IUserState> = (state: IUserState = INITIAL_STATE, action:
             const updateError = action.payload.error
             return {
                 ...state,
-                createUser: { ...state.createUser, loading: false, error: true, success: false, data: updateError }
+                createUser: {
+                    ...state.createUser,
+                    loading: false,
+                    error: true,
+                    success: false,
+                    data: updateError
+                }
             }
 
         case UserActionTypes.CREATE_REQUEST:

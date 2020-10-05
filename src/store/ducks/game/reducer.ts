@@ -58,6 +58,8 @@ const reducer: Reducer<IGameState> = (state: IGameState = INITIAL_STATE, action:
                 }
             }
 
+
+
         case GameActionTypes.CHANGE_PAGINATOR:
             const { paginator } = action.payload
             return {
@@ -106,6 +108,38 @@ const reducer: Reducer<IGameState> = (state: IGameState = INITIAL_STATE, action:
                     data: loadError
                 }
             }
+
+        case GameActionTypes.UPDATE_REQUEST:
+            return {
+                ...state,
+                createGame: {
+                    ...state.createGame,
+                    loading: true
+                }
+            }
+
+        case GameActionTypes.UPDATE_SUCCESS:
+            return {
+                ...state,
+                createGame: {
+                    ...state.createGame,
+                    loading: false,
+                }
+            }
+
+        case GameActionTypes.UPDATE_FAILURE:
+            const { error: updateError } = action.payload
+            return {
+                ...state,
+                createGame: {
+                    ...state.createGame,
+                    loading: false,
+                    error: true,
+                    success: false,
+                    data: updateError
+                }
+            }
+
 
         default:
             return state;

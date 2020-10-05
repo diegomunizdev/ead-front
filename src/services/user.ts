@@ -14,7 +14,7 @@ class UserService {
     }
 
     public update(user: User) {
-        return axiosInstance.patch(`/user/${user.id}`, user.toJSON())
+        return axiosInstance.patch(`/user/${user.id}/update`, user.toJSON())
     }
 
     public getById(userId: string) {

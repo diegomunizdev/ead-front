@@ -117,7 +117,7 @@ class Main extends Component<IProperties> {
                                             className="p-button-raised p-button-secondary"
                                             label="Instruções" />
                                         <Button
-                                            onClick={() => this.props.history.push(`/ead/game/period`)}
+                                            onClick={() => this.props.history.push(`/ead/user/${authService.UserId()}/game/period`)}
                                             className="p-button-raised p-button-primary"
                                             label="Jogar" />
                                     </div>
