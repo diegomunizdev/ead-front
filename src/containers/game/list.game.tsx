@@ -125,16 +125,25 @@ class ListGame extends Component<Props, {
                                     })}</div>
                                 }
                             </div>
-                            <div className="d-flex justify-content-end">
+                            <div className="d-flex justify-content-between">
+                                <span style={{
+                                    fontSize: '18px',
+                                    fontWeight: 'bold',
+                                    background: 'var(--color-eight)',
+                                    borderRadius: '2px',
+                                    padding: '5px 10px 5px'
+                                }}
+                                >Valendo {questions[this.state.count]?.points} pontos</span>
                                 <Button
                                     onClick={() => {
                                         this.state.selected === questions[this.state.count]?.correctAnswer
                                             ? this.pontos = this.pontos + 10
                                             : this.pontos = this.pontos + 0
                                         this.setState({ ...this.state, count: this.state.count + 1 })
-                                        this.state.count === (questions.length - 1)
-                                            ? this.handleSubmit(questions[this.state.count], user.toJSON())
-                                            : console.log('certo') // TODO: Configurar depois...
+                                        if (this.state.count === (questions.length - 1)) {
+                                            this.handleSubmit(questions[this.state.count], user.toJSON())
+                                            this.props.history.push('/ead/main')
+                                        }
                                     }}
                                     className="p-button-raised p-button-primary"
                                     label={this.state.count === (questions.length - 1)

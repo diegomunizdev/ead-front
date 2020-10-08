@@ -7,15 +7,12 @@ import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { Fieldset } from 'primereact/fieldset'
 import { InputText } from 'primereact/inputtext'
-import { InputNumber } from 'primereact/inputnumber'
 import User, { UserTypes } from '../../store/application/models/user/user'
 import { Toast } from '../../services/toast'
 // import '../container.style.scss'
 import { IApplicationState } from '../../store'
 import * as UserActions from '../../store/ducks/user/actions'
 import NameHeader from '../../components/shared/name.header'
-
-import authService from '../../services/auth'
 
 interface IState {
     readonly user: User
@@ -77,6 +74,9 @@ class Profile extends Component<Props> {
 
     public render() {
         const { user, changeUser } = this.props
+
+        // TODO: remover console console.log
+        console.table(user.toJSON())
 
         return (
             <React.Fragment>
@@ -140,74 +140,56 @@ class Profile extends Component<Props> {
                                                     <label htmlFor="type">Tipo</label>
                                                 </span>
                                             </div>
+                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 p-4">
+                                                <span className="p-float-label">
+                                                    <InputText id="period" className="input-container"
+                                                        value={user.period}
+                                                        disabled={true}
+                                                        onChange={(event: any) => {
+                                                            changeUser(new User().fromJSON({
+                                                                ...user.toJSON(),
+                                                                period: event.target.value
+                                                            }))
+                                                        }} />
+                                                    <label htmlFor="period">Período</label>
+                                                </span>
+                                            </div>
                                         </div>
 
-                                        <div className="row d-flex justify-content-between">
-                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 m-2">
-                                                <span className="p-float-label">
-                                                    <InputNumber
-                                                        id="noteOne"
-                                                        value={user.noteOne}
-                                                        disabled={authService.typeUser() === 'student' ? true : false}
-                                                        onChange={(event: any) => {
-                                                            changeUser(new User().fromJSON({
-                                                                ...user.toJSON(),
-                                                                noteOne: event.target.value
-                                                            }))
-                                                        }} />
-                                                    <label htmlFor="noteTwo">Nota 1 da Primeira unidade</label>
-                                                </span>
-                                            </div>
-                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 m-2">
-                                                <span className="p-float-label">
-                                                    <InputNumber
-                                                        id="noteTwo"
-                                                        value={user.noteTwo}
-                                                        disabled={authService.typeUser() === 'student' ? true : false}
-                                                        onChange={(event: any) => {
-                                                            changeUser(new User().fromJSON({
-                                                                ...user.toJSON(),
-                                                                noteTwo: event.target.value
-                                                            }))
-                                                        }} />
-                                                    <label htmlFor="noteTwo">Nota 2 da Primeira unidade</label>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className="row d-flex justify-content-between">
-                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 m-2">
-                                                <span className="p-float-label">
-                                                    <InputNumber
-                                                        id="noteThree"
-                                                        value={user.noteThree}
-                                                        disabled={authService.typeUser() === 'student' ? true : false}
-                                                        onChange={(event: any) => {
-                                                            changeUser(new User().fromJSON({
-                                                                ...user.toJSON(),
-                                                                noteThree: event.target.value
-                                                            }))
-                                                        }} />
-                                                    <label htmlFor="noteThree">Nota 2 da Primeira unidade</label>
-                                                </span>
-                                            </div>
-                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 m-2">
-                                                <span className="p-float-label">
-                                                    <InputNumber
-                                                        id="noteFour"
-                                                        value={user.noteFour}
-                                                        disabled={authService.typeUser() === 'student' ? true : false}
-                                                        onChange={(event: any) => {
-                                                            changeUser(new User().fromJSON({
-                                                                ...user.toJSON(),
-                                                                noteFour: event.target.value
-                                                            }))
-                                                        }} />
-                                                    <label htmlFor="noteFour">Nota 2 da Primeira unidade</label>
-                                                </span>
-                                            </div>
+                                        <div className="row d-flex justify-content-between m-3">
+                                            <Card style={{ width: '20%', background: 'var(--color-nine)' }}
+                                                subTitle="Nota 1 da primeira un."
+                                                header={
+                                                    <div className="d-flex justify-content-center p-3">
+                                                        <span style={{ fontSize: '3em' }}>{user.noteOne}</span>
+                                                    </div>}
+                                            />
+                                            <Card style={{ width: '20%', background: 'var(--color-nine)' }}
+                                                subTitle="Nota 2 da primeira un."
+                                                header={
+                                                    <div className="d-flex justify-content-center p-3">
+                                                        <span style={{ fontSize: '3em' }}>{user.noteTwo}</span>
+                                                    </div>}
+                                            />
+                                            <Card style={{ width: '20%', background: 'var(--color-nine)' }}
+                                                subTitle="Nota 1 da segunda un."
+                                                header={
+                                                    <div className="d-flex justify-content-center p-3">
+                                                        <span style={{ fontSize: '3em' }}>{user.noteThree}</span>
+                                                    </div>}
+                                            />
+                                            <Card style={{ width: '20%', background: 'var(--color-nine)' }}
+                                                subTitle="Nota 2 da segunda un."
+                                                header={
+                                                    <div className="d-flex justify-content-center p-3">
+                                                        <span style={{ fontSize: '3em' }}>{user.noteFour}</span>
+                                                    </div>}
+                                            />
                                         </div>
                                     </form>
                                 </Fieldset>
+
+
 
 
                                 <div className="d-flex justify-content-between mt-2">
@@ -230,8 +212,46 @@ class Profile extends Component<Props> {
 
                             </Card>
 
+
+
                         </div>
                     </div>
+                    <div className="row mb-5">
+                        <div className="fade-in-down col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-2">
+                            <Card
+                                title="Sua pontuação"
+                                header={
+                                    <div className="d-flex justify-content-center p-3">
+                                        <span style={{ fontSize: '6em' }}>{user.gamePoints ? user.gamePoints : 0}</span>
+                                    </div>}
+
+                            />
+                        </div>
+                        <div className="fade-in-down col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-2">
+                            <Card
+                                title="Média"
+                                header={
+                                    <div className="d-flex justify-content-center p-3">
+                                        <span style={{ fontSize: '6em' }}>{
+                                            ((user.noteOne ? user.noteOne : 0)
+                                                + (user.noteTwo ? user.noteTwo : 0)
+                                                + (user.noteThree ? user.noteThree : 0)
+                                                + (user.noteFour ? user.noteFour : 0)) / 4
+                                        }</span>
+                                    </div>}
+                            />
+                        </div>
+                        <div className="fade-in-down col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-2">
+                            <Card
+                                title="Faltas"
+                                header={
+                                    <div className="d-flex justify-content-center p-3">
+                                        <span style={{ fontSize: '6em' }}>3/<small>100</small></span>
+                                    </div>}
+                            />
+                        </div>
+                    </div>
+
                 </div>
             </React.Fragment >
 

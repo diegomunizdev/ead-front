@@ -14,7 +14,7 @@ function* update(action: IActionType) {
         yield put<any>(updateGameSuccess(game))
         // yield put(changeUsername(`${user.name}`))
         // localStorageService.setItem('user', JSON.stringify(user))
-        toastService.show('success', 'Pergunta atualizada com sucesso', '')
+        // toastService.show('success', 'Pergunta atualizada com sucesso', '')
     } catch (err) {
         yield put(updateGameFailure(err))
     }
