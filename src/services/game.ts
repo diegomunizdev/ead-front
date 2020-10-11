@@ -1,14 +1,19 @@
 import axiosInstance from './config.axios'
 import { AxiosResponse } from 'axios'
 import { IPaginator } from '../store/ducks/root.types'
+import Game from '../store/application/models/game.model'
 
 class GameService {
+
+    public update(game: Game) {
+        return axiosInstance.patch(`/game/${game.id}/update`, game.toJSON())
+    }
 
     public getAll(paginator: IPaginator) {
         const params = new URLSearchParams()
 
         if (paginator) {
-            if (paginator.page === 0) {
+            if (paginator.page) {
                 params.append('page', String(paginator.page + 1))
             }
 
@@ -21,7 +26,6 @@ class GameService {
             .then((response: AxiosResponse) => {
                 return { data: response.data.data, headers: response.headers }
             })
-
     }
 }
 

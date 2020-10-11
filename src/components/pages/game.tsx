@@ -6,6 +6,8 @@ import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import NameHeader from '../shared/name.header'
 
+import authService from '../../services/auth'
+
 interface IProperties extends RouteComponentProps<any> {
     history: History
 }
@@ -24,7 +26,7 @@ class Games extends Component<IProperties> {
         return (
             <React.Fragment>
                 <div className="container">
-                <NameHeader icon="pi pi-palette" nameHeader="Jogo" />
+                    <NameHeader icon="pi pi-palette" nameHeader="Jogo" />
                     <Card
                         className="card col-sm-12 col-md-12 col-col-lg-12 col-xl-12 mb-2 fade-in-down"
                     >
@@ -59,7 +61,7 @@ class Games extends Component<IProperties> {
                                 <Button
                                     tooltip="Iniciar"
                                     tooltipOptions={{ position: 'top' }}
-                                    onClick={() => this.props.history.push(`/ead/game/period/${card.period}`)}
+                                    onClick={() => this.props.history.push(`/ead/user/${authService.UserId()}/game/period/${card.period}/question/1`)}
                                     className="p-button-raised p-button-primary"
                                     label={card.button} />
                             </div>
