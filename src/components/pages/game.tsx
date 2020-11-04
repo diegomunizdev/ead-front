@@ -61,7 +61,7 @@ class Games extends Component<IProperties> {
                                 <Button
                                     tooltip="Iniciar"
                                     tooltipOptions={{ position: 'top' }}
-                                    onClick={() => this.props.history.push(`/ead/user/${authService.UserId()}/game/period/${card.period}/question/1`)}
+                                    onClick={() => this.props.history.push(`/ead/user/${authService.UserId()}/game/period/${card.period}`)}
                                     className="p-button-raised p-button-primary"
                                     label={card.button} />
                             </div>

@@ -75,9 +75,6 @@ class Profile extends Component<Props> {
     public render() {
         const { user, changeUser } = this.props
 
-        // TODO: remover console console.log
-        console.table(user.toJSON())
-
         return (
             <React.Fragment>
 

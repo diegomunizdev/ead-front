@@ -9,6 +9,25 @@ class GameService {
         return axiosInstance.patch(`/game/${game.id}/update`, game.toJSON())
     }
 
+    public gameByPeriod(period: string, paginator: IPaginator) {
+        const params = new URLSearchParams()
+
+        if (paginator) {
+            if (paginator.page) {
+                params.append('page', String(paginator.page + 1))
+            }
+
+            if (paginator.rows) {
+                params.append('limit', String(paginator.rows))
+            }
+        }
+
+        return axiosInstance.get(`/games/period/${period}`, { params })
+            .then((response: AxiosResponse) => {
+                return { data: response.data.data, headers: response.headers }
+            })
+    }
+
     public getAll(paginator: IPaginator) {
         const params = new URLSearchParams()
 

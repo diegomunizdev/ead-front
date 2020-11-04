@@ -20,6 +20,16 @@ function* update(action: IActionType) {
     }
 }
 
+function* getByPeriod(action: IActionType) {
+    try {
+        const { paginator } = action.payload
+        const response = yield apply(gameService, gameService.gameByPeriod, ['2', paginator])
+        yield put<any>(loadGameSuccess(response))
+    } catch (err) {
+        yield put(loadGameFailure(err))
+    }
+}
+
 function* getAll(action: IActionType) {
     try {
         const { paginator } = action.payload

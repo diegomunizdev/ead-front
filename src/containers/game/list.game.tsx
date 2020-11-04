@@ -89,10 +89,11 @@ class ListGame extends Component<Props, {
     public render() {
         const {
             games,
-            user,
-            paginator,
-            changePaginator
+            user
         } = this.props
+
+        // TODO: remover console
+        console.log('games:', games)
 
         const questions = games.map(el => el)
         const options = games?.map(el => el.options)
