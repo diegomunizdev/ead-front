@@ -25,6 +25,12 @@ export class AuthService {
         return type.type
     }
 
+    public period() {
+        const token = localStorage.getItem('Authorization')
+        const period = this.decodeJWTToken(token ? token : '')
+        return period.period
+    }
+
     public UserId() {
         const token = localStorage.getItem('Authorization')
         const userId = this.decodeJWTToken(token ? token : '')

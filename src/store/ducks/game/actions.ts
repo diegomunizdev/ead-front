@@ -12,7 +12,7 @@ export const changePaginator = (period?: string, paginator?: IPaginator) => [
         period,
         paginator
     }),
-    loadGameRequest(paginator)
+    loadGameRequest(period ? period : '', paginator)
 ]
 
 /* Actions for create */
@@ -34,7 +34,7 @@ export const findGameSuccess = (response: IAxiosResponse<Game[]>) => action(
 export const findGameFailure = (error: ErrorEvent) => action(GameActionTypes.FIND_FAILURE, { error })
 
 /* Action for load */
-export const loadGameRequest = (paginator?: IPaginator) => action(GameActionTypes.LOAD_REQUEST, { paginator })
+export const loadGameRequest = (period: string, paginator?: IPaginator) => action(GameActionTypes.LOAD_REQUEST, { period, paginator })
 
 export const loadGameSuccess = (response: IAxiosResponse<Game[]>) => action(
     GameActionTypes.LOAD_SUCCESS, {

@@ -9,6 +9,28 @@ class GameService {
         return axiosInstance.patch(`/game/${game.id}/update`, game.toJSON())
     }
 
+    public gameByPeriod(period: string, paginator: IPaginator) {
+        const params = new URLSearchParams()
+
+        if (paginator) {
+            if (paginator.page) {
+                params.append('page', String(paginator.page + 1))
+            }
+
+            if (paginator.rows) {
+                params.append('limit', String(paginator.rows))
+            }
+        }
+
+        // TODO: remover console
+        console.log('service period: ', period)
+        return axiosInstance.get(`/game/period/${period}`, { params })
+            .then((response: AxiosResponse) => {
+                console.log('teste', response)
+                return { data: response.data.data, headers: response.headers }
+            })
+    }
+
     public getAll(paginator: IPaginator) {
         const params = new URLSearchParams()
 
