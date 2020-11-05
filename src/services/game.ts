@@ -22,8 +22,11 @@ class GameService {
             }
         }
 
-        return axiosInstance.get(`/games/period/${period}`, { params })
+        // TODO: remover console
+        console.log('service period: ', period)
+        return axiosInstance.get(`/game/period/${period}`, { params })
             .then((response: AxiosResponse) => {
+                console.log('teste', response)
                 return { data: response.data.data, headers: response.headers }
             })
     }

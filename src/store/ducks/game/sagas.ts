@@ -22,8 +22,12 @@ function* update(action: IActionType) {
 
 function* getByPeriod(action: IActionType) {
     try {
-        const { paginator } = action.payload
-        const response = yield apply(gameService, gameService.gameByPeriod, ['2', paginator])
+        const { period, paginator } = action.payload
+        // TODO: remover console
+        console.log('period: ', period)
+        const response = yield apply(gameService, gameService.gameByPeriod, [period, paginator])
+        // TODO: remover console
+        console.log('response: ', response)
         yield put<any>(loadGameSuccess(response))
     } catch (err) {
         yield put(loadGameFailure(err))
@@ -42,7 +46,7 @@ function* getAll(action: IActionType) {
 
 export default function* gameSaga() {
     return yield all([
-        takeLatest(GameActionTypes.LOAD_REQUEST, getAll),
+        takeLatest(GameActionTypes.LOAD_REQUEST, getByPeriod),
         takeLatest(GameActionTypes.UPDATE_REQUEST, update)
     ])
 }

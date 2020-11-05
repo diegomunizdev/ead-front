@@ -15,7 +15,6 @@ import * as UserActions from '../../store/ducks/user/actions'
 import { Card } from 'primereact/card'
 import { Button } from 'primereact/button'
 import NameHeader from '../../components/shared/name.header'
-import { setupMaster } from 'cluster'
 import User from '../../store/application/models/user/user'
 
 interface IState {
@@ -38,7 +37,7 @@ interface IDispatchProps extends RouteComponentProps<any> {
     findUser(userId: string): void
     updateUser(user: User): void
     updateGameRequest(game: Game): void
-    loadGameRequest(paginator: IPaginator): void
+    loadGameRequest(period: string, paginator: IPaginator): void
     changePaginator(period: string, paginator: IPaginator): void
 }
 
@@ -57,7 +56,7 @@ class ListGame extends Component<Props, {
     constructor(props: Props) {
         super(props)
         this.toastService = Toast.getInstance()
-        this.loadGames()
+
         this.pontos = 0
 
         this.state = {
@@ -71,6 +70,7 @@ class ListGame extends Component<Props, {
         const { findUser, match: { params } } = this.props
         if (params && params.userId) {
             findUser(params.userId)
+            this.loadGames(params.period)
         }
     }
 
@@ -91,9 +91,6 @@ class ListGame extends Component<Props, {
             games,
             user
         } = this.props
-
-        // TODO: remover console
-        console.log('games:', games)
 
         const questions = games.map(el => el)
         const options = games?.map(el => el.options)
@@ -158,9 +155,9 @@ class ListGame extends Component<Props, {
         )
     }
 
-    public loadGames(): void {
+    public loadGames(period): void {
         const { loadGameRequest, paginator } = this.props
-        loadGameRequest(paginator)
+        loadGameRequest(period, paginator)
     }
 }
 

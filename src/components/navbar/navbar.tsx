@@ -60,7 +60,7 @@ class NavBar extends Component<Props, { sb: boolean }> {
 
             {
                 label: 'Show de Aprendizagem', icon: 'pi pi-palette', command: () => {
-                    this.props.history.push(`/ead/game/period`)
+                    this.props.history.push(`/ead/user/${authService.UserId()}/game/period/1/question`)
                     this.setState({ sb: false })
                 }
             }

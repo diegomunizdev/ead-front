@@ -6,6 +6,8 @@ import { Button } from 'primereact/button'
 import { Fieldset } from 'primereact/fieldset'
 import NameHeader from '../shared/name.header'
 
+import authService from '../../services/auth'
+
 interface IProperties extends RouteComponentProps<any> {
     history: History
 }
@@ -85,7 +87,7 @@ class Instructions extends Component<IProperties> {
                                     icon="pi pi-arrow-left"
                                     className="p-button-raised p-button-secondary" />
                                 <Button
-                                    onClick={() => this.props.history.push(`/ead/game`)}
+                                    onClick={() => this.props.history.push(`/ead/user/${authService.UserId()}/game/period/1/question`)}
                                     icon="pi pi-palette"
                                     className="p-button-raised p-button-primary"
                                     label="Iniciar jogo" />

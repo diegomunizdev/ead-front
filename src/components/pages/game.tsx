@@ -51,8 +51,8 @@ class Games extends Component<IProperties> {
                                 }} />
                         </div>
                     </Card>
+                    {cards.filter(f => f.period <= authService.period()).map(card => {
 
-                    {cards.map(card => {
                         return <Card key={card.period}
                             className="card col-sm-12 col-md-12 col-col-lg-12 col-xl-12 mb-2 fade-in-down"
                             title={card.title}
