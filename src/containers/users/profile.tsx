@@ -75,6 +75,9 @@ class Profile extends Component<Props> {
     public render() {
         const { user, changeUser } = this.props
 
+        // TODO: remover console.log
+        console.log('user: ', user)
+
         return (
             <React.Fragment>
 

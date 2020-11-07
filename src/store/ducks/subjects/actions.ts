@@ -7,10 +7,10 @@ export const resetSubject = () => action(SubjectsTypes.RESET_CREATE_SUBJECT, {})
 
 export const changeSubject = (subject: Subject) => action(SubjectsTypes.CHANGE_SUBJECT, { subject })
 
-export const changePaginator = (paginator?: IPaginator) => [
+export const changePaginator = (teacherId: string, paginator?: IPaginator) => [
     action(SubjectsTypes.CHANGE_PAGINATOR, { paginator }),
     // TODO: adicionar o loadSubjects
-    loadSubjectRequest(paginator)
+    loadSubjectRequest(teacherId, paginator)
 ]
 
 /* Actions for create subjects */
@@ -31,7 +31,7 @@ export const findSubjectSuccess = (response: IAxiosResponse<Subject[]>) => actio
 export const findSubjectFailure = (error: ErrorEvent) => action(SubjectsTypes.FIND_FAILURE, { error })
 
 /* Actions for load */
-export const loadSubjectRequest = (paginator?: IPaginator) => action(SubjectsTypes.LOAD_REQUEST, { paginator })
+export const loadSubjectRequest = (teacherId: string, paginator?: IPaginator) => action(SubjectsTypes.LOAD_REQUEST, { teacherId, paginator })
 
 export const loadSubjectSuccess = (response: IAxiosResponse<Subject[]>) => action(SubjectsTypes.LOAD_SUCCESS, {
     subjects: response.data,

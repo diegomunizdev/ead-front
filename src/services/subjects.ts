@@ -26,6 +26,15 @@ class SubjectsService {
                 return { data: response.data.data, headers: response.headers }
             })
     }
+
+    public getByTeacher(teacherId: string) {
+        return axiosInstance.get(`/subjects/${teacherId}`)
+            .then((response: AxiosResponse) => {
+                // TODO: remover console.log
+                console.log('service subject:', response.data)
+                return { data: response.data, headers: response.headers }
+            })
+    }
 }
 
 export default new SubjectsService()
