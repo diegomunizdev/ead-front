@@ -133,9 +133,7 @@ const reducer: Reducer<IGameState> = (state: IGameState = INITIAL_STATE, action:
                 ...state,
                 createGame: {
                     ...state.createGame,
-                    loading: false,
                     error: true,
-                    success: false,
                     data: updateError
                 }
             }
