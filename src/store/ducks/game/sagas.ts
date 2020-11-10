@@ -23,11 +23,7 @@ function* update(action: IActionType) {
 function* getByPeriod(action: IActionType) {
     try {
         const { period, paginator } = action.payload
-        // TODO: remover console
-        console.log('period: ', period)
         const response = yield apply(gameService, gameService.gameByPeriod, [period, paginator])
-        // TODO: remover console
-        console.log('response: ', response)
         yield put<any>(loadGameSuccess(response))
     } catch (err) {
         yield put(loadGameFailure(err))

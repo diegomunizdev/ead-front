@@ -14,7 +14,6 @@ import * as SubjectsActions from '../../store/ducks/subjects/actions'
 import { Card } from 'primereact/card'
 import NameHeader from '../../components/shared/name.header'
 
-
 interface IState {
     readonly subjects: Subjects[]
     readonly data: ErrorEvent
@@ -90,14 +89,14 @@ class ListSubjects extends Component<Props> {
                                             icon="pi pi-pencil"
                                             tooltip="Editar Disciplina..."
                                             tooltipOptions={{ position: 'top' }}
-                                        //onClick={() => this.props.history.push(`/ead/user/${data.id}/profile`)}
+                                            onClick={() => this.props.history.push(`/ead/subjects/${data.id}/new`)}
                                         />
                                         <Button
                                             className="p-button-raised p-button-danger"
                                             icon="pi pi-trash"
                                             tooltip="Excluir Disciplina..."
                                             tooltipOptions={{ position: 'top' }}
-                                        //onClick={() => this.props.history.push(`/ead/user/${data.id}/profile`)}
+                                            onClick={() => this.props.history.push(`/ead/subjects/${data.id}`)}
                                         />
 
                                     </div>

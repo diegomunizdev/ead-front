@@ -13,6 +13,7 @@ import { Toast } from '../../services/toast'
 import { IApplicationState } from '../../store'
 import * as UserActions from '../../store/ducks/user/actions'
 import NameHeader from '../../components/shared/name.header'
+import { Permission } from '../../components/permission/permission'
 
 interface IState {
     readonly user: User
@@ -60,10 +61,8 @@ class Profile extends Component<Props> {
         const { user } = this.props
         const newUser = new User().fromJSON({ ...user.toJSON(), password: undefined })
 
-        // const { updateUser } = this.props
-        // TODO: Atualizar usuário e remover console
-        console.log('atualizar ', newUser)
-        // updateUser(newUser)
+        const { updateUser } = this.props
+        updateUser(newUser)
 
     }
 
@@ -74,9 +73,6 @@ class Profile extends Component<Props> {
 
     public render() {
         const { user, changeUser } = this.props
-
-        // TODO: remover console.log
-        console.log('user: ', user)
 
         return (
             <React.Fragment>
@@ -156,41 +152,98 @@ class Profile extends Component<Props> {
                                             </div>
                                         </div>
 
-                                        <div className="row d-flex justify-content-between m-3">
-                                            <Card style={{ width: '20%', background: 'var(--color-nine)' }}
-                                                subTitle="Nota 1 da primeira un."
-                                                header={
-                                                    <div className="d-flex justify-content-center p-3">
-                                                        <span style={{ fontSize: '3em' }}>{user.noteOne}</span>
-                                                    </div>}
-                                            />
-                                            <Card style={{ width: '20%', background: 'var(--color-nine)' }}
-                                                subTitle="Nota 2 da primeira un."
-                                                header={
-                                                    <div className="d-flex justify-content-center p-3">
-                                                        <span style={{ fontSize: '3em' }}>{user.noteTwo}</span>
-                                                    </div>}
-                                            />
-                                            <Card style={{ width: '20%', background: 'var(--color-nine)' }}
-                                                subTitle="Nota 1 da segunda un."
-                                                header={
-                                                    <div className="d-flex justify-content-center p-3">
-                                                        <span style={{ fontSize: '3em' }}>{user.noteThree}</span>
-                                                    </div>}
-                                            />
-                                            <Card style={{ width: '20%', background: 'var(--color-nine)' }}
-                                                subTitle="Nota 2 da segunda un."
-                                                header={
-                                                    <div className="d-flex justify-content-center p-3">
-                                                        <span style={{ fontSize: '3em' }}>{user.noteFour}</span>
-                                                    </div>}
-                                            />
-                                        </div>
+                                        <Permission type="teacher" body={
+                                            <div className="row">
+                                                <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-4">
+                                                    <span className="p-float-label">
+                                                        <InputText id="noteOne" className="input-container"
+                                                            value={user.noteOne}
+                                                            onChange={(event: any) => {
+                                                                changeUser(new User().fromJSON({
+                                                                    ...user.toJSON(),
+                                                                    noteOne: event.target.value
+                                                                }))
+                                                            }} />
+                                                        <label htmlFor="noteOne">Nota 1 da 1°</label>
+                                                    </span>
+                                                </div>
+                                                <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-4">
+                                                    <span className="p-float-label">
+                                                        <InputText id="noteTwo" className="input-container"
+                                                            value={user.noteTwo}
+                                                            onChange={(event: any) => {
+                                                                changeUser(new User().fromJSON({
+                                                                    ...user.toJSON(),
+                                                                    noteTwo: event.target.value
+                                                                }))
+                                                            }} />
+                                                        <label htmlFor="noteTwo">Nota 2 da 1°</label>
+                                                    </span>
+                                                </div>
+                                                <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-4">
+                                                    <span className="p-float-label">
+                                                        <InputText id="noteThree" className="input-container"
+                                                            value={user.noteThree}
+                                                            onChange={(event: any) => {
+                                                                changeUser(new User().fromJSON({
+                                                                    ...user.toJSON(),
+                                                                    noteThree: event.target.value
+                                                                }))
+                                                            }} />
+                                                        <label htmlFor="noteThree">Nota 1 da 2°</label>
+                                                    </span>
+                                                </div>
+                                                <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-4">
+                                                    <span className="p-float-label">
+                                                        <InputText id="noteFour" className="input-container"
+                                                            value={user.noteFour}
+                                                            onChange={(event: any) => {
+                                                                changeUser(new User().fromJSON({
+                                                                    ...user.toJSON(),
+                                                                    noteFour: event.target.value
+                                                                }))
+                                                            }} />
+                                                        <label htmlFor="noteFour">Nota 2 da 2°</label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        } />
+
+                                        <Permission type="student" body={
+                                            <div className="row d-flex justify-content-between m-3">
+                                                <Card style={{ width: '20%', background: 'var(--color-nine)' }}
+                                                    subTitle="Nota 1 da primeira un."
+                                                    header={
+                                                        <div className="d-flex justify-content-center p-3">
+                                                            <span style={{ fontSize: '3em' }}>{user.noteOne}</span>
+                                                        </div>}
+                                                />
+                                                <Card style={{ width: '20%', background: 'var(--color-nine)' }}
+                                                    subTitle="Nota 2 da primeira un."
+                                                    header={
+                                                        <div className="d-flex justify-content-center p-3">
+                                                            <span style={{ fontSize: '3em' }}>{user.noteTwo}</span>
+                                                        </div>}
+                                                />
+                                                <Card style={{ width: '20%', background: 'var(--color-nine)' }}
+                                                    subTitle="Nota 1 da segunda un."
+                                                    header={
+                                                        <div className="d-flex justify-content-center p-3">
+                                                            <span style={{ fontSize: '3em' }}>{user.noteThree}</span>
+                                                        </div>}
+                                                />
+                                                <Card style={{ width: '20%', background: 'var(--color-nine)' }}
+                                                    subTitle="Nota 2 da segunda un."
+                                                    header={
+                                                        <div className="d-flex justify-content-center p-3">
+                                                            <span style={{ fontSize: '3em' }}>{user.noteFour}</span>
+                                                        </div>}
+                                                />
+                                            </div>
+                                        } />
+
                                     </form>
                                 </Fieldset>
-
-
-
 
                                 <div className="d-flex justify-content-between mt-2">
 
@@ -209,13 +262,10 @@ class Profile extends Component<Props> {
                                         onClick={this.handleSubmit} />
 
                                 </div>
-
                             </Card>
-
-
-
                         </div>
                     </div>
+
                     <div className="row mb-5">
                         <div className="fade-in-down col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-2">
                             <Card

@@ -1,8 +1,8 @@
-import { all, apply, put, takeLatest } from 'redux-saga/effects'
+import { all, apply, put, take, takeLatest } from 'redux-saga/effects'
 import { Toast } from '../../../services/toast'
 import { IActionType } from '../root.types'
 import subjectService from '../../../services/subjects'
-import { loadSubjectFailure, loadSubjectSuccess, updateSubjectFailure, updateSubjectSuccess } from './actions'
+import { findSubjectFailure, findSubjectSuccess, loadSubjectFailure, loadSubjectSuccess, updateSubjectFailure, updateSubjectSuccess } from './actions'
 import { SubjectsTypes } from './types'
 const toastService = Toast.getInstance()
 
@@ -17,12 +17,20 @@ function* update(action: IActionType) {
     }
 }
 
+function* getById(action: IActionType) {
+    try {
+        const { subjectId } = action.payload
+        const response = yield apply(subjectService, subjectService.getById, [subjectId])
+        yield put(findSubjectSuccess(response))
+    } catch (err) {
+        yield put(findSubjectFailure(err))
+    }
+}
+
 function* getByTeacher(action: IActionType) {
     const { teacherId, paginator } = action.payload
     try {
         const response = yield apply(subjectService, subjectService.getByTeacher, [teacherId])
-        // TODO: remover console.log
-        console.log('sagas subject:', response)
         yield put<any>(loadSubjectSuccess(response))
     } catch (err) {
         yield put<any>(loadSubjectFailure(err))
@@ -32,6 +40,7 @@ function* getByTeacher(action: IActionType) {
 export default function* subjectSaga() {
     return yield all([
         takeLatest(SubjectsTypes.UPDATE_REQUEST, update),
-        takeLatest(SubjectsTypes.LOAD_REQUEST, getByTeacher)
+        takeLatest(SubjectsTypes.LOAD_REQUEST, getByTeacher),
+        takeLatest(SubjectsTypes.FIND_REQUEST, getById)
     ])
 }

@@ -6,12 +6,14 @@ export default class AccessToken implements IAccessToken {
     private _id: string
     private _exp: number
     private _iat: number
+    private _period: string
     private _type: UserTypes
 
     constructor() {
         this._id = ''
         this._exp = 0
         this._iat = 0
+        this._period = ''
         this._type = '' as UserTypes
     }
 
@@ -37,6 +39,14 @@ export default class AccessToken implements IAccessToken {
 
     set iat(value: number) {
         this._iat = value
+    }
+
+    get period(): string {
+        return this._period
+    }
+
+    set period(value: string) {
+        this._period = value
     }
 
     get type(): UserTypes {

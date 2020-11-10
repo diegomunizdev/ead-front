@@ -8,6 +8,13 @@ class SubjectsService {
         return axiosInstance.post(`/subjects`, subject.toJSON())
     }
 
+    public getById(subjectId: string) {
+        return axiosInstance.get(`/subjects/${subjectId}/subject`)
+            .then(response => {
+                return response
+            })
+    }
+
     public getAll(paginator: IPaginator) {
         const params = new URLSearchParams()
 
@@ -28,10 +35,8 @@ class SubjectsService {
     }
 
     public getByTeacher(teacherId: string) {
-        return axiosInstance.get(`/subjects/${teacherId}`)
+        return axiosInstance.get(`/subjects/${teacherId}/teacher`)
             .then((response: AxiosResponse) => {
-                // TODO: remover console.log
-                console.log('service subject:', response.data)
                 return { data: response.data, headers: response.headers }
             })
     }
