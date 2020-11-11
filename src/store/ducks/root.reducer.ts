@@ -5,14 +5,17 @@ import user from './user/reducer'
 import layout from './layout/reducer'
 import auth from './auth/reducer'
 import game from './game/reducer'
+import subject from './subjects/reducer'
+import classes from './classes/reducer'
 
 const createRootReducer = (history: History) => combineReducers({
     user,
     layout,
     auth,
     game,
+    subject,
+    classes,
     router: connectRouter(history),
-
 })
 
 export default createRootReducer

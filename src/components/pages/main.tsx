@@ -66,6 +66,7 @@ class Main extends Component<IProperties> {
                                 }
                             />
                         </div>
+
                         <Permission type={"teacher"} body={
                             <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
                                 <Card
@@ -78,6 +79,7 @@ class Main extends Component<IProperties> {
                                     footer={
                                         <div className="d-flex justify-content-end">
                                             <Button
+                                                onClick={() => this.props.history.push(`/ead/classes/${authService.UserId()}`)}
                                                 className="p-button-raised p-button-primary"
                                                 label="Acessar" />
                                         </div>
@@ -97,6 +99,7 @@ class Main extends Component<IProperties> {
                                 footer={
                                     <div className="d-flex justify-content-end">
                                         <Button
+                                            onClick={() => this.props.history.push(`/ead/subjects`)}
                                             className="p-button-raised p-button-primary"
                                             label="Acessar" />
                                     </div>} />

@@ -17,11 +17,17 @@ import Instructions from '../components/pages/instructions'
 import Games from '../components/pages/game'
 
 import UserPage from '../components/pages/user.page'
+import SubjectPage from '../components/pages/subjects.page'
+
 import ListAdmins from '../containers/users/list.admin'
 import ListStudent from '../containers/users/list.student'
 import ListTeacher from '../containers/users/list.teacher'
 import ListTutor from '../containers/users/list.tutor'
 import ListGame from '../containers/game/list.game'
+
+import ListSubjects from '../containers/subject/list.subject'
+import ListClasses from '../containers/subject/classes'
+import CreateSubject from '../containers/subject/list.classes'
 
 interface PrivateRouteProps extends RouteProps {
     key?: number
@@ -158,6 +164,36 @@ const routes = [
                 exact: true,
                 private: true,
                 component: Games
+            },
+            {
+                path: '/ead/subjects',
+                exact: true,
+                private: true,
+                component: SubjectPage
+            },
+            {
+                path: '/ead/subjects/:teacherId',
+                exact: true,
+                private: true,
+                component: ListSubjects
+            },
+            {
+                path: '/ead/subjects/:subjectId/new',
+                exact: true,
+                private: true,
+                component: CreateSubject
+            },
+            {
+                path: '/ead/classes/:teacherId',
+                exact: true,
+                private: true,
+                component: ListClasses
+            },
+            {
+                path: '/ead/classes/:subjectId/subject',
+                exact: true,
+                private: true,
+                component: CreateSubject
             }
         ]
     },
