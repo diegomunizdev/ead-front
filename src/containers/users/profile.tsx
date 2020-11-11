@@ -67,8 +67,7 @@ class Profile extends Component<Props> {
     }
 
     public componentWillUnmount(): void {
-        const { resetCreateUser } = this.props
-        resetCreateUser()
+        this.props.resetCreateUser()
     }
 
     public render() {
@@ -127,6 +126,7 @@ class Profile extends Component<Props> {
                                                 <span className="p-float-label">
                                                     <InputText id="type" className="input-container"
                                                         value={translateType[user.type ? user.type : '']}
+                                                        disabled={user.type === 'student'}
                                                         onChange={(event: any) => {
                                                             changeUser(new User().fromJSON({
                                                                 ...user.toJSON(),
@@ -266,41 +266,43 @@ class Profile extends Component<Props> {
                         </div>
                     </div>
 
-                    <div className="row mb-5">
-                        <div className="fade-in-down col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-2">
-                            <Card
-                                title="Sua pontuação"
-                                header={
-                                    <div className="d-flex justify-content-center p-3">
-                                        <span style={{ fontSize: '6em' }}>{user.gamePoints ? user.gamePoints : 0}</span>
-                                    </div>}
+                    <Permission type="student" body={
+                        <div className="row mb-5">
+                            <div className="fade-in-down col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-2">
+                                <Card
+                                    title="Sua pontuação"
+                                    header={
+                                        <div className="d-flex justify-content-center p-3">
+                                            <span style={{ fontSize: '6em' }}>{user.gamePoints ? user.gamePoints : 0}</span>
+                                        </div>}
 
-                            />
+                                />
+                            </div>
+                            <div className="fade-in-down col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-2">
+                                <Card
+                                    title="Média"
+                                    header={
+                                        <div className="d-flex justify-content-center p-3">
+                                            <span style={{ fontSize: '6em' }}>{
+                                                ((user.noteOne ? user.noteOne : 0)
+                                                    + (user.noteTwo ? user.noteTwo : 0)
+                                                    + (user.noteThree ? user.noteThree : 0)
+                                                    + (user.noteFour ? user.noteFour : 0)) / 4
+                                            }</span>
+                                        </div>}
+                                />
+                            </div>
+                            <div className="fade-in-down col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-2">
+                                <Card
+                                    title="Faltas"
+                                    header={
+                                        <div className="d-flex justify-content-center p-3">
+                                            <span style={{ fontSize: '6em' }}>3/<small>100</small></span>
+                                        </div>}
+                                />
+                            </div>
                         </div>
-                        <div className="fade-in-down col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-2">
-                            <Card
-                                title="Média"
-                                header={
-                                    <div className="d-flex justify-content-center p-3">
-                                        <span style={{ fontSize: '6em' }}>{
-                                            ((user.noteOne ? user.noteOne : 0)
-                                                + (user.noteTwo ? user.noteTwo : 0)
-                                                + (user.noteThree ? user.noteThree : 0)
-                                                + (user.noteFour ? user.noteFour : 0)) / 4
-                                        }</span>
-                                    </div>}
-                            />
-                        </div>
-                        <div className="fade-in-down col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-2">
-                            <Card
-                                title="Faltas"
-                                header={
-                                    <div className="d-flex justify-content-center p-3">
-                                        <span style={{ fontSize: '6em' }}>3/<small>100</small></span>
-                                    </div>}
-                            />
-                        </div>
-                    </div>
+                    } />
 
                 </div>
             </React.Fragment >

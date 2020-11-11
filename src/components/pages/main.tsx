@@ -66,6 +66,7 @@ class Main extends Component<IProperties> {
                                 }
                             />
                         </div>
+
                         <Permission type={"teacher"} body={
                             <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
                                 <Card

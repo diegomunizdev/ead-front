@@ -27,7 +27,7 @@ import ListGame from '../containers/game/list.game'
 
 import ListSubjects from '../containers/subject/list.subject'
 import ListClasses from '../containers/subject/classes'
-import CreateSubject from '../containers/subject/create'
+import CreateSubject from '../containers/subject/list.classes'
 
 interface PrivateRouteProps extends RouteProps {
     key?: number

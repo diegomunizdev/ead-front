@@ -6,6 +6,7 @@ import layout from './layout/reducer'
 import auth from './auth/reducer'
 import game from './game/reducer'
 import subject from './subjects/reducer'
+import classes from './classes/reducer'
 
 const createRootReducer = (history: History) => combineReducers({
     user,
@@ -13,6 +14,7 @@ const createRootReducer = (history: History) => combineReducers({
     auth,
     game,
     subject,
+    classes,
     router: connectRouter(history),
 })
 

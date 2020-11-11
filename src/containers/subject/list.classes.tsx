@@ -16,6 +16,7 @@ import User, { UserTypes } from '../../store/application/models/user/user'
 import * as UserActions from '../../store/ducks/user/actions'
 import { IPaginator } from '../../store/ducks/root.types'
 import { INITIAL_STATE } from '../../store/ducks/user/reducer'
+import user from '../../services/user'
 
 interface IState {
   readonly subject: Subjects
@@ -95,46 +96,78 @@ class CreateSubjects extends Component<Props> {
         <div className="container">
           <NameHeader icon="pi pi-bars" nameHeader={subject.name ? subject.name : ''} />
 
-          <Card title="Lista de aluno matriculados" subTitle={`Total: ${String(users.length)}`}>
-            <DataTable
-              value={users}
-              responsive={true}
-              lazy={true}
-              emptyMessage="Nenhum aluno matriculado nesta turma."
-            >
-              <Column
-                header="#"
-                style={{ width: '5%' }}
-                body={(data: any, column: any) => column.rowIndex + 1}
-              />
-              <Column
-                header="Alunos"
-                field="name"
-              />
-              <Column
-                style={{ width: '15%' }}
-                header="Ações"
-                body={data => {
-                  return <div className="d-flex justify-content-center">
-                    <Button
-                      className="p-button-raised p-button-info"
-                      icon="pi pi-pencil"
-                      tooltip="Editar aluno..."
-                      tooltipOptions={{ position: 'top' }}
-                      onClick={() => this.props.history.push(`/ead/user/${data.id}/profile`)}
-                    />
-                  </div>
-                }}
-              />
+          <div className="row">
+            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <Card title="Lista de aluno matriculados" subTitle={`Total: ${String(users.length)}`}>
+                <DataTable
+                  value={users}
+                  responsive={true}
+                  lazy={true}
+                  emptyMessage="Nenhum aluno matriculado nesta turma."
+                >
+                  <Column
+                    header="#"
+                    style={{ width: '5%' }}
+                    body={(data: any, column: any) => column.rowIndex + 1}
+                  />
+                  <Column
+                    header="Alunos"
+                    field="name"
+                  />
+                  <Column
+                    style={{ width: '15%' }}
+                    header="Ações"
+                    body={data => {
+                      return <div className="d-flex justify-content-center">
+                        <Button
+                          className="p-button-raised p-button-info"
+                          icon="pi pi-pencil"
+                          tooltip="Editar aluno..."
+                          tooltipOptions={{ position: 'top' }}
+                          onClick={() => this.props.history.push(`/ead/user/${data.id}/profile`)}
+                        />
+                      </div>
+                    }}
+                  />
 
-            </DataTable>
-            <Button
-              style={{ marginTop: '10px' }}
-              tooltip="Voltar"
-              onClick={() => this.props.history.goBack()}
-              icon="pi pi-arrow-left"
-              className="p-button-raised p-button-secondary" />
-          </Card>
+                </DataTable>
+
+              </Card>
+            </div>
+
+            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <Card title="Registro de aulas" subTitle={`Total de aulas: ${String(users.length)}`}>
+                <DataTable
+                  value={users}
+                  responsive={true}
+                  lazy={true}
+                  emptyMessage="Nenhum aluno matriculado nesta turma."
+                >
+                  <Column
+                    header="#"
+                    style={{ width: '5%' }}
+                    body={(data: any, column: any) => column.rowIndex + 1}
+                  />
+                  <Column
+                    header="Assuntos"
+                    field="name"
+                  />
+                  <Column
+                    header="Data"
+                    field="name"
+                  />
+                </DataTable>
+
+              </Card>
+            </div>
+          </div>
+
+          <Button
+            style={{ marginTop: '10px' }}
+            tooltip="Voltar"
+            onClick={() => this.props.history.goBack()}
+            icon="pi pi-arrow-left"
+            className="p-button-raised p-button-secondary" />
         </div>
       </React.Fragment>
     )
