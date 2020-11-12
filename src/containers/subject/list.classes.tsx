@@ -84,23 +84,6 @@ class CreateSubjects extends Component<Props> {
     }
   }
 
-  public handleSubmit = async (values) => {
-    const subject = new Subjects().fromJSON({ ...values })
-    if (subject.id) {
-      const { updateSubjectRequest } = this.props
-      this.spinnerMessage = 'Atualizando disciplina...'
-      updateSubjectRequest(subject)
-    } else {
-      const { createSubjectRequest } = this.props
-      this.spinnerMessage = 'Salvando disciplina...'
-      createSubjectRequest(subject)
-    }
-  }
-
-  public componentWillUnmount(): void {
-    this.props.resetSubject()
-  }
-
   public render() {
     const { subject, users, classes } = this.props
 
@@ -109,9 +92,9 @@ class CreateSubjects extends Component<Props> {
         <div className="container">
           <NameHeader icon="pi pi-bars" nameHeader={subject.name ? subject.name : ''} />
 
-          <div className="row">
+          <div className="row fade-in-down">
             <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              <Card title="Lista de aluno matriculados" subTitle={`Total: ${String(users.length)}`}>
+              <Card title="Lista de aluno matriculados" subTitle={`Total de Alunos: ${String(users.length)}`}>
                 <DataTable
                   value={users}
                   responsive={true}
@@ -149,12 +132,12 @@ class CreateSubjects extends Component<Props> {
             </div>
 
             <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              <Card title="Registro de aulas" subTitle={`Total de aulas: ${String(users.length)}`}>
+              <Card title="Registro de aulas" subTitle={`Total de aulas: ${String(classes.length)}`}>
                 <DataTable
                   value={classes}
                   responsive={true}
                   lazy={true}
-                  emptyMessage="Nenhum aluno matriculado nesta turma."
+                  emptyMessage="Nenhuma aula registrada até o momento."
                 >
                   <Column
                     header="#"
@@ -175,7 +158,7 @@ class CreateSubjects extends Component<Props> {
                   <Button
                     style={{ marginTop: '10px' }}
                     label="Registrar aula"
-                    onClick={() => this.props.history.push(`/subject/${subject.id}/classes/new`)}
+                    onClick={() => this.props.history.push(`/ead/subject/${subject.id}/classes/new`)}
                     className="p-button-raised p-button-primary" />
                 </div>
 
@@ -185,7 +168,7 @@ class CreateSubjects extends Component<Props> {
 
           <Button
             style={{ marginTop: '10px' }}
-            tooltip="Voltar"
+            label="Voltar"
             onClick={() => this.props.history.goBack()}
             icon="pi pi-arrow-left"
             className="p-button-raised p-button-secondary" />

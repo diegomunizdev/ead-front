@@ -26,8 +26,9 @@ import ListTutor from '../containers/users/list.tutor'
 import ListGame from '../containers/game/list.game'
 
 import ListSubjects from '../containers/subject/list.subject'
-import ListClasses from '../containers/subject/classes'
 import CreateSubject from '../containers/subject/list.classes'
+import ListClasses from '../containers/subject/classes'
+import CreateClasses from '../containers/subject/create.classes'
 
 interface PrivateRouteProps extends RouteProps {
     key?: number
@@ -194,6 +195,12 @@ const routes = [
                 exact: true,
                 private: true,
                 component: CreateSubject
+            },
+            {
+                path: '/ead/subject/:subjectId/classes/new',
+                exact: true,
+                private: true,
+                component: CreateClasses
             }
         ]
     },
