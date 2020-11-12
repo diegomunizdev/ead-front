@@ -1,4 +1,4 @@
-import { all, apply, put, take, takeLatest } from 'redux-saga/effects'
+import { all, apply, put, takeLatest } from 'redux-saga/effects'
 import { Toast } from '../../../services/toast'
 import { IActionType } from '../root.types'
 import subjectService from '../../../services/subjects'

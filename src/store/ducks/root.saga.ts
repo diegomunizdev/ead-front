@@ -3,12 +3,14 @@ import authSaga from './auth/sagas'
 import userSaga from './user/sagas'
 import gameSaga from './game/sagas'
 import subjectSaga from './subjects/sagas'
+import classesSaga from './classes/sagas'
 
 export default function* rootSaga() {
     return yield all([
         fork(authSaga),
         fork(userSaga),
         fork(gameSaga),
-        fork(subjectSaga)
+        fork(subjectSaga),
+        fork(classesSaga)
     ])
 }

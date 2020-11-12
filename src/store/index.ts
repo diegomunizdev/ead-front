@@ -12,13 +12,15 @@ import { ILayoutState } from './ducks/layout/types'
 import { IAuthState } from './ducks/auth/types'
 import { IGameState } from './ducks/game/types'
 import { ISubjectState } from './ducks/subjects/types'
+import { IClassesState } from './ducks/classes/types'
 
 export interface IApplicationState {
     layout: ILayoutState,
     auth: IAuthState,
     user: IUserState,
     game: IGameState,
-    subject: ISubjectState
+    subject: ISubjectState,
+    classes: IClassesState
 }
 
 export const history = createBrowserHistory()
