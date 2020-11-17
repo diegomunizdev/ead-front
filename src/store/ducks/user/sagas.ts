@@ -1,6 +1,6 @@
 import { all, apply, put, takeLatest } from 'redux-saga/effects'
 
-import usersService from '../../../services/user'
+import usersService from '../../../services/user.service'
 import {
     createFailure,
     createSuccess,
@@ -16,7 +16,7 @@ import {
 } from './actions'
 import { IActionType, IAxiosResponse } from '../root.types'
 // import User from '../../application/models/user/user'
-import { Toast } from '../../../services/toast'
+import { Toast } from '../../../services/toast.service'
 import { UserActionTypes } from './types'
 
 const toastService = Toast.getInstance()

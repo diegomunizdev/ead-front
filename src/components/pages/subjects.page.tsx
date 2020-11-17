@@ -5,9 +5,9 @@ import { History } from 'history'
 import { Card } from 'primereact/card'
 import { Button } from 'primereact/button'
 
-import { Toast } from '../../services/toast'
+import { Toast } from '../../services/toast.service'
 import NameHeader from '../shared/name.header'
-import authService from '../../services/auth'
+import authService from '../../services/auth.service'
 import { Permission } from '../permission/permission'
 
 interface IProperties extends RouteComponentProps<any> {

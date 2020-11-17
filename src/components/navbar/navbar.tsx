@@ -5,7 +5,7 @@ import '../styles.css'
 import { Toolbar } from 'primereact/toolbar'
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
-import authService from '../../services/auth'
+import authService from '../../services/auth.service'
 import { Permission } from "../permission/permission";
 
 export interface IMenu {

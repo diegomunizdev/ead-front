@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import { Redirect, Route, RouteProps, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
 
-import authService from '../services/auth'
+import authService from '../services/auth.service'
 
 import { VerifyUserType } from '../store/application/utils/verifyUserType'
 

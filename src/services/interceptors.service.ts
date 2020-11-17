@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios'
-import { Toast } from './toast'
+import { Toast } from './toast.service'
 import { history } from '../store'
 
 const toast = Toast.getInstance()

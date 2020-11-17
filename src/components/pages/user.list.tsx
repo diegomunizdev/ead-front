@@ -9,7 +9,7 @@ import { Card } from 'primereact/card'
 
 import { INITIAL_STATE } from '../../store/ducks/user/reducer'
 import { Permission } from '../permission/permission'
-import authService from '../../services/auth'
+import authService from '../../services/auth.service'
 import { Button } from 'primereact/button'
 
 interface IState {

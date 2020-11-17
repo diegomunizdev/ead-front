@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import authService from '../../services/auth'
+import authService from '../../services/auth.service'
 
 interface IProps {
     type: string

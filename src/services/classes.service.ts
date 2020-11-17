@@ -1,5 +1,5 @@
 import Classes from '../store/application/models/classes.model'
-import axiosInstance from './config.axios'
+import axiosInstance from './config.axios.service'
 
 class ClassesService {
   public create(classe: Classes) {

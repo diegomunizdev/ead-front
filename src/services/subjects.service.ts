@@ -1,4 +1,4 @@
-import axiosInstance from './config.axios'
+import axiosInstance from './config.axios.service'
 import { AxiosResponse } from 'axios'
 import { IPaginator } from '../store/ducks/root.types'
 import Subjects from '../store/application/models/subjects.model'
