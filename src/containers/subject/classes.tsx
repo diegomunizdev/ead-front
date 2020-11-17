@@ -86,7 +86,7 @@ class ListClasses extends Component<Props> {
                     <Button
                       className="p-button-raised p-button-info"
                       icon="pi pi-bars"
-                      tooltip="Listar alunos..."
+                      tooltip="Informações da disciplina..."
                       tooltipOptions={{ position: 'top' }}
                       onClick={() => this.props.history.push(`/ead/classes/${data.id}/subject`)}
                     />
