@@ -1,9 +1,9 @@
 import { all, apply, put, takeLatest, } from 'redux-saga/effects'
 import { IActionType } from '../root.types'
-import gameService from '../../../services/game'
+import gameService from '../../../services/game.service'
 import { loadGameFailure, loadGameSuccess, updateGameFailure, updateGameSuccess } from './actions'
 import { GameActionTypes } from './types'
-import { Toast } from '../../../services/toast'
+import { Toast } from '../../../services/toast.service'
 
 const toastService = Toast.getInstance()
 

@@ -8,7 +8,7 @@ import { RadioButton } from 'primereact/radiobutton';
 
 import Game from '../../store/application/models/game.model'
 import { IPaginator } from '../../store/ducks/root.types'
-import { Toast } from '../../services/toast'
+import { Toast } from '../../services/toast.service'
 import { IApplicationState } from '../../store'
 import * as GameActions from '../../store/ducks/game/actions'
 import * as UserActions from '../../store/ducks/user/actions'

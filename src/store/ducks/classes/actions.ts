@@ -19,7 +19,7 @@ export const createClassesRequest = (classe: Classes) => action(ClassesTypes.CRE
 
 export const createClassesSuccess = (classe: Classes) => action(ClassesTypes.CREATE_SUCCESS, { classe })
 
-export const createClassesFailute = (error: ErrorEvent) => action(ClassesTypes.CREATE_FAILURE, { error })
+export const createClassesFailure = (error: ErrorEvent) => action(ClassesTypes.CREATE_FAILURE, { error })
 
 /* Actions for find classes */
 export const findClassesRequest = (classesId: string) => action(ClassesTypes.FIND_REQUEST, { classesId })

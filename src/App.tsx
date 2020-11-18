@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux'
 
 import store, { history } from './store'
-import Toast from './services/toast'
+import Toast from './services/toast.service'
 import Routes from './routes/routes'
 
 import { Growl } from 'primereact/growl'

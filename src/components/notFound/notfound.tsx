@@ -5,7 +5,7 @@ import { History } from 'history'
 import { Card } from 'primereact/card'
 import { Button } from 'primereact/button'
 
-import authService from '../../services/auth'
+import authService from '../../services/auth.service'
 
 interface IProperties extends RouteComponentProps<any> {
     history: History

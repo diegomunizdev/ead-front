@@ -5,8 +5,8 @@ import { History } from 'history'
 import { Card } from 'primereact/card'
 import { Button } from 'primereact/button'
 
-import { Toast } from '../../services/toast'
-import authService from '../../services/auth'
+import { Toast } from '../../services/toast.service'
+import authService from '../../services/auth.service'
 import { Permission } from '../permission/permission'
 import NameHeader from '../shared/name.header'
 

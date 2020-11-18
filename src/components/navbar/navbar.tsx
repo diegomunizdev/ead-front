@@ -5,7 +5,7 @@ import '../styles.css'
 import { Toolbar } from 'primereact/toolbar'
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
-import authService from '../../services/auth'
+import authService from '../../services/auth.service'
 import { Permission } from "../permission/permission";
 
 export interface IMenu {
@@ -97,6 +97,19 @@ class NavBar extends Component<Props, { sb: boolean }> {
                                             onClick={items.command} />
                                     })
                                 }
+
+                                <Permission type="teacher" body={
+                                    <Button
+                                        icon="pi pi-users"
+                                        iconPos="left"
+                                        style={{ textAlign: 'left' }}
+                                        label="Turmas"
+                                        className="p-button-menu"
+                                        onClick={() => {
+                                            this.props.history.push(`/ead/classes/${authService.UserId()}`)
+                                            this.setState({ sb: false })
+                                        }} />
+                                } />
 
                                 <Permission type="admin" body={
                                     <Button

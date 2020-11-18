@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-import { Toast } from '../../services/toast'
+import { Toast } from '../../services/toast.service'
 import * as SubjectsActions from '../../store/ducks/subjects/actions'
 import Subjects from '../../store/application/models/subjects.model'
 import { IApplicationState } from '../../store'
@@ -12,11 +12,14 @@ import { Button } from 'primereact/button'
 import { Column } from 'primereact/column'
 import { DataTable } from 'primereact/datatable'
 
+import * as ClassesActions from '../../store/ducks/classes/actions'
+
 import User, { UserTypes } from '../../store/application/models/user/user'
 import * as UserActions from '../../store/ducks/user/actions'
 import { IPaginator } from '../../store/ducks/root.types'
 import { INITIAL_STATE } from '../../store/ducks/user/reducer'
-import user from '../../services/user'
+import user from '../../services/user.service'
+import Classes from '../../store/application/models/classes.model'
 
 interface IState {
   readonly subject: Subjects
@@ -25,7 +28,14 @@ interface IState {
   readonly success: boolean
   readonly error: boolean
 
+  readonly classes: Classes[]
+  readonly dataClasse: ErrorEvent
+  readonly loadingClasse: boolean
+  readonly errorClasse: boolean
+  readonly successClasse: boolean
+
   readonly users: User[]
+  readonly dataUser: ErrorEvent
   readonly loadingUser: boolean
   readonly successUser: boolean
   readonly errorUser: boolean
@@ -38,6 +48,8 @@ interface IDispatchProps extends RouteComponentProps<any> {
   changeSubject(subject: Subjects): void
   findSubjectRequest(subjectId: string): void
   updateSubjectRequest(subject: Subjects): void
+
+  loadClassesRequest(subjectId: string, paginator?: IPaginator): void
 
   loadUsers(userType: UserTypes, paginator: IPaginator): void
 }
@@ -59,7 +71,7 @@ class CreateSubjects extends Component<Props> {
     this.spinnerMessage = ''
     this.toastService = Toast.getInstance()
 
-    const { findSubjectRequest, changeSubject, match: { params }, loadUsers, userType } = this.props
+    const { loadClassesRequest, findSubjectRequest, changeSubject, match: { params }, loadUsers, userType } = this.props
     loadUsers(UserTypes.STUDENT, INITIAL_STATE.listAdmins.paginator)
     if (params && params.subjectId) {
       changeSubject(new Subjects().fromJSON({
@@ -68,37 +80,21 @@ class CreateSubjects extends Component<Props> {
       }))
       this.spinnerMessage = 'Buscando disciplina...'
       findSubjectRequest(params.subjectId)
+      loadClassesRequest(params.subjectId)
     }
-  }
-
-  public handleSubmit = async (values) => {
-    const subject = new Subjects().fromJSON({ ...values })
-    if (subject.id) {
-      const { updateSubjectRequest } = this.props
-      this.spinnerMessage = 'Atualizando disciplina...'
-      updateSubjectRequest(subject)
-    } else {
-      const { createSubjectRequest } = this.props
-      this.spinnerMessage = 'Salvando disciplina...'
-      createSubjectRequest(subject)
-    }
-  }
-
-  public componentWillUnmount(): void {
-    this.props.resetSubject()
   }
 
   public render() {
-    const { subject, users } = this.props
+    const { subject, users, classes } = this.props
 
     return (
       <React.Fragment>
         <div className="container">
           <NameHeader icon="pi pi-bars" nameHeader={subject.name ? subject.name : ''} />
 
-          <div className="row">
+          <div className="row fade-in-down">
             <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              <Card title="Lista de aluno matriculados" subTitle={`Total: ${String(users.length)}`}>
+              <Card title="Lista de aluno matriculados" subTitle={`Total de Alunos: ${String(users.length)}`}>
                 <DataTable
                   value={users}
                   responsive={true}
@@ -136,12 +132,12 @@ class CreateSubjects extends Component<Props> {
             </div>
 
             <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              <Card title="Registro de aulas" subTitle={`Total de aulas: ${String(users.length)}`}>
+              <Card title="Registro de aulas" subTitle={`Total de aulas: ${String(classes.length)}`}>
                 <DataTable
-                  value={users}
+                  value={classes}
                   responsive={true}
                   lazy={true}
-                  emptyMessage="Nenhum aluno matriculado nesta turma."
+                  emptyMessage="Nenhuma aula registrada até o momento."
                 >
                   <Column
                     header="#"
@@ -150,13 +146,21 @@ class CreateSubjects extends Component<Props> {
                   />
                   <Column
                     header="Assuntos"
-                    field="name"
+                    field="record"
                   />
                   <Column
                     header="Data"
-                    field="name"
+                    field="date"
                   />
                 </DataTable>
+
+                <div className="d-flex justify-content-end">
+                  <Button
+                    style={{ marginTop: '10px' }}
+                    label="Registrar aula"
+                    onClick={() => this.props.history.push(`/ead/subject/${subject.id}/classes/new`)}
+                    className="p-button-raised p-button-primary" />
+                </div>
 
               </Card>
             </div>
@@ -164,10 +168,11 @@ class CreateSubjects extends Component<Props> {
 
           <Button
             style={{ marginTop: '10px' }}
-            tooltip="Voltar"
+            label="Voltar"
             onClick={() => this.props.history.goBack()}
             icon="pi pi-arrow-left"
             className="p-button-raised p-button-secondary" />
+
         </div>
       </React.Fragment>
     )
@@ -181,6 +186,12 @@ const mapStateToProps = (state: IApplicationState) => ({
   success: state.subject.createSubject.success,
   error: state.subject.createSubject.error,
 
+  classes: state.classes.listClasses.classes,
+  dataClasse: state.classes.listClasses.data,
+  loadingClasse: state.classes.listClasses.loading,
+  errorClasse: state.classes.listClasses.error,
+  successClasse: state.classes.listClasses.success,
+
   users: state.user.listStudent.users,
   loadingUser: state.user.listStudent.loading,
   successUser: state.user.listStudent.success,
@@ -188,6 +199,10 @@ const mapStateToProps = (state: IApplicationState) => ({
   paginator: state.user.listStudent.paginator
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ ...SubjectsActions, ...UserActions }, dispatch)
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+  ...SubjectsActions,
+  ...UserActions,
+  ...ClassesActions
+}, dispatch)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateSubjects))

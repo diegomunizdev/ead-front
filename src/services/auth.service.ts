@@ -1,4 +1,4 @@
-import axiosInstance from './config.axios'
+import axiosInstance from './config.axios.service'
 import jwtDecode from 'jwt-decode'
 import AccessToken from '../store/application/models/user/access.token'
 import { IAuth } from '../store/ducks/auth/types'

@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
-import authService from '../../../services/auth'
+import authService from '../../../services/auth.service'
 import { AxiosResponse } from 'axios'
 import {
     loginFailure,

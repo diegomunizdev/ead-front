@@ -6,7 +6,7 @@ import { Button } from 'primereact/button'
 import { Fieldset } from 'primereact/fieldset'
 import NameHeader from '../shared/name.header'
 
-import authService from '../../services/auth'
+import authService from '../../services/auth.service'
 
 interface IProperties extends RouteComponentProps<any> {
     history: History

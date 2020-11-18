@@ -1,6 +1,6 @@
 import { Agent } from 'https'
 import { AxiosInstance, default as axios } from 'axios'
-import Interceptors from './interceptors'
+import Interceptors from './interceptors.service'
 
 class ConfigAxios {
     private readonly _instance: AxiosInstance
