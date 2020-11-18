@@ -1,4 +1,3 @@
-import { yupToFormErrors } from 'formik'
 import * as Yup from 'yup'
 
 export class ClassesValidator {

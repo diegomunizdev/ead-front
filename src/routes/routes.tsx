@@ -30,6 +30,9 @@ import CreateSubject from '../containers/subject/list.classes'
 import ListClasses from '../containers/subject/classes'
 import CreateClasses from '../containers/subject/create.classes'
 
+import ListExercise from '../containers/exercise/list.exercise'
+import CreateExercise from '../containers/exercise/create.exercise'
+
 interface PrivateRouteProps extends RouteProps {
     key?: number
     component?: any
@@ -201,7 +204,20 @@ const routes = [
                 exact: true,
                 private: true,
                 component: CreateClasses
-            }
+            },
+            {
+                path: '/ead/subjects/:subjectId/exercise',
+                exact: true,
+                private: true,
+                component: ListExercise
+            },
+            {
+                path: '/ead/subject/:subjectId/exercise/new',
+                exact: true,
+                private: true,
+                component: CreateExercise
+            },
+
         ]
     },
     {

@@ -5,12 +5,14 @@ import { IPaginator } from '../store/ducks/root.types'
 
 class ExerciseService {
   public create(newExercise: Exercise) {
-    return axiosInstance.post(``, newExercise.toJSON())
+    return axiosInstance.post(`/exercises`, newExercise.toJSON())
   }
 
-  public getBySubjectId(subjectId: string) {
-    return axiosInstance.get(``)
-      .then((response: AxiosResponse) => response)
+  public getBySubjectId(subjectId: string, paginator?: IPaginator) {
+    return axiosInstance.get(`/exercises`)
+      .then((response: AxiosResponse) => {
+        return { data: response.data.data, headers: response.headers }
+      })
   }
 
   public getAll(subjectId: string, paginator?: IPaginator) {
