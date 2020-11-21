@@ -18,7 +18,6 @@ import User, { UserTypes } from '../../store/application/models/user/user'
 import * as UserActions from '../../store/ducks/user/actions'
 import { IPaginator } from '../../store/ducks/root.types'
 import { INITIAL_STATE } from '../../store/ducks/user/reducer'
-import user from '../../services/user.service'
 import Classes from '../../store/application/models/classes.model'
 
 interface IState {
@@ -60,7 +59,7 @@ interface IOwnProps {
 
 type Props = IState & IDispatchProps & IOwnProps
 
-class CreateSubjects extends Component<Props> {
+class ListClasses extends Component<Props> {
 
   private spinnerMessage: string
   private toastService: Toast
@@ -205,4 +204,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
   ...ClassesActions
 }, dispatch)
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateSubjects))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListClasses))

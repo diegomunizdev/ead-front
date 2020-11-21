@@ -86,24 +86,24 @@ class ListSubjects extends Component<Props> {
                                         <Button
                                             style={{ marginRight: '15px' }}
                                             className="p-button-raised p-button-info"
-                                            icon="pi pi-pencil"
-                                            tooltip="Editar Disciplina..."
+                                            icon="pi pi-copy"
+                                            tooltip="Novo exercício..."
                                             tooltipOptions={{ position: 'top' }}
-                                            onClick={() => this.props.history.push(`/ead/subjects/${data.id}/new`)}
+                                            onClick={() => this.props.history.push(`/ead/subjects/${data.id}/exercise`)}
                                         />
-                                        <Button
-                                            className="p-button-raised p-button-danger"
-                                            icon="pi pi-trash"
-                                            tooltip="Excluir Disciplina..."
-                                            tooltipOptions={{ position: 'top' }}
-                                            onClick={() => this.props.history.push(`/ead/subjects/${data.id}`)}
-                                        />
-
                                     </div>
                                 }}
                             />
 
                         </DataTable>
+
+                        <Button
+                            tooltip="Voltar"
+                            className="p-button-secondary left mt-3"
+                            icon="pi pi-arrow-left"
+                            onClick={() => {
+                                this.props.history.goBack()
+                            }} />
                     </Card>
                 </div>
             </React.Fragment>
