@@ -1,6 +1,8 @@
 ### Frontend para o projeto da disciplina EAD
 
-![controle-academico](https://user-images.githubusercontent.com/26802818/93656850-e1e5c880-fa03-11ea-8e45-1449fd4cfec0.png)
+![sidebar](https://user-images.githubusercontent.com/26802818/99861731-d59df900-2b75-11eb-87c3-7f1df048b1bc.png)
+
+![image](https://user-images.githubusercontent.com/26802818/99861772-0b42e200-2b76-11eb-9805-ad534b1de9cc.png)
 
 ##### Descrição do professor:
  - Tela de acesso para aluno, professor e tutor, bem como com cada funcionalidade e restrição que devem existir. 
