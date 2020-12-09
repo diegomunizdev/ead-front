@@ -156,7 +156,7 @@ class ListGame extends Component<Props, {
 
                                         setTimeout(() => {
                                             this.setState({ ...this.state, count: this.state.count + 1, status: 3 })
-                                        }, 2000)
+                                        }, 1000)
 
                                     }}
                                     className="p-button-raised p-button-primary"
