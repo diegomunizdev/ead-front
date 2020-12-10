@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import { Paginator } from 'primereact/paginator'
 
 import { RadioButton } from 'primereact/radiobutton';
+import { Messages } from 'primereact/messages';
+import { Message } from 'primereact/message';
 
 import Game from '../../store/application/models/game.model'
 import { IPaginator } from '../../store/ducks/root.types'
@@ -49,6 +51,7 @@ class ListGame extends Component<Props, {
     selected: string,
     points: number | undefined
     gamePoint: number
+    status: any
 }> {
     private toastService: Toast
     private pontos: number
@@ -64,7 +67,8 @@ class ListGame extends Component<Props, {
             opt: '',
             selected: '',
             points: 0,
-            gamePoint: 0
+            gamePoint: 0,
+            status: 3
         }
 
         const { findUser, match: { params } } = this.props
@@ -102,6 +106,8 @@ class ListGame extends Component<Props, {
                 <div className="container">
                     <NameHeader icon="pi pi-copy" nameHeader="Perguntas" />
                     {
+
+
                         <Card title={questions[this.state.count]?.question}>
                             <div className="row">
                                 {
@@ -134,14 +140,24 @@ class ListGame extends Component<Props, {
                                 >Valendo {questions[this.state.count]?.points} pontos</span>
                                 <Button
                                     onClick={() => {
+
                                         this.state.selected === questions[this.state.count]?.correctAnswer
                                             ? this.pontos = this.pontos + 10
                                             : this.pontos = this.pontos + 0
-                                        this.setState({ ...this.state, count: this.state.count + 1 })
+
+                                        this.state.selected === questions[this.state.count]?.correctAnswer
+                                            ? this.setState({ ...this.state, status: 1 })
+                                            : this.setState({ ...this.state, status: 2 })
+
                                         if (this.state.count === (questions.length - 1)) {
                                             this.handleSubmit(questions[this.state.count], user.toJSON())
                                             this.props.history.push('/ead/main')
                                         }
+
+                                        setTimeout(() => {
+                                            this.setState({ ...this.state, count: this.state.count + 1, status: 3 })
+                                        }, 1000)
+
                                     }}
                                     className="p-button-raised p-button-primary"
                                     label={this.state.count === (questions.length - 1)
@@ -150,6 +166,15 @@ class ListGame extends Component<Props, {
                             </div>
                         </Card>
                     }
+                </div>
+                <div className="container">
+                    {this.state.status === 1
+                        ? <Message severity="success" text="Parabéns! Você acertou!" style={{ width: '100%' }} />
+                        : this.state.status === 2
+                            ? <Message severity="error" text="Ops... você errou!" style={{ width: '100%' }} />
+                            : ''
+                    }
+
                 </div>
             </React.Fragment >
         )
