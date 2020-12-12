@@ -2,9 +2,20 @@ import { all, apply, put, takeLatest } from 'redux-saga/effects'
 import { Toast } from '../../../services/toast.service'
 import { IActionType } from '../root.types'
 import subjectService from '../../../services/subjects.service'
-import { findSubjectFailure, findSubjectSuccess, loadSubjectFailure, loadSubjectSuccess, updateSubjectFailure, updateSubjectSuccess } from './actions'
+import { createSubjectFailure, createSubjectSuccess, findSubjectFailure, findSubjectSuccess, loadSubjectFailure, loadSubjectSuccess, updateSubjectFailure, updateSubjectSuccess } from './actions'
 import { SubjectsTypes } from './types'
 const toastService = Toast.getInstance()
+
+function* create(action: IActionType) {
+    const { subject } = action.payload
+    try {
+        yield apply(subjectService, subjectService.create, [subject])
+        yield put<any>(createSubjectSuccess(subject))
+        toastService.show('success', 'Nova Disciplina', 'A disciplina foi adicionada com sucesso!')
+    } catch (error) {
+        yield put<any>(createSubjectFailure(error))
+    }
+}
 
 function* update(action: IActionType) {
     const { subject } = action.payload
@@ -39,6 +50,7 @@ function* getByTeacher(action: IActionType) {
 
 export default function* subjectSaga() {
     return yield all([
+        takeLatest(SubjectsTypes.CREATE_REQUEST, create),
         takeLatest(SubjectsTypes.UPDATE_REQUEST, update),
         takeLatest(SubjectsTypes.LOAD_REQUEST, getByTeacher),
         takeLatest(SubjectsTypes.FIND_REQUEST, getById)

@@ -14,6 +14,10 @@ export enum SubjectsTypes {
     FIND_SUCCESS = '@subject/FIND_SUCCESS',
     FIND_FAILURE = '@subject/FIND_FAILURE',
 
+    LOAD_ALL_REQUEST = '@subject/LOAD_REQUEST',
+    LOAD_ALL_SUCCESS = '@subject/LOAD_SUCCESS',
+    LOAD_ALL_FAILURE = '@subject/LOAD_FAILURE',
+
     LOAD_REQUEST = '@subject/LOAD_REQUEST',
     LOAD_SUCCESS = '@subject/LOAD_SUCCESS',
     LOAD_FAILURE = '@subject/LOAD_FAILURE',

@@ -27,6 +27,9 @@ import ListGame from '../containers/game/list.game'
 
 import ListSubjects from '../containers/subject/list.subject'
 import CreateSubject from '../containers/subject/list.classes'
+
+import CreateSubjectNew from '../containers/subject/create.subjects'
+
 import ListClasses from '../containers/subject/classes'
 import CreateClasses from '../containers/subject/create.classes'
 
@@ -174,6 +177,12 @@ const routes = [
                 exact: true,
                 private: true,
                 component: SubjectPage
+            },
+            {
+                path: '/ead/subjects/new',
+                exact: true,
+                private: true,
+                component: CreateSubjectNew
             },
             {
                 path: '/ead/subjects/:teacherId',

@@ -46,7 +46,7 @@ class SubjectPage extends Component<IProperties> {
                   footer={
                     <div className="d-flex justify-content-end">
                       <Button
-                        onClick={() => this.props.history.push(`/ead/subjects/5f6abfab997ed22c2cfe08b9`)}
+                        onClick={() => this.props.history.push(`/ead/subjects/new`)}
                         className="p-button-raised p-button-primary"
                         label="Acessar" />
                     </div>

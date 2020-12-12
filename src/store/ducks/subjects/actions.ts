@@ -30,6 +30,16 @@ export const findSubjectSuccess = (response: IAxiosResponse<Subject[]>) => actio
 
 export const findSubjectFailure = (error: ErrorEvent) => action(SubjectsTypes.FIND_FAILURE, { error })
 
+/* Actions for load all */
+export const loadAllSubjectRequest = (paginator?: IPaginator) => action(SubjectsTypes.LOAD_ALL_REQUEST, { paginator })
+
+export const loadAllSubjectSuccess = (response: IAxiosResponse<Subject[]>) => action(SubjectsTypes.LOAD_ALL_SUCCESS, {
+    subjectsAll: response.data,
+    headers: response.headers
+})
+
+export const loadAllSubjectFailure = (error: ErrorEvent) => action(SubjectsTypes.LOAD_ALL_FAILURE, { error })
+
 /* Actions for load */
 export const loadSubjectRequest = (teacherId: string, paginator?: IPaginator) => action(SubjectsTypes.LOAD_REQUEST, { teacherId, paginator })
 

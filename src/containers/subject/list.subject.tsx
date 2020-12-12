@@ -13,6 +13,7 @@ import { IApplicationState } from '../../store'
 import * as SubjectsActions from '../../store/ducks/subjects/actions'
 import { Card } from 'primereact/card'
 import NameHeader from '../../components/shared/name.header'
+import { Permission } from '../../components/permission/permission'
 
 interface IState {
     readonly subjects: Subjects[]
@@ -86,7 +87,7 @@ class ListSubjects extends Component<Props> {
                                         <Button
                                             style={{ marginRight: '15px' }}
                                             className="p-button-raised p-button-info"
-                                            icon="pi pi-copy"
+                                            icon="pi pi-plus"
                                             tooltip="Novo exercício..."
                                             tooltipOptions={{ position: 'top' }}
                                             onClick={() => this.props.history.push(`/ead/subjects/${data.id}/exercise`)}
@@ -97,13 +98,25 @@ class ListSubjects extends Component<Props> {
 
                         </DataTable>
 
-                        <Button
-                            tooltip="Voltar"
-                            className="p-button-secondary left mt-3"
-                            icon="pi pi-arrow-left"
-                            onClick={() => {
-                                this.props.history.goBack()
-                            }} />
+                        <div className="d-flex justify-content-between">
+
+                            <Button
+                                style={{ marginTop: '10px' }}
+                                tooltip="Voltar"
+                                type="button"
+                                onClick={() => this.props.history.goBack()}
+                                icon="pi pi-arrow-left"
+                                className="p-button-raised p-button-secondary" />
+
+                            <Permission type="admin" body={
+                                <Button
+                                    style={{ marginTop: '10px' }}
+                                    label="Registrar"
+                                    type="submit"
+                                    icon="pi pi-save"
+                                    className="p-button-raised p-button-primary" />
+                            } />
+                        </div>
                     </Card>
                 </div>
             </React.Fragment>

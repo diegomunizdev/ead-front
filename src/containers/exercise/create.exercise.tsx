@@ -58,7 +58,8 @@ class CreateClasses extends Component<Props> {
     public handleSubmit = async (values) => {
         const { createExerciseRequest, updateExerciseRequest } = this.props
         const exercise = new Exercise().fromJSON({ ...values })
-        console.log('exercise: ', exercise)
+        // TODO remover console.log
+        console.log('exercise: ', exercise.toJSON())
         /* if (exercise.id) {
             this.spinnerMessage = 'Atualizando exercício...'
             updateExerciseRequest(exercise)
@@ -187,7 +188,7 @@ class CreateClasses extends Component<Props> {
                                                             <InputText
                                                                 id="delivery"
                                                                 className="input-container"
-                                                                type="file"
+                                                                type="string"
                                                                 value={field.value}
                                                                 onChange={(e: any) => {
                                                                     setFieldValue('file', e.target.value)
@@ -196,7 +197,7 @@ class CreateClasses extends Component<Props> {
                                                                     setFieldTouched('file', true, true)
                                                                 }}
                                                             />
-                                                            {/* <label htmlFor="file">Arquivo / Material</label> */}
+                                                            <label htmlFor="file">Link do Google Drive</label>
                                                         </div>
                                                     )}
                                                 </Field>

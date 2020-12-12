@@ -5,7 +5,7 @@ import Subjects from '../store/application/models/subjects.model'
 
 class SubjectsService {
     public create(subject: Subjects) {
-        return axiosInstance.post(`/subjects`, subject.toJSON())
+        return axiosInstance.post(`/subject`, subject.toJSON())
     }
 
     public getById(subjectId: string) {
