@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { Paginator } from 'primereact/paginator'
 
 import { RadioButton } from 'primereact/radiobutton';
-import { Messages } from 'primereact/messages';
 import { Message } from 'primereact/message';
 
 import Game from '../../store/application/models/game.model'

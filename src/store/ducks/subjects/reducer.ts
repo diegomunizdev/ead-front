@@ -130,6 +130,42 @@ const reducer: Reducer<ISubjectState> = (state: ISubjectState = INITIAL_STATE, a
                 }
             }
 
+        case SubjectsTypes.LOAD_ALL_REQUEST:
+            return {
+                ...state,
+                listSubjects: {
+                    ...state.listSubjects,
+                    loading: true
+                }
+            }
+
+        case SubjectsTypes.LOAD_ALL_SUCCESS:
+            const { subjectsAll, headers: headersAll } = action.payload
+            // TODO: remover console
+            console.log('load_all_sucess: ', subjectsAll)
+            return {
+                ...state,
+                listSubjects: {
+                    ...state.listSubjects,
+                    subjects: subjectsAll,
+                    paginator: {
+                        ...state.listSubjects.paginator,
+                        totalRecords: parseInt(headersAll['x-total-count'], 10)
+                    }
+                }
+            }
+
+        case SubjectsTypes.LOAD_ALL_FAILURE:
+            const { error: loadAllError } = action.payload
+            return {
+                ...state,
+                listSubjects: {
+                    ...state.listSubjects,
+                    error: true,
+                    data: loadAllError
+                }
+            }
+
         case SubjectsTypes.LOAD_REQUEST:
             return {
                 ...state,
@@ -141,6 +177,8 @@ const reducer: Reducer<ISubjectState> = (state: ISubjectState = INITIAL_STATE, a
 
         case SubjectsTypes.LOAD_SUCCESS:
             const { subjects, headers } = action.payload
+            // TODO remover
+            console.log('load_success: ', subjects)
             return {
                 ...state,
                 listSubjects: {

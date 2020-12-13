@@ -1,6 +1,6 @@
 import axiosInstance from './config.axios.service'
 import { AxiosResponse } from 'axios'
-import { IPaginator } from '../store/ducks/root.types'
+import { IAxiosResponse, IPaginator } from '../store/ducks/root.types'
 import Subjects from '../store/application/models/subjects.model'
 
 class SubjectsService {
@@ -37,8 +37,18 @@ class SubjectsService {
     public getByTeacher(teacherId: string) {
         return axiosInstance.get(`/subjects/${teacherId}/teacher`)
             .then((response: AxiosResponse) => {
+                // TODO remover console
+                console.log('teacher service: ', { teacherId: teacherId, response: response })
                 return { data: response.data, headers: response.headers }
             })
+    }
+
+    public update(subject: Subjects) {
+        return axiosInstance.patch(`/subject/${subject.id}/update`, subject.toJSON())
+    }
+
+    public delete(subjectId: string): Promise<IAxiosResponse<void>> {
+        return axiosInstance.delete(`/subject/${subjectId}/delete`)
     }
 }
 

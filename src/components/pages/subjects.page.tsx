@@ -14,11 +14,6 @@ interface IProperties extends RouteComponentProps<any> {
   history: History
 }
 
-const cards = [
-  { title: 'Adicionar', type: 'new', icon: 'pi pi-plus', info: 'Adicionar novas disciplinas' },
-  { title: 'Disciplinas', type: 'admin', icon: 'pi pi-clone', info: 'Lista de disciplinas' },
-]
-
 class SubjectPage extends Component<IProperties> {
 
   private toastService: Toast
@@ -46,7 +41,7 @@ class SubjectPage extends Component<IProperties> {
                   footer={
                     <div className="d-flex justify-content-end">
                       <Button
-                        onClick={() => this.props.history.push(`/ead/subjects/new`)}
+                        onClick={() => this.props.history.push(`/ead/subjects/list`)}
                         className="p-button-raised p-button-primary"
                         label="Acessar" />
                     </div>

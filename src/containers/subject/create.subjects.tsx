@@ -14,6 +14,12 @@ import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import { Fieldset } from 'primereact/fieldset'
 import { SubjectValidator } from '../../store/application/validators/subject.validator'
+import { Dropdown } from 'primereact/dropdown'
+import User, { UserTypes } from '../../store/application/models/user/user'
+import { IPaginator } from '../../store/ducks/root.types'
+
+import * as UserActions from '../../store/ducks/user/actions'
+import { INITIAL_STATE } from '../../store/ducks/user/reducer'
 
 interface IState {
     readonly subject: Subjects
@@ -21,6 +27,12 @@ interface IState {
     readonly loading: boolean
     readonly error: boolean
     readonly success: boolean
+
+    readonly users: User[]
+    readonly userLoading: boolean
+    readonly userSuccess: boolean
+    readonly userError: boolean
+    readonly paginator: IPaginator
 }
 
 interface IDispatchProps extends RouteComponentProps<any> {
@@ -29,6 +41,8 @@ interface IDispatchProps extends RouteComponentProps<any> {
     changeSubject(subject: Subjects): void
     resetSubject(): void
     updateSubjectRequest(subject: Subjects): void
+
+    loadUsers(userType: UserTypes, paginator?: IPaginator): void
 }
 
 type Props = IState & IDispatchProps
@@ -43,7 +57,8 @@ class createSubject extends Component<Props> {
         this.spinnerMessage = ''
         this.toastService = Toast.getInstance()
 
-        const { findSubjectRequest, changeSubject, match: { params } } = this.props
+        const { findSubjectRequest, changeSubject, match: { params }, loadUsers } = this.props
+        loadUsers(UserTypes.TEACHER, INITIAL_STATE.listTeacher.paginator)
         if (params && params.subjectId) {
             changeSubject(new Subjects().fromJSON({
                 ...this.props,
@@ -55,11 +70,15 @@ class createSubject extends Component<Props> {
     }
 
     public handleSubmit = async (values) => {
-        console.log('values: ', values)
-        const { createSubjectRequest } = this.props
+        const { createSubjectRequest, updateSubjectRequest } = this.props
         const subject = new Subjects().fromJSON({ ...values })
-        this.spinnerMessage = 'Registrando disciplina...'
-        createSubjectRequest(subject)
+        if (subject.id) {
+            this.spinnerMessage = 'Atualizando disciplina...'
+            updateSubjectRequest(subject)
+        } else {
+            this.spinnerMessage = 'Registrando disciplina...'
+            createSubjectRequest(subject)
+        }
     }
 
     public componentWillUnmount(): void {
@@ -69,7 +88,8 @@ class createSubject extends Component<Props> {
 
     public render() {
 
-        const { subject } = this.props
+        const { subject, users } = this.props
+
         return (
             <React.Fragment>
                 <div className="container">
@@ -93,7 +113,7 @@ class createSubject extends Component<Props> {
                                                             <InputText
                                                                 id="name"
                                                                 className="input-container"
-                                                                value={field.value}
+                                                                value={field?.value}
                                                                 onChange={(e: any) => {
                                                                     setFieldValue('name', e.target.value)
                                                                 }}
@@ -116,7 +136,7 @@ class createSubject extends Component<Props> {
                                                                 id="shift"
                                                                 className="input-container"
                                                                 type="shift"
-                                                                value={field.value}
+                                                                value={field?.value}
                                                                 onChange={(e: any) => {
                                                                     setFieldValue('shift', e.target.value)
                                                                 }}
@@ -133,14 +153,14 @@ class createSubject extends Component<Props> {
                                         </div>
 
                                         <div className="row">
-                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                            <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                                 <Field name="schedule" id="schedule" type="customField">
                                                     {({ field, form: { setFieldValue, setFieldTouched } }) => (
                                                         <div className="p-float-label input-login fadeIn second">
                                                             <InputText
                                                                 id="schedule"
                                                                 className="input-container"
-                                                                value={field.value}
+                                                                value={field?.value}
                                                                 onChange={(e: any) => {
                                                                     setFieldValue('schedule', e.target.value)
                                                                 }}
@@ -155,7 +175,7 @@ class createSubject extends Component<Props> {
                                                 <FormErrorMessage name="schedule" />
                                             </div>
 
-                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                            <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                                 <Field name="period" id="period" type="customField">
                                                     {({ field, form: { setFieldValue, setFieldTouched } }) => (
                                                         <div className="p-float-label input-login fadeIn third">
@@ -163,7 +183,7 @@ class createSubject extends Component<Props> {
                                                                 id="period"
                                                                 className="input-container"
                                                                 type="period"
-                                                                value={field.value}
+                                                                value={field?.value}
                                                                 onChange={(e: any) => {
                                                                     setFieldValue('period', e.target.value)
                                                                 }}
@@ -176,6 +196,28 @@ class createSubject extends Component<Props> {
                                                     )}
                                                 </Field>
                                                 <FormErrorMessage name="period" />
+                                            </div>
+
+                                            <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                                <Field name="teacherId" id="teacherId" type="customField">
+                                                    {({ field, form: { setFieldValue, setFieldTouched } }) => (
+                                                        <div className="p-float-label input-login fadeIn third">
+                                                            <Dropdown
+                                                                style={{ width: '100%' }}
+                                                                value={field?.value}
+                                                                options={users}
+                                                                onChange={(e) => {
+                                                                    setFieldValue('teacherId', e.target.value.id)
+                                                                }}
+                                                                onBlur={() => {
+                                                                    setFieldTouched('teacherId', true, true)
+                                                                }}
+                                                                optionLabel="name"
+                                                                placeholder="Selecione o professor(a)" />
+                                                        </div>
+                                                    )}
+                                                </Field>
+                                                <FormErrorMessage name="teacherId" />
                                             </div>
                                         </div>
                                     </Fieldset>
@@ -214,9 +256,14 @@ const mapStateToProps = (state: IApplicationState) => ({
     dataSubject: state.subject.createSubject.data,
     loadingSubject: state.subject.createSubject.loading,
     errorSubject: state.subject.createSubject.error,
-    successSubject: state.subject.createSubject.success
+    successSubject: state.subject.createSubject.success,
+
+    users: state.user.listTeacher.users,
+    userLoading: state.user.listTeacher.loading,
+    userSuccess: state.user.listTeacher.success,
+    userError: state.user.listTeacher.error
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ ...SubjectActions }, dispatch)
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ ...SubjectActions, ...UserActions }, dispatch)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(createSubject))

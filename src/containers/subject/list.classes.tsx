@@ -70,7 +70,7 @@ class ListClasses extends Component<Props> {
     this.spinnerMessage = ''
     this.toastService = Toast.getInstance()
 
-    const { loadClassesRequest, findSubjectRequest, changeSubject, match: { params }, loadUsers, userType } = this.props
+    const { loadClassesRequest, findSubjectRequest, changeSubject, match: { params }, loadUsers } = this.props
     loadUsers(UserTypes.STUDENT, INITIAL_STATE.listAdmins.paginator)
     if (params && params.subjectId) {
       changeSubject(new Subjects().fromJSON({

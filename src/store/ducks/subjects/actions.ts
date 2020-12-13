@@ -9,8 +9,8 @@ export const changeSubject = (subject: Subject) => action(SubjectsTypes.CHANGE_S
 
 export const changePaginator = (teacherId: string, paginator?: IPaginator) => [
     action(SubjectsTypes.CHANGE_PAGINATOR, { paginator }),
-    // TODO: adicionar o loadSubjects
-    loadSubjectRequest(teacherId, paginator)
+    loadSubjectRequest(teacherId, paginator),
+    loadAllSubjectRequest(paginator)
 ]
 
 /* Actions for create subjects */
@@ -58,7 +58,10 @@ export const updateSubjectSuccess = (subject: Subject) => action(SubjectsTypes.U
 export const updateSubjectFailure = (error: ErrorEvent) => action(SubjectsTypes.UPDATE_FAILURE, { error })
 
 /*  Actions for remove */
-export const removeSubjectRequest = (idForRemove: string) => action(SubjectsTypes.REMOVE_REQUEST, { idForRemove })
+export const removeSubjectRequest = (idForRemove: string) => [
+    action(SubjectsTypes.REMOVE_REQUEST, { idForRemove }),
+    loadAllSubjectRequest()
+]
 
 export const removeSubjectSuccess = () => action(SubjectsTypes.REMOVE_SUCCESS, {})
 

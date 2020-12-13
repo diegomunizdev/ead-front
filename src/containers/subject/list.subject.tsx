@@ -14,6 +14,8 @@ import * as SubjectsActions from '../../store/ducks/subjects/actions'
 import { Card } from 'primereact/card'
 import NameHeader from '../../components/shared/name.header'
 import { Permission } from '../../components/permission/permission'
+import authService from '../../services/auth.service'
+import { UserTypes } from '../../store/application/models/user/user'
 
 interface IState {
     readonly subjects: Subjects[]
@@ -22,12 +24,19 @@ interface IState {
     readonly success: boolean
     readonly error: boolean
     readonly paginator: IPaginator
+
+    readonly idForRemove: string
+    readonly visibilityModal: boolean
+    readonly successRemove: boolean
+    readonly loadingRemove: boolean
+    readonly errorRemove: boolean
 }
 
 interface IDispatchProps extends RouteComponentProps<any> {
-    resetSubject(): void
-    loadSubjectRequest(teacherId: string, paginator?: IPaginator): void
+    loadAllSubjectRequest(paginator?: IPaginator): void
     changePaginator(teacherId: string, paginator?: IPaginator): void
+    removeSubjectRequest(idForRemove: string): void
+    loadSubjectRequest(teacherId: string, paginator?: IPaginator): void
 }
 
 type Props = IState & IDispatchProps
@@ -37,19 +46,19 @@ class ListSubjects extends Component<Props> {
     constructor(props: Props) {
         super(props)
 
-        const { loadSubjectRequest, paginator, match: { params } } = this.props
-        if (params && params.teacherId) {
+        const { loadAllSubjectRequest, loadSubjectRequest, paginator, match: { params } } = this.props
+        if (authService.typeUser() === UserTypes.ADMIN) {
+            // TODO remover console
+            console.log('All subjects')
+            loadAllSubjectRequest(paginator)
+        } else {
+            console.log('Teacher Subjects', { user: authService.typeUser(), id: params.teacherId })
             loadSubjectRequest(params.teacherId, paginator)
         }
     }
 
-    public componentWillUnmount(): void {
-        this.props.resetSubject()
-    }
-
     public render() {
-        const { subjects } = this.props
-
+        const { subjects, removeSubjectRequest } = this.props
         return (
             <React.Fragment>
                 <div className="container">
@@ -86,11 +95,35 @@ class ListSubjects extends Component<Props> {
                                     return <div className="d-flex justify-content-center">
                                         <Button
                                             style={{ marginRight: '15px' }}
-                                            className="p-button-raised p-button-info"
+                                            className="p-button-raised p-button-warning"
                                             icon="pi pi-plus"
-                                            tooltip="Novo exercício..."
+                                            tooltip="Informações da disciplina..."
                                             tooltipOptions={{ position: 'top' }}
-                                            onClick={() => this.props.history.push(`/ead/subjects/${data.id}/exercise`)}
+                                            onClick={() => this.props.history.push(`/ead/classes/${data.id}/subject`)}
+                                        />
+                                        <Permission
+                                            type="admin"
+                                            body={
+                                                <div>
+                                                    <Button
+                                                        style={{ marginRight: '15px' }}
+                                                        className="p-button-raised p-button-info"
+                                                        icon="pi pi-pencil"
+                                                        tooltip="Editar disciplina..."
+                                                        tooltipOptions={{ position: 'top' }}
+                                                        onClick={() => this.props.history.push(`/ead/subjects/${data.id}/new`)}
+                                                    />
+                                                    <Button
+                                                        className="p-button-raised p-button-danger"
+                                                        icon="pi pi-trash"
+                                                        tooltip="Excluir disciplina..."
+                                                        tooltipOptions={{ position: 'top' }}
+                                                        onClick={() => {
+                                                            removeSubjectRequest(data.id)
+                                                        }}
+                                                    />
+                                                </div>
+                                            }
                                         />
                                     </div>
                                 }}
@@ -111,7 +144,8 @@ class ListSubjects extends Component<Props> {
                             <Permission type="admin" body={
                                 <Button
                                     style={{ marginTop: '10px' }}
-                                    label="Registrar"
+                                    label="Adicionar"
+                                    onClick={() => this.props.history.push('/ead/subjects/new')}
                                     type="submit"
                                     icon="pi pi-save"
                                     className="p-button-raised p-button-primary" />
@@ -130,9 +164,15 @@ const mapStateToProps = (state: IApplicationState) => ({
     loading: state.subject.listSubjects.loading,
     error: state.subject.listSubjects.error,
     success: state.subject.listSubjects.success,
-    paginator: state.subject.listSubjects.paginator
+    paginator: state.subject.listSubjects.paginator,
+
+    idForRemove: state.subject.removeSubject.idForRemove,
+    visibilityModal: state.subject.removeSubject.visibilityModal,
+    successRemove: state.subject.removeSubject.success,
+    loadingRemove: state.subject.removeSubject.loading,
+    errorRemove: state.subject.removeSubject.error
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(SubjectsActions, dispatch)
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ ...SubjectsActions }, dispatch)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListSubjects))

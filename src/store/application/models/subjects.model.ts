@@ -1,5 +1,4 @@
 import { JsonUtils } from '../utils/json.util'
-import User from './user/user'
 
 export default class Subjects {
     private _id: string | undefined

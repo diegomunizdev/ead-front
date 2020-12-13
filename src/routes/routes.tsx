@@ -19,6 +19,7 @@ import Games from '../components/pages/game'
 import UserPage from '../components/pages/user.page'
 import SubjectPage from '../components/pages/subjects.page'
 
+import createUser from '../containers/users/create.user'
 import ListAdmins from '../containers/users/list.admin'
 import ListStudent from '../containers/users/list.student'
 import ListTeacher from '../containers/users/list.teacher'
@@ -123,6 +124,13 @@ const routes = [
                 component: UserPage
             },
             {
+                path: '/ead/user/type/new',
+                exact: true,
+                userType: ['admin'],
+                private: true,
+                component: createUser
+            },
+            {
                 path: '/ead/user/:userId/profile',
                 exact: true,
                 userType: ['admin', 'student', 'tutor', 'teacher'],
@@ -194,7 +202,7 @@ const routes = [
                 path: '/ead/subjects/:subjectId/new',
                 exact: true,
                 private: true,
-                component: CreateSubject
+                component: CreateSubjectNew
             },
             {
                 path: '/ead/classes/:teacherId',

@@ -1,4 +1,3 @@
-import { strictEqual } from 'assert'
 import { Reducer } from 'redux'
 import Classes from '../../application/models/classes.model'
 import { ClassesTypes, IClassesState } from './types'

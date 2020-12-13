@@ -3,7 +3,6 @@ import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { Field, Form, Formik } from 'formik'
-import * as ExerciseActions from '../../store/ducks/exercises/actions'
 import { Toast } from '../../services/toast.service'
 import { IApplicationState } from '../../store'
 import NameHeader from '../../components/shared/name.header'
@@ -12,11 +11,14 @@ import { FormErrorMessage } from '../../components/form.error/form.error.message
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import { Fieldset } from 'primereact/fieldset'
-import Exercise from '../../store/application/models/exercise.model'
-import { ExerciseValidator } from '../../store/application/validators/exercise.validator'
+import { Dropdown } from 'primereact/dropdown'
+import User, { UserTypes } from '../../store/application/models/user/user'
+
+import * as UserActions from '../../store/ducks/user/actions'
+import { UserValidator } from '../../store/application/validators/user.validator'
 
 interface IState {
-    readonly exercise: Exercise
+    readonly user: User
     readonly data: ErrorEvent
     readonly loading: boolean
     readonly error: boolean
@@ -24,16 +26,16 @@ interface IState {
 }
 
 interface IDispatchProps extends RouteComponentProps<any> {
-    resetExercise(): void
-    findExerciseRequest(subjectId: string): void
-    changeExercise(exercise: Exercise): void
-    createExerciseRequest(exercise: Exercise): void
-    updateExerciseRequest(exercise: Exercise): void
+    resetCreateUser(): void
+    createUser(user: User): void
+    updateUser(user: User): void
+    findUser(userId: string): void
+    changeUser(user: User): void
 }
 
 type Props = IState & IDispatchProps
 
-class CreateClasses extends Component<Props> {
+class createUser extends Component<Props> {
 
     private spinnerMessage: string
     private toastService: Toast
@@ -42,163 +44,165 @@ class CreateClasses extends Component<Props> {
         super(props)
         this.spinnerMessage = ''
         this.toastService = Toast.getInstance()
-
-        const { findExerciseRequest, changeExercise, match: { params } } = this.props
-        if (params && params.subjectId) {
-            changeExercise(new Exercise().fromJSON({
-                ...this.props,
-                subjectId: params.subjectId
-            }))
-            this.spinnerMessage = 'Buscando exercício...'
-            findExerciseRequest(params.subjectId)
-        }
     }
 
     public handleSubmit = async (values) => {
-        const { createExerciseRequest } = this.props
-        const exercise = new Exercise().fromJSON({ ...values })
-        /* if (exercise.id) {
-            this.spinnerMessage = 'Atualizando exercício...'
-            updateExerciseRequest(exercise)
-        } else { */
-        this.spinnerMessage = 'Registrando exercício...'
-        createExerciseRequest(exercise)
-        /* } */
+        const { createUser, updateUser } = this.props
+        const user = new User().fromJSON({ ...values })
+        if (user.id) {
+            this.spinnerMessage = 'Atualizando usuário...'
+            updateUser(user)
+        } else {
+            this.spinnerMessage = 'Adicionando usuário...'
+            createUser(user)
+        }
 
     }
 
     public componentWillUnmount(): void {
-        this.props.resetExercise()
+        this.props.resetCreateUser()
     }
 
     public render() {
 
-        const { exercise } = this.props
+        const { user } = this.props
+
+        const typeUser: any[] = [
+            { key: UserTypes.ADMIN, name: 'Administrador' },
+            { key: UserTypes.TEACHER, name: 'Professor' },
+            { key: UserTypes.TUTOR, name: 'Tutor' },
+            { key: UserTypes.STUDENT, name: 'Estudante' },
+        ]
+
         return (
             <React.Fragment>
                 <div className="container">
-                    <NameHeader icon="pi pi-copy" nameHeader="Exercício" />
+                    <NameHeader icon="pi pi-bars" nameHeader="Nova disciplina" />
 
-                    <Card className="fade-in-down">
+                    <Card>
                         <Formik
-                            initialValues={{ ...exercise.toJSON() }}
+                            initialValues={{ ...user?.toJSON() }}
                             onSubmit={this.handleSubmit}
                             enableReinitialize={true}
-                            validationSchema={ExerciseValidator.ValidationScheme}>
+                            validationSchema={UserValidator.ValidationSchema}>
                             {({ isValid, resetForm, values }) => (
                                 <Form>
-                                    <Fieldset legend="Novo Exercício">
+                                    <Fieldset legend="Registrar disciplina">
 
                                         <div className="row">
                                             <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <Field name="title" id="title" type="customField">
+                                                <Field name="name" id="name" type="customField">
                                                     {({ field, form: { setFieldValue, setFieldTouched } }) => (
                                                         <div className="p-float-label input-login fadeIn second">
                                                             <InputText
-                                                                id="title"
+                                                                id="name"
                                                                 className="input-container"
-                                                                value={field.value}
+                                                                value={field?.value}
                                                                 onChange={(e: any) => {
-                                                                    setFieldValue('title', e.target.value)
+                                                                    setFieldValue('name', e.target.value)
                                                                 }}
                                                                 onBlur={() => {
-                                                                    setFieldTouched('title', true, true)
+                                                                    setFieldTouched('name', true, true)
                                                                 }}
                                                             />
-                                                            <label htmlFor="title">Título</label>
+                                                            <label htmlFor="name">Nome Completo</label>
                                                         </div>
                                                     )}
                                                 </Field>
-                                                <FormErrorMessage name="title" />
+                                                <FormErrorMessage name="name" />
                                             </div>
 
                                             <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <Field name="description" id="description" type="customField">
-                                                    {({ field, form: { setFieldValue, setFieldTouched } }) => (
-                                                        <div className="p-float-label input-login fadeIn second">
-                                                            <InputText
-                                                                id="description"
-                                                                className="input-container"
-                                                                value={field.value}
-                                                                onChange={(e: any) => {
-                                                                    setFieldValue('description', e.target.value)
-                                                                }}
-                                                                onBlur={() => {
-                                                                    setFieldTouched('description', true, true)
-                                                                }}
-                                                            />
-                                                            <label htmlFor="description">Descrição do Exercício</label>
-                                                        </div>
-                                                    )}
-                                                </Field>
-                                                <FormErrorMessage name="description" />
-                                            </div>
-
-                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <Field name="delivery" id="delivery" type="customField">
+                                                <Field name="email" id="email" type="customField">
                                                     {({ field, form: { setFieldValue, setFieldTouched } }) => (
                                                         <div className="p-float-label input-login fadeIn third">
                                                             <InputText
-                                                                id="delivery"
+                                                                id="email"
                                                                 className="input-container"
-                                                                type="date"
-                                                                value={field.value}
+                                                                type="email"
+                                                                value={field?.value}
                                                                 onChange={(e: any) => {
-                                                                    setFieldValue('delivery', e.target.value)
+                                                                    setFieldValue('email', e.target.value)
                                                                 }}
                                                                 onBlur={() => {
-                                                                    setFieldTouched('delivery', true, true)
+                                                                    setFieldTouched('email', true, true)
                                                                 }}
                                                             />
+                                                            <label htmlFor="email">E-mail</label>
                                                         </div>
                                                     )}
                                                 </Field>
-                                                <FormErrorMessage name="delivery" />
+                                                <FormErrorMessage name="email" />
                                             </div>
+                                        </div>
 
-                                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <Field name="urlVideo" id="urlVideo" type="customField">
+                                        <div className="row">
+                                            <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                                <Field name="password" id="password" type="customField">
                                                     {({ field, form: { setFieldValue, setFieldTouched } }) => (
                                                         <div className="p-float-label input-login fadeIn second">
                                                             <InputText
-                                                                id="urlVideo"
+                                                                id="password"
+                                                                type="password"
                                                                 className="input-container"
-                                                                value={field.value}
+                                                                value={field?.value}
                                                                 onChange={(e: any) => {
-                                                                    setFieldValue('urlVideo', e.target.value)
+                                                                    setFieldValue('password', e.target.value)
                                                                 }}
                                                                 onBlur={() => {
-                                                                    setFieldTouched('urlVideo', true, true)
+                                                                    setFieldTouched('password', true, true)
                                                                 }}
                                                             />
-                                                            <label htmlFor="urlVideo">Vídeo aula / YouTube</label>
+                                                            <label htmlFor="password">Senha temporária</label>
                                                         </div>
                                                     )}
                                                 </Field>
-                                                <FormErrorMessage name="urlVideo" />
+                                                <FormErrorMessage name="password" />
                                             </div>
 
-                                            <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                                <Field name="file" id="file" type="customField">
+                                            <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                                <Field name="period" id="period" type="customField">
                                                     {({ field, form: { setFieldValue, setFieldTouched } }) => (
-                                                        <div className="p-float-label input-login fadeIn second">
+                                                        <div className="p-float-label input-login fadeIn third">
                                                             <InputText
-                                                                id="delivery"
+                                                                id="period"
                                                                 className="input-container"
-                                                                type="string"
-                                                                value={field.value}
+                                                                type="period"
+                                                                value={field?.value}
                                                                 onChange={(e: any) => {
-                                                                    setFieldValue('file', e.target.value)
+                                                                    setFieldValue('period', e.target.value)
                                                                 }}
                                                                 onBlur={() => {
-                                                                    setFieldTouched('file', true, true)
+                                                                    setFieldTouched('period', true, true)
                                                                 }}
                                                             />
-                                                            <label htmlFor="file">Link do Google Drive</label>
+                                                            <label htmlFor="period">Informe o período da disciplina</label>
                                                         </div>
                                                     )}
                                                 </Field>
-                                                <FormErrorMessage name="file" />
+                                                <FormErrorMessage name="period" />
+                                            </div>
+
+                                            <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                                <Field name="type" id="type" type="customField">
+                                                    {({ field, form: { setFieldValue, setFieldTouched } }) => (
+                                                        <div className="p-float-label input-login fadeIn third">
+                                                            <Dropdown
+                                                                style={{ width: '100%' }}
+                                                                value={field?.value}
+                                                                options={typeUser}
+                                                                onChange={(e) => {
+                                                                    setFieldValue('type', e.target.value.key)
+                                                                }}
+                                                                onBlur={() => {
+                                                                    setFieldTouched('type', true, true)
+                                                                }}
+                                                                optionLabel="name"
+                                                                placeholder="Tipo de usuário" />
+                                                        </div>
+                                                    )}
+                                                </Field>
+                                                <FormErrorMessage name="type" />
                                             </div>
                                         </div>
                                     </Fieldset>
@@ -209,17 +213,16 @@ class CreateClasses extends Component<Props> {
                                             style={{ marginTop: '10px' }}
                                             tooltip="Voltar"
                                             type="button"
-                                            onClick={() => this.props.history.goBack()}
+                                            onClick={resetForm && this.props.history.goBack}
                                             icon="pi pi-arrow-left"
                                             className="p-button-raised p-button-secondary" />
 
                                         <Button
                                             style={{ marginTop: '10px' }}
                                             disabled={!isValid}
-                                            label="Registrar"
+                                            label="Salvar"
                                             type="submit"
                                             icon="pi pi-save"
-                                            onClick={() => this.props.history.goBack()}
                                             className="p-button-raised p-button-primary" />
                                     </div>
                                 </Form>
@@ -234,15 +237,12 @@ class CreateClasses extends Component<Props> {
 }
 
 const mapStateToProps = (state: IApplicationState) => ({
-    exercise: state.exercise.createExercise.exercise,
-    data: state.exercise.createExercise.data,
-    loading: state.exercise.createExercise.loading,
-    success: state.exercise.createExercise.success,
-    error: state.exercise.createExercise.error
+    user: state.user.createUser.user,
+    loading: state.user.createUser.loading,
+    success: state.user.createUser.success,
+    error: state.user.createUser.error
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
-    ...ExerciseActions
-}, dispatch)
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ ...UserActions }, dispatch)
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateClasses))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(createUser))
