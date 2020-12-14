@@ -37,6 +37,7 @@ interface IDispatchProps extends RouteComponentProps<any> {
     changePaginator(teacherId: string, paginator?: IPaginator): void
     removeSubjectRequest(idForRemove: string): void
     loadSubjectRequest(teacherId: string, paginator?: IPaginator): void
+    loadPeriodSubjectsRequest(period: string): void
 }
 
 type Props = IState & IDispatchProps
@@ -46,19 +47,25 @@ class ListSubjects extends Component<Props> {
     constructor(props: Props) {
         super(props)
 
-        const { loadAllSubjectRequest, loadSubjectRequest, paginator, match: { params } } = this.props
+        const {
+            loadAllSubjectRequest,
+            loadSubjectRequest,
+            loadPeriodSubjectsRequest,
+            paginator,
+            match: { params }
+        } = this.props
         if (authService.typeUser() === UserTypes.ADMIN) {
-            // TODO remover console
-            console.log('All subjects')
             loadAllSubjectRequest(paginator)
-        } else {
-            console.log('Teacher Subjects', { user: authService.typeUser(), id: params.teacherId })
+        } else if (authService.typeUser() === UserTypes.TEACHER) {
             loadSubjectRequest(params.teacherId, paginator)
+        } else {
+            loadPeriodSubjectsRequest(authService.period())
         }
     }
 
     public render() {
         const { subjects, removeSubjectRequest } = this.props
+
         return (
             <React.Fragment>
                 <div className="container">
@@ -99,7 +106,11 @@ class ListSubjects extends Component<Props> {
                                             icon="pi pi-plus"
                                             tooltip="Informações da disciplina..."
                                             tooltipOptions={{ position: 'top' }}
-                                            onClick={() => this.props.history.push(`/ead/classes/${data.id}/subject`)}
+                                            onClick={() => {
+                                                return authService.typeUser() === UserTypes.TEACHER
+                                                 ? this.props.history.push(`/ead/classes/${data.id}/subject`)
+                                                 : this.props.history.push(`/ead/subjects/${data.id}/exercise`)
+                                            }}
                                         />
                                         <Permission
                                             type="admin"

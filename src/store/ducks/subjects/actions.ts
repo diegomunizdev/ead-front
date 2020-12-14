@@ -40,6 +40,16 @@ export const loadAllSubjectSuccess = (response: IAxiosResponse<Subject[]>) => ac
 
 export const loadAllSubjectFailure = (error: ErrorEvent) => action(SubjectsTypes.LOAD_ALL_FAILURE, { error })
 
+/* Actions for load Period */
+export const loadPeriodSubjectsRequest = (period: string) => action(SubjectsTypes.LOAD_PERIOD_REQUEST, { period })
+
+export const loadPeriodSubjectsSuccess = (response: IAxiosResponse<Subject[]>) => action(SubjectsTypes.LOAD_PERIOD_SUCCESS, {
+    subjectsPeriod: response.data,
+    headers: response.headers
+})
+
+export const loadPeriodSubjectsFailure = (error: ErrorEvent) => action(SubjectsTypes.LOAD_PERIOD_FAILURE, { error })
+
 /* Actions for load */
 export const loadSubjectRequest = (teacherId: string, paginator?: IPaginator) => action(SubjectsTypes.LOAD_REQUEST, { teacherId, paginator })
 

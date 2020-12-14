@@ -165,12 +165,20 @@ class ListClasses extends Component<Props> {
             </div>
           </div>
 
-          <Button
-            style={{ marginTop: '10px' }}
-            label="Voltar"
-            onClick={() => this.props.history.goBack()}
-            icon="pi pi-arrow-left"
-            className="p-button-raised p-button-secondary" />
+          <div className="d-flex justify-content-between">
+            <Button
+              style={{ marginTop: '10px' }}
+              label="Voltar"
+              onClick={() => this.props.history.goBack()}
+              icon="pi pi-arrow-left"
+              className="p-button-raised p-button-secondary" />
+            <Button
+              style={{ marginTop: '10px' }}
+              label="Exercícios"
+              onClick={() => this.props.history.push(`/ead/subjects/${subject.id}/exercise`)}
+              icon="pi pi-copy"
+              className="p-button-raised p-button-secondary" />
+          </div>
 
         </div>
       </React.Fragment>

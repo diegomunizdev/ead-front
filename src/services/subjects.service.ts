@@ -37,9 +37,14 @@ class SubjectsService {
     public getByTeacher(teacherId: string) {
         return axiosInstance.get(`/subjects/${teacherId}/teacher`)
             .then((response: AxiosResponse) => {
-                // TODO remover console
-                console.log('teacher service: ', { teacherId: teacherId, response: response })
                 return { data: response.data, headers: response.headers }
+            })
+    }
+
+    public getByPeriod(period: string) {
+        return axiosInstance.get(`/subjects/${period}/period`)
+            .then((response: AxiosResponse) => {
+                return { data: response.data.data, headers: response.headers }
             })
     }
 

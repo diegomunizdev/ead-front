@@ -27,12 +27,12 @@ import ListTutor from '../containers/users/list.tutor'
 import ListGame from '../containers/game/list.game'
 
 import ListSubjects from '../containers/subject/list.subject'
-import CreateSubject from '../containers/subject/list.classes'
+import CreateSubject from '../containers/classes/list.classes'
 
 import CreateSubjectNew from '../containers/subject/create.subjects'
 
-import ListClasses from '../containers/subject/classes'
-import CreateClasses from '../containers/subject/create.classes'
+import ListClasses from '../containers/classes/classes'
+import CreateClasses from '../containers/classes/create.classes'
 
 import ListExercise from '../containers/exercise/list.exercise'
 import CreateExercise from '../containers/exercise/create.exercise'

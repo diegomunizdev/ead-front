@@ -121,7 +121,7 @@ class createSubject extends Component<Props> {
                                                                     setFieldTouched('name', true, true)
                                                                 }}
                                                             />
-                                                            <label htmlFor="name">Informações da aula</label>
+                                                            <label htmlFor="name">Nome da disciplina</label>
                                                         </div>
                                                     )}
                                                 </Field>
@@ -144,7 +144,7 @@ class createSubject extends Component<Props> {
                                                                     setFieldTouched('shift', true, true)
                                                                 }}
                                                             />
-                                                            <label htmlFor="shift">Informe o turno da disciplina</label>
+                                                            <label htmlFor="shift">Turno</label>
                                                         </div>
                                                     )}
                                                 </Field>
@@ -168,7 +168,7 @@ class createSubject extends Component<Props> {
                                                                     setFieldTouched('schedule', true, true)
                                                                 }}
                                                             />
-                                                            <label htmlFor="schedule">Informe o horário da aula</label>
+                                                            <label htmlFor="schedule">Horário da aula</label>
                                                         </div>
                                                     )}
                                                 </Field>
@@ -191,7 +191,7 @@ class createSubject extends Component<Props> {
                                                                     setFieldTouched('period', true, true)
                                                                 }}
                                                             />
-                                                            <label htmlFor="period">Informe o período da disciplina</label>
+                                                            <label htmlFor="period">Período</label>
                                                         </div>
                                                     )}
                                                 </Field>

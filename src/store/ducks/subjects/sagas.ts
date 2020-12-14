@@ -9,6 +9,8 @@ import {
     findSubjectSuccess,
     loadAllSubjectFailure,
     loadAllSubjectSuccess,
+    loadPeriodSubjectsFailure,
+    loadPeriodSubjectsSuccess,
     loadSubjectFailure,
     loadSubjectSuccess,
     removeSubjectFailure,
@@ -33,11 +35,19 @@ function* getAll(action: IActionType) {
     const { paginator } = action.payload
     try {
         const response = yield apply(subjectService, subjectService.getAll, [paginator])
-        // TODO remover console
-        console.log('response sagas all: ', response)
         yield put(loadAllSubjectSuccess(response))
     } catch (error) {
         yield put<any>(loadAllSubjectFailure(error))
+    }
+}
+
+function* getByPeriod(action: IActionType) {
+    const { period } = action.payload
+    try {
+        const response = yield apply(subjectService, subjectService.getByPeriod, [period])
+        yield put(loadPeriodSubjectsSuccess(response))
+    } catch (error) {
+        yield put<any>(loadPeriodSubjectsFailure(error))
     }
 }
 
@@ -66,8 +76,6 @@ function* getByTeacher(action: IActionType) {
     const { teacherId } = action.payload
     try {
         const response = yield apply(subjectService, subjectService.getByTeacher, [teacherId])
-        // TODO remover console
-        console.log('response sagas teacher: ', response)
         yield put(loadSubjectSuccess(response))
     } catch (err) {
         yield put<any>(loadSubjectFailure(err))
@@ -89,6 +97,7 @@ export default function* subjectSaga() {
         takeLatest(SubjectsTypes.CREATE_REQUEST, create),
         takeLatest(SubjectsTypes.UPDATE_REQUEST, update),
         takeLatest(SubjectsTypes.LOAD_ALL_REQUEST, getAll),
+        takeLatest(SubjectsTypes.LOAD_PERIOD_REQUEST, getByPeriod),
         takeLatest(SubjectsTypes.LOAD_REQUEST, getByTeacher),
         takeLatest(SubjectsTypes.FIND_REQUEST, getById),
         takeLatest(SubjectsTypes.REMOVE_REQUEST, remove)
