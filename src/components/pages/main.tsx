@@ -90,7 +90,7 @@ class Main extends Component<IProperties> {
 
                         <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
                             <Card
-                                title="Arquivos"
+                                title="Disciplina e Arquivos"
                                 subTitle="Material das disciplinas"
                                 header={
                                     <div className="d-flex justify-content-center p-3">

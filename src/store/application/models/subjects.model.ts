@@ -1,5 +1,4 @@
 import { JsonUtils } from '../utils/json.util'
-import User from './user/user'
 
 export default class Subjects {
     private _id: string | undefined
@@ -9,7 +8,6 @@ export default class Subjects {
     private _schedule: string | undefined
     private _period: string | undefined
     private _teacherId: string | undefined
-    private _listStudent: User[] | undefined
 
     constructor() {
         this._id = ''
@@ -19,7 +17,6 @@ export default class Subjects {
         this._schedule = ''
         this._period = ''
         this._teacherId = ''
-        this._listStudent = []
     }
 
     get id(): string | undefined {
@@ -78,14 +75,6 @@ export default class Subjects {
         this._teacherId = value
     }
 
-    get listStudent(): User[] | undefined {
-        return this._listStudent
-    }
-
-    set listStudent(value: User[] | undefined) {
-        this._listStudent = value
-    }
-
     public fromJSON(json: any): Subjects {
         if (!json) {
             return this
@@ -126,10 +115,6 @@ export default class Subjects {
             this._teacherId = json.teacherId
         }
 
-        if (json.listStudent !== undefined) {
-            this._listStudent = json.listStudent
-        }
-
         return this
     }
 
@@ -141,8 +126,7 @@ export default class Subjects {
             shift: this.shift ? this.shift : undefined,
             schedule: this.schudule ? this.schudule : undefined,
             period: this.period ? this.period : undefined,
-            teacherId: this.teacherId ? this.teacherId : undefined,
-            listStudent: this.listStudent ? this.listStudent : undefined
+            teacherId: this.teacherId ? this.teacherId : undefined
         }
     }
 

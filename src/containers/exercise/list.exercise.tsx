@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, NavLink, RouteComponentProps, withRouter } from 'react-router-dom'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { Toast } from '../../services/toast.service'
@@ -13,6 +13,7 @@ import { Card } from 'primereact/card'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
+import { Permission } from '../../components/permission/permission'
 
 interface IState {
     readonly exercises: Exercise[]
@@ -117,14 +118,19 @@ class ListExercises extends Component<Props> {
                                     this.props.history.goBack()
                                 }} />
 
-                            <Button
-                                label="Adicionar"
-                                className="p-button-primary right"
-                                icon="pi pi-plus"
-                                onClick={() => {
-                                    const { match: { params } } = this.props
-                                    return this.props.history.push(`/ead/subject/${params.subjectId}/exercise/new`)
-                                }} />
+                            <Permission
+                                type="teacher"
+                                body={
+                                    <Button
+                                        label="Adicionar"
+                                        className="p-button-primary right"
+                                        icon="pi pi-plus"
+                                        onClick={() => {
+                                            const { match: { params } } = this.props
+                                            return this.props.history.push(`/ead/subject/${params.subjectId}/exercise/new`)
+                                        }} />
+                                }
+                            />
 
                         </div>
                     </Card>

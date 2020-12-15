@@ -130,6 +130,74 @@ const reducer: Reducer<ISubjectState> = (state: ISubjectState = INITIAL_STATE, a
                 }
             }
 
+        case SubjectsTypes.LOAD_ALL_REQUEST:
+            return {
+                ...state,
+                listSubjects: {
+                    ...state.listSubjects,
+                    loading: true
+                }
+            }
+
+        case SubjectsTypes.LOAD_ALL_SUCCESS:
+            const { subjectsAll, headers: headersAll } = action.payload
+            return {
+                ...state,
+                listSubjects: {
+                    ...state.listSubjects,
+                    subjects: subjectsAll,
+                    paginator: {
+                        ...state.listSubjects.paginator,
+                        totalRecords: parseInt(headersAll['x-total-count'], 10)
+                    }
+                }
+            }
+
+        case SubjectsTypes.LOAD_ALL_FAILURE:
+            const { error: loadAllError } = action.payload
+            return {
+                ...state,
+                listSubjects: {
+                    ...state.listSubjects,
+                    error: true,
+                    data: loadAllError
+                }
+            }
+
+        case SubjectsTypes.LOAD_PERIOD_REQUEST:
+            return {
+                ...state,
+                listSubjects: {
+                    ...state.listSubjects,
+                    loading: true
+                }
+            }
+
+        case SubjectsTypes.LOAD_PERIOD_SUCCESS:
+            const { subjectsPeriod, headers: headersPeriod } = action.payload
+            return {
+                ...state,
+                listSubjects: {
+                    ...state.listSubjects,
+                    subjects: subjectsPeriod,
+                    paginator: {
+                        ...state.listSubjects.paginator,
+                        totalRecords: parseInt(headersPeriod['x-total-count'], 10)
+                    }
+                }
+            }
+
+        case SubjectsTypes.LOAD_PERIOD_FAILURE:
+            const { error: loadPeriodError } = action.payload
+            return {
+                ...state,
+                listSubjects: {
+                    ...state.listSubjects,
+                    error: true,
+                    data: loadPeriodError
+                }
+            }
+
         case SubjectsTypes.LOAD_REQUEST:
             return {
                 ...state,

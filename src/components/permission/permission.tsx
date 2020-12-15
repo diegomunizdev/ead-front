@@ -8,10 +8,6 @@ interface IProps {
 
 export class Permission extends Component<IProps> {
 
-    constructor(props: IProps) {
-        super(props)
-    }
-
     public render() {
         const { type, body } = this.props
         return (

@@ -69,7 +69,8 @@ class CreateClasses extends Component<Props> {
     }
 
     public componentWillUnmount(): void {
-        this.props.resetClasse()
+        const { resetClasse } = this.props
+        resetClasse()
     }
 
     public render() {
@@ -143,7 +144,7 @@ class CreateClasses extends Component<Props> {
                                             style={{ marginTop: '10px' }}
                                             tooltip="Voltar"
                                             type="button"
-                                            onClick={() => this.props.history.goBack()}
+                                            onClick={resetForm && this.props.history.goBack}
                                             icon="pi pi-arrow-left"
                                             className="p-button-raised p-button-secondary" />
 

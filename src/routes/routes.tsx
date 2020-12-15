@@ -19,6 +19,7 @@ import Games from '../components/pages/game'
 import UserPage from '../components/pages/user.page'
 import SubjectPage from '../components/pages/subjects.page'
 
+import createUser from '../containers/users/create.user'
 import ListAdmins from '../containers/users/list.admin'
 import ListStudent from '../containers/users/list.student'
 import ListTeacher from '../containers/users/list.teacher'
@@ -26,9 +27,12 @@ import ListTutor from '../containers/users/list.tutor'
 import ListGame from '../containers/game/list.game'
 
 import ListSubjects from '../containers/subject/list.subject'
-import CreateSubject from '../containers/subject/list.classes'
-import ListClasses from '../containers/subject/classes'
-import CreateClasses from '../containers/subject/create.classes'
+import CreateSubject from '../containers/classes/list.classes'
+
+import CreateSubjectNew from '../containers/subject/create.subjects'
+
+import ListClasses from '../containers/classes/classes'
+import CreateClasses from '../containers/classes/create.classes'
 
 import ListExercise from '../containers/exercise/list.exercise'
 import CreateExercise from '../containers/exercise/create.exercise'
@@ -120,6 +124,13 @@ const routes = [
                 component: UserPage
             },
             {
+                path: '/ead/user/type/new',
+                exact: true,
+                userType: ['admin'],
+                private: true,
+                component: createUser
+            },
+            {
                 path: '/ead/user/:userId/profile',
                 exact: true,
                 userType: ['admin', 'student', 'tutor', 'teacher'],
@@ -176,6 +187,12 @@ const routes = [
                 component: SubjectPage
             },
             {
+                path: '/ead/subjects/new',
+                exact: true,
+                private: true,
+                component: CreateSubjectNew
+            },
+            {
                 path: '/ead/subjects/:teacherId',
                 exact: true,
                 private: true,
@@ -185,7 +202,7 @@ const routes = [
                 path: '/ead/subjects/:subjectId/new',
                 exact: true,
                 private: true,
-                component: CreateSubject
+                component: CreateSubjectNew
             },
             {
                 path: '/ead/classes/:teacherId',

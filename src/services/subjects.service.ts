@@ -1,11 +1,11 @@
 import axiosInstance from './config.axios.service'
 import { AxiosResponse } from 'axios'
-import { IPaginator } from '../store/ducks/root.types'
+import { IAxiosResponse, IPaginator } from '../store/ducks/root.types'
 import Subjects from '../store/application/models/subjects.model'
 
 class SubjectsService {
     public create(subject: Subjects) {
-        return axiosInstance.post(`/subjects`, subject.toJSON())
+        return axiosInstance.post(`/subject`, subject.toJSON())
     }
 
     public getById(subjectId: string) {
@@ -39,6 +39,21 @@ class SubjectsService {
             .then((response: AxiosResponse) => {
                 return { data: response.data, headers: response.headers }
             })
+    }
+
+    public getByPeriod(period: string) {
+        return axiosInstance.get(`/subjects/${period}/period`)
+            .then((response: AxiosResponse) => {
+                return { data: response.data.data, headers: response.headers }
+            })
+    }
+
+    public update(subject: Subjects) {
+        return axiosInstance.patch(`/subject/${subject.id}/update`, subject.toJSON())
+    }
+
+    public delete(subjectId: string): Promise<IAxiosResponse<void>> {
+        return axiosInstance.delete(`/subject/${subjectId}/delete`)
     }
 }
 

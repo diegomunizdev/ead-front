@@ -9,8 +9,8 @@ export const changeSubject = (subject: Subject) => action(SubjectsTypes.CHANGE_S
 
 export const changePaginator = (teacherId: string, paginator?: IPaginator) => [
     action(SubjectsTypes.CHANGE_PAGINATOR, { paginator }),
-    // TODO: adicionar o loadSubjects
-    loadSubjectRequest(teacherId, paginator)
+    loadSubjectRequest(teacherId, paginator),
+    loadAllSubjectRequest(paginator)
 ]
 
 /* Actions for create subjects */
@@ -30,6 +30,26 @@ export const findSubjectSuccess = (response: IAxiosResponse<Subject[]>) => actio
 
 export const findSubjectFailure = (error: ErrorEvent) => action(SubjectsTypes.FIND_FAILURE, { error })
 
+/* Actions for load all */
+export const loadAllSubjectRequest = (paginator?: IPaginator) => action(SubjectsTypes.LOAD_ALL_REQUEST, { paginator })
+
+export const loadAllSubjectSuccess = (response: IAxiosResponse<Subject[]>) => action(SubjectsTypes.LOAD_ALL_SUCCESS, {
+    subjectsAll: response.data,
+    headers: response.headers
+})
+
+export const loadAllSubjectFailure = (error: ErrorEvent) => action(SubjectsTypes.LOAD_ALL_FAILURE, { error })
+
+/* Actions for load Period */
+export const loadPeriodSubjectsRequest = (period: string) => action(SubjectsTypes.LOAD_PERIOD_REQUEST, { period })
+
+export const loadPeriodSubjectsSuccess = (response: IAxiosResponse<Subject[]>) => action(SubjectsTypes.LOAD_PERIOD_SUCCESS, {
+    subjectsPeriod: response.data,
+    headers: response.headers
+})
+
+export const loadPeriodSubjectsFailure = (error: ErrorEvent) => action(SubjectsTypes.LOAD_PERIOD_FAILURE, { error })
+
 /* Actions for load */
 export const loadSubjectRequest = (teacherId: string, paginator?: IPaginator) => action(SubjectsTypes.LOAD_REQUEST, { teacherId, paginator })
 
@@ -48,7 +68,10 @@ export const updateSubjectSuccess = (subject: Subject) => action(SubjectsTypes.U
 export const updateSubjectFailure = (error: ErrorEvent) => action(SubjectsTypes.UPDATE_FAILURE, { error })
 
 /*  Actions for remove */
-export const removeSubjectRequest = (idForRemove: string) => action(SubjectsTypes.REMOVE_REQUEST, { idForRemove })
+export const removeSubjectRequest = (idForRemove: string) => [
+    action(SubjectsTypes.REMOVE_REQUEST, { idForRemove }),
+    loadAllSubjectRequest()
+]
 
 export const removeSubjectSuccess = () => action(SubjectsTypes.REMOVE_SUCCESS, {})
 
